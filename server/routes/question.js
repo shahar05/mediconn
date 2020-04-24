@@ -11,15 +11,11 @@ const Type = { Binary: "Binary", Regular: "Regular", Quantity: "Quantity" };
 
 
 
-
-
-
-
 // add new question to the user array of questions
 router.post("/patients/:id/questions", function (req, res) {
 
     console.log("new Question");
-
+    //asdasd
     Patient.findById(req.params.id, function (err, foundPatient) {
         if (err || !foundPatient) {
             console.log(err);
