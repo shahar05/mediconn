@@ -1,0 +1,98 @@
+/* You can add global styles to this file, and also import other style files */
+
+$dashboard-blue-btn-color: #4b79ff;
+$white-color:white;
+$off-white : 	#f9f9f9;
+$grey:#e0e0e0;
+$optional-white: #f2f3f8;
+
+
+html,
+body {
+  height: 100%;
+  font-size: 14px;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body {
+  // background-image: url("https://image.freepik.com/free-photo/doctor-holding-stethoscope_23-2147822716.jpg");
+  // background-repeat: no-repeat;
+  // background-size: 100%;
+  background-color: $optional-white;
+}
+
+.navBardemoBasicUsage md-content .ext-content {
+  padding: 50px;
+  margin: 20px;
+  background-color: #fff2e0;
+}
+
+
+
+.full-width {
+  width: 100%;
+}
+.semi-width {
+  width: 71%;
+}
+
+.f-m {
+  font-size: 1.1rem;
+}
+
+.f-s{
+  font-size: 1rem;
+}
+.f-2-5 {
+  font-size: 2.5rem;
+}
+
+.white-font{
+  color: $white-color;
+}
+
+// .shadow{
+//   box-shadow: 2px 4px 4px -2px rgba(0,0,0,.5) !important;
+// }
+.blue-color{
+  background-color: $dashboard-blue-btn-color;
+  box-shadow: 0 3px 4px -1px rgba(0,0,0,.3);
+}
+
+.btn {
+  border-radius: 20px !important;
+  border-color: $dashboard-blue-btn-color !important;
+  &.large {
+    padding: 9px 20px;
+  }
+  &.medium {
+    padding: 6px 15px;
+  }
+  &.small {
+    padding: 2px 15px;
+  }
+  &.primary {
+    background-color: $dashboard-blue-btn-color;
+    color: $white-color;
+    &:hover {
+      color: $dashboard-blue-btn-color;
+      background-color: $white-color;
+    }  
+  }
+  &.secondary {
+    background-color: $white-color;
+    color: $dashboard-blue-btn-color;
+    &:hover {
+      color: $white-color;
+      background-color: $dashboard-blue-btn-color;
+    }
+  }
+  &:hover {
+    transition: background-color .5s ease;
+    transition: color .3s ease;
+   
+  }
+}
