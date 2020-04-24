@@ -1,0 +1,14 @@
+
+// function hasAllLanguages(textArr, Doctorlanguages) {
+//     let counter = 0;
+//     Doctorlanguages.forEach(language => {
+//         for (let index = 0; index < textArr.length; index++) {
+//             const element = textArr[index].language;
+//             if (element === language) {
+//                 counter++;
+//             }
+//         }
+//     });
+
+//     return counter === foundedDoctor.languages.length;
+// }
