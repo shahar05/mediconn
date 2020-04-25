@@ -1,10 +1,8 @@
-
 const express = require("express");
 const Doctor = require("../models/doctor");
 const Question = require("../models/question");
 const Patient = require("../models/patient");
 const router = express.Router();
-
 const languages = ["Hebrew", "English", "Arabic", "French", "Russian"];
 //const Language = {Hebrew:"Hebrew" ,English:"English" , Arabic:"Arabic" , French:"French" ,Russian:"Russian"};
 const Type = { Binary: "Binary", Regular: "Regular", Quantity: "Quantity" };
@@ -15,15 +13,19 @@ const Type = { Binary: "Binary", Regular: "Regular", Quantity: "Quantity" };
 router.post("/patients/:id/questions", function (req, res) {
 
     console.log("new Question");
-    //asdasd
+    console.log(req.body);
+    
+    if (req.body.isDefault === true) {
+        return res.status(400).send("Question Cannot Be Defualt");
+    }
+
     Patient.findById(req.params.id, function (err, foundPatient) {
         if (err || !foundPatient) {
             console.log(err);
             return res.status(404).send("Not Found Patient")
         }
-
-        // TODO: Check if the question Have the language of the Patient
-
+   
+        // TODO: Check if the DoctorID is Equal to the CreatorID
         if (Type.Quantity === req.body.questionType && (!req.body.min || !req.body.max)) {
             console.log("Question with type Quantity Must Have min and max values");
             return res.status(400).send("Question with type Quantity Must Have min and max values");
@@ -32,21 +34,22 @@ router.post("/patients/:id/questions", function (req, res) {
             delete req.body.max;
         }
         if(!matchLanguage(foundPatient , req.body.textArr)){
-            return res.status(400).send("patient can hava question of his language only");
+            return res.status(400).send("patient can hava question text of his language only");
         }
 
             Question.create(req.body , function (err, question) {
                 if (err) {
                     console.log(err);
+                    return res.status(400).send(err.massege);
                 } else {
                     question.save();
                     foundPatient.questions.push(question);
                     foundPatient.save();
-
+                    console.log("Question created Successfully");
+                    
                     return res.send("Successes");
                 }
             });
-        
     });
 
 });
