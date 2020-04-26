@@ -9,6 +9,15 @@ const router = express.Router();
 
 // get all admins
 router.get("/admins" , (req,res)=>{
+    Admin.find({}, (err, admins)=>{
+        if (err || !admins) {
+            res.status(404).send("no admins found");
+            
+        } else {
+            res.send(admins);
+        }
+
+    })
 
 });
 
