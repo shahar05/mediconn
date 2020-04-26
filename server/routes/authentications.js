@@ -47,6 +47,21 @@ router.post('/login', function (req, res) {
 
 });
 
+function loginAdmin(doctor) {
+    Doctor.findOne(doctor, (err, foundedDctor) => {
+        if(err || !foundedDctor){
+            return {respone : err , ans : false};
+        }else{
+            let token = Authenticate.createToken({
+                username: foundedDctor.username,
+                password: foundedDctor.password,
+                _id: foundedDctor._id
+            })
+            
+            return {respone : token , ans : true};
+        }
+    });
+}
 
 function loginAdmin(admin) {
     Admin.findOne(admin, (err, foundedAdmin) => {
