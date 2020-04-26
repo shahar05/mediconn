@@ -27,8 +27,14 @@ router.get("/admins/:id", (req,res)=>{
 
 })
 
+// update specifice Amdmin 
+router.put("/admins" , (req,res)=>{
 
+})
 
+router.delete("/admins" , (req,res)=>{
+    
+})
 
 // add new admin
 router.post( "/admins",  (req,res)=> { 

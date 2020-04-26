@@ -39,7 +39,14 @@ router.post( "/doctors",  (req,res)=> {
                     console.log(err);
                     res.status(400).send(err.massage)
                 } else {
-                    res.send(newDoctor);
+
+                    let token = Authenticate.createToken({
+                        username: user.username,
+                        password: user.password,
+                        _id: user._id
+                    })
+                    res.send(token);
+                   // res.send(newDoctor);
                 }
             })
         }

@@ -56,7 +56,7 @@ router.post("/patients/:id/questions",  (req, res)=> {
 });
 
 //Find All Default questions
-router.get("/default", function (req, res) {
+router.get("question/default", function (req, res) {
 
     Question.find({ isDefault: true }, function (err, ArrayOfdefQuest) {
         if (err) {
@@ -70,7 +70,7 @@ router.get("/default", function (req, res) {
 
 
 //cerate new default question
-router.post("/default", function (req, res) {
+router.post("question/default", function (req, res) {
 
     console.log(req.body);
 

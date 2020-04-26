@@ -1,3 +1,5 @@
+const { Authenticate } = require("../AuthenticationHandler/Authentication");
+
 const express = require("express");
 const Doctor = require("../models/doctor");
 const Admin = require("../models/admin");
@@ -12,6 +14,15 @@ router.post('/login', function (req, res) {
     console.log(req.body);
     
     
+    if(req.body.user === "admin"){
+        delete req.body.user;
+        loginAdmin(req.body , req , res);
+    }else{
+        delete req.body.user;
+        loginDoctor(req.body , req , res);
+    }
+
+
 
     console.log("Login Route");
     Admin.findOne(req.body, (err, foundAdmin) => {
@@ -36,6 +47,22 @@ router.post('/login', function (req, res) {
 
 });
 
+
+function loginAdmin(admin) {
+    Admin.findOne(admin, (err, foundedAdmin) => {
+        if(err || !foundedAdmin){
+            return {respone : err , ans : false};
+        }else{
+            let token = Authenticate.createToken({
+                username: foundedAdmin.username,
+                password: foundedAdmin.password,
+                _id: foundedAdmin._id
+            })
+            
+            return {respone : token , ans : true};
+        }
+    });
+}
 
 module.exports = router;
 
