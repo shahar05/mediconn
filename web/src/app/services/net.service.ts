@@ -20,7 +20,7 @@ export class NetService {
   }
 
   getPatients(doctorID : String){
-    return this.http.get(BaseURL + "/patients/" + doctorID);
+    return this.http.get(BaseURL + "patients/" + doctorID);
   }
 
 }

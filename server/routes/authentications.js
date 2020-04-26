@@ -1,4 +1,4 @@
-const { Authenticate } = require("../AuthenticationHandler/Authentication");
+const  Authenticate  = require("../AuthenticationHandler/Authentication");
 
 const express = require("express");
 const Doctor = require("../models/doctor");
@@ -11,70 +11,86 @@ var router = express.Router();
 
 router.post('/login', function (req, res) {
 
-    console.log(req.body);
     
-    
-    if(req.body.user === "admin"){
+
+
+    if (req.body.user === "admin") {
         delete req.body.user;
-        loginAdmin(req.body , req , res);
-    }else{
-        delete req.body.user;
-        loginDoctor(req.body , req , res);
-    }
-
-
-
-    console.log("Login Route");
-    Admin.findOne(req.body, (err, foundAdmin) => {
-        if (err || !foundAdmin) {
-            console.log("dont found admin try fin ddoctor");
-            Doctor.findOne(req.body , (err,foundDoctor)=>{
-                if (err || !foundDoctor) {
-                    console.log("dont found admin or ddoctor");
-                    console.log(err);
-                    return res.status(404).send("username or passwrod is incorrect")
-                }else{
-                    console.log(" found ddoctor");
-                    return   res.send(foundDoctor)
-                }           
-            })
-        }else{
-            console.log(" found admin");
-            return res.send(foundAdmin)
+        console.log("admin");
+        console.log(req.body);
+        let isUserLoggedIn = loginAdmin(req.body);
+        if (isUserLoggedIn.isLogin) {
+            console.log("Admin Can't login");
+            res.status(404).send(isUserLoggedIn)
+        } else {
+                res.send(isUserLoggedIn)
         }
-       
-    })
 
+
+    } else if (req.body.user === "doctor") {
+        delete req.body.user;
+        console.log("doctor");
+
+        console.log(req.body);
+        
+        let isUserLoggedIn = 0;
+        console.log("isUserlogin");
+        
+        console.log(loginDoctor(req.body));
+        
+        if (isUserLoggedIn) {
+            console.log("Doctor Can't login");
+            res.status(404).send(isUserLoggedIn)
+        } else {
+            res.status(200).send(isUserLoggedIn)
+        }
+    } else {
+        res.status(400).send({isLogin : false , response : "Type of Request is Missing"})
+    }
 });
 
-function loginAdmin(doctor) {
-    Doctor.findOne(doctor, (err, foundedDctor) => {
-        if(err || !foundedDctor){
-            return {respone : err , ans : false};
-        }else{
-            let token = Authenticate.createToken({
-                username: foundedDctor.username,
-                password: foundedDctor.password,
-                _id: foundedDctor._id
-            })
+
+
+function loginDoctor(doctor) {
+    console.log("in the loginDoctor");
+    
+    Doctor.findOne(doctor, (err, foundedDoctor) => {
+        if (err || !foundedDoctor) {
+            console.log("in the error");
             
-            return {respone : token , ans : true};
+            return { respone: err, isLogin: false };
+        } else {
+          
+            let token = Authenticate.createToken({
+                username: foundedDoctor.username,
+                password: foundedDoctor.password,
+                _id: foundedDoctor._id
+            })
+            console.log("Doctor is loggedin");
+            console.log(foundedDoctor);
+            let i = { respone: token, isLogin: true ,type:"doctor"};
+            console.log(i);
+            return i;
+            
         }
     });
 }
 
 function loginAdmin(admin) {
     Admin.findOne(admin, (err, foundedAdmin) => {
-        if(err || !foundedAdmin){
-            return {respone : err , ans : false};
-        }else{
+        if (err || !foundedAdmin) {
+            return { respone: err, isLogin: false };
+        } else {
             let token = Authenticate.createToken({
                 username: foundedAdmin.username,
                 password: foundedAdmin.password,
                 _id: foundedAdmin._id
             })
-            
-            return {respone : token , ans : true};
+            console.log("Admin is loggedin");
+            console.log(foundedAdmin);
+            let i = { respone: token, isLogin: true ,type:"admin"};
+            console.log(i);
+            return i;
         }
     });
 }
