@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientService } from 'src/app/services/patient.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-view-patients',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewPatientsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private patientService : PatientService ,private userService : UserService) { }
 
   ngOnInit(): void {
+    this.patientService.getPatients(this.userService.getDoctorID()).subscribe(()=>{
+      
+    })
   }
 
 }

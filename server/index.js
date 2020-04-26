@@ -10,8 +10,10 @@ const adminRoute = require("./routes/admin");
 const doctorRoute = require("./routes/doctor");
 const patientRoute = require("./routes/patient");
 const questionRoute = require("./routes/question");
+const authenticationRoute = require("./routes/authentications");
 
-mongoose.connect('mongodb://localhost:27017/demo_shiba', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/demo_shiba', { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.set('useCreateIndex', true);
 app.use(cors({ origin: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,8 +24,10 @@ app.use(function(req, res, next) {
     next();
 });
 
+
+
 // =========== Authentication-routes =========
-//app.use(authenticationRoute);
+app.use(authenticationRoute);
 //============= Admin Routes =============
  app.use(adminRoute);
 // ========== Doctor Routes ==========

@@ -10,16 +10,17 @@ const Type = { Binary: "Binary", Regular: "Regular", Quantity: "Quantity" };
 
 
 // add new question to the user array of questions
-router.post("/patients/:id/questions", function (req, res) {
+router.post("/patients/:id/questions",  (req, res)=> {
 
     console.log("new Question");
     console.log(req.body);
     
-    if (req.body.isDefault === true) {
+    if ( typeof req.body.isDefault  !== Boolean   &&  req.body.isDefault === true) {
+        console.log("isDefault Should be false");      
         return res.status(400).send("Question Cannot Be Defualt");
     }
 
-    Patient.findById(req.params.id, function (err, foundPatient) {
+    Patient.findById(req.params.id,  (err, foundPatient)=> {
         if (err || !foundPatient) {
             console.log(err);
             return res.status(404).send("Not Found Patient")

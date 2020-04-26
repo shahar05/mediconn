@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseDoctorDetails } from '../models';
 
-const BaseURL : string = "../assets/seed/";
+const BaseURL : string = "http://localhost:3000/";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,13 @@ export class NetService {
 
 
   login(doctorDetails : BaseDoctorDetails) {      
-     return  this.http.get(BaseURL+"doctors.json")    
+    return this.http.post(BaseURL + "login" ,doctorDetails );
+  }
+
+  getPatients(doctorID : String){
+    return this.http.get(BaseURL + "/patients/" + doctorID);
   }
 
 }
 
 
-// BaseURL + "\doctors.json"

@@ -17,7 +17,16 @@ export interface Doctor extends BaseEntity{
     lastName:string,
     department : string,
     phoneNumber : string,
+    creatorID : String,
     mainLanguage : Language,
     languages : Language[]
 
 }
+
+export interface Admin extends BaseEntity{
+    username: String,
+    password : String,
+    hospitalName:String
+    
+}
+

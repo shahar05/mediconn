@@ -5,8 +5,19 @@ const Admin = require("../models/admin");
 const router = express.Router();
 
 
+router.get("/doctors" , (req,res)=>{
+    Doctor.find({creatorID : res.body.creatorID} , (err , doctors)=>{
+        if (err || !doctors || doctors.length === 0) {
+                return res.status(404).send("No found doctors")
+        }else{
+                res.send(doctors);
+        }
+    })
+} )
+
+
 // add new doctor
-router.post( "/doctor",  (req,res)=> { 
+router.post( "/doctors",  (req,res)=> { 
 
     let adminID = req.body.creatorID;
     console.log(req.body);

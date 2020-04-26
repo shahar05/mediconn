@@ -5,8 +5,24 @@ const Admin = require("../models/admin");
 const router = express.Router();
 
 
+
+
+// get all admins
+router.get("/admins" , (req,res)=>{
+
+});
+
+
+// get admin by specific ID
+router.get("/admins/:id", (req,res)=>{
+
+})
+
+
+
+
 // add new admin
-router.post( "/admin",  (req,res)=> { 
+router.post( "/admins",  (req,res)=> { 
 
         Admin.create( req.body , (err , newAdmin)=>{
             console.log(req.body);

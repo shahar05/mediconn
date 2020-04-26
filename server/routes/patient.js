@@ -9,7 +9,7 @@ const Question = require("../models/question");
 router.get("/patients/:id", function (req, res) {
   
     // TODO:  creatorId: req.user["_id"]   --> Send id through header
-    Patient.find( { creatorID: req.params.id }, function (err, patients) {
+    Patient.find( { creatorID: req.params.id },  (err, patients)=> {
         if (err || !patients) {
             console.log(err);
             res.send(err);
@@ -20,9 +20,9 @@ router.get("/patients/:id", function (req, res) {
 });
 
 // Show All information about user
-router.get("/users/:id", function (req, res) {
+router.get("/users/:id",  (req, res)=> {
 
-    Patient.findById(req.params.id).populate("questions").exec(function (err, foundPatient) {
+    Patient.findById(req.params.id).populate("questions").exec( (err, foundPatient)=> {
         if (err || !foundPatient) {
             console.log("its an error my friend!");
         } else {
@@ -34,12 +34,20 @@ router.get("/users/:id", function (req, res) {
 
 
 
-
 // add new Patient
 router.post( "/patients",  (req,res)=> { 
 
     console.log(req.body);
     let doctorID = req.body.creatorID;
+
+    let regex = /[0-9]{3}-?[0-9]{7}/
+    var phone = req.body.phoneNumber.match(regex);
+    if (!phone) {
+        console.log("phone is not correct");
+        return res.status(400).send("Phone is not match the Pattern")
+    }
+    req.body.phoneNumber = req.body.phoneNumber.replace('-','');
+    console.log(req.body.phoneNumber);
 
     Doctor.findById(doctorID , (err , foundedDoctor)=>{
         if (err  || !foundedDoctor) {

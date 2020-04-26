@@ -23,12 +23,12 @@ export class LoginPageComponent implements OnInit {
     if(this.doctor.password.toString().length === 0 || this.doctor.username.toString().length === 0 ){
       this.msg = "password or username is empty"
     }else{
-      this.loginService.login(this.doctor).subscribe((isLogin)=>{
-        if(isLogin){
+      this.loginService.login(this.doctor).subscribe((user)=>{
+        if(user){
           this.router.navigate(["patients"]);
         }else{
           console.log("from login-page dosent login ");
-          console.log(isLogin);
+          console.log(user);
         }
     })
     }
