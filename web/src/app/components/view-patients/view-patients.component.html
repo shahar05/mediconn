@@ -1,1 +1,26 @@
-<p>view-patients works!</p>
+<div class="d-flex justify-content-center mt-4 ">
+    <mat-card class="col-10 p-0">
+
+
+        <div class="d-flex justify-content-center ">
+            <div class="col text-center p-0">
+                <mat-card >
+
+                    <mat-form-field class=" text-center col-3 ">
+                        <mat-label>Enter Phone Number</mat-label>
+                        <input matInput placeholder="Example  050-2347865">
+                    </mat-form-field>
+
+                    <button class="btn primary medium "> Search</button>
+                </mat-card>
+            </div>
+        </div>
+
+
+                   
+            <app-patients class="p-5" [patients]="patients"></app-patients>
+       
+
+     
+    </mat-card>
+</div>

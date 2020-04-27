@@ -1,13 +1,53 @@
-import {  Language } from './enum';
+import {  Language, Type } from './enum';
+
 
 
 export interface BaseEntity{
-    id:string
+    _id:string
+}
+
+
+export interface QuestionText {
+    text:string , 
+     language :  Language
+}
+
+export interface  Question extends BaseEntity{
+    textArr:  QuestionText[] ,
+    creatorID:string,
+    isDefault: Boolean,
+    timestemp: Number,
+    questionType: Type,
+    min:Number,
+    max:Number
+}
+
+export interface Medication extends BaseEntity{
+    medication : string
+}
+export interface Treatment extends BaseEntity{
+    treatments:string
 }
 
 export interface  BaseDoctorDetails {
     username : string;
     password:string;
+    user : string;
+}
+
+
+export interface Patient extends BaseEntity{
+    firstName: string,
+    lastName:   string ,
+    creatorID: string,
+    phoneNumber : string,
+    language : Language,
+    startHour : Number,
+    endHour : Number,
+    questions : Question[],
+    treatments : Treatment[],
+    medications : Medication[]
+
 }
 
 export interface Doctor extends BaseEntity{
@@ -17,16 +57,16 @@ export interface Doctor extends BaseEntity{
     lastName:string,
     department : string,
     phoneNumber : string,
-    creatorID : String,
+    creatorID : string,
     mainLanguage : Language,
     languages : Language[]
 
 }
 
 export interface Admin extends BaseEntity{
-    username: String,
-    password : String,
-    hospitalName:String
+    username: string,
+    password : string,
+    hospitalName:string
     
 }
 

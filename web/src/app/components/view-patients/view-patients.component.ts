@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/services/patient.service';
 import { UserService } from 'src/app/services/user.service';
+import { Patient } from 'src/app/models';
 
 @Component({
   selector: 'app-view-patients',
@@ -8,13 +9,17 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./view-patients.component.scss']
 })
 export class ViewPatientsComponent implements OnInit {
-
-  constructor(private patientService : PatientService ,private userService : UserService) { }
+  patients:Patient[];
+  constructor(private patientService: PatientService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.patientService.getPatients(this.userService.getDoctorID()).subscribe(()=>{
-      
-    })
-  }
 
+       this.patientService.getPatients().subscribe((patients:Patient[] )=>{
+          this.patients = patients;
+          console.log(this.patients);
+               
+       })
+     
+
+  }
 }

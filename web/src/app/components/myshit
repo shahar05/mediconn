@@ -1,0 +1,24 @@
+    
+    if(this.doctor.password.toString().length === 0 || this.doctor.username.toString().length === 0 ){
+      this.msg = "password or username is empty"
+    }else{
+      this.loginService.login(this.doctor).subscribe(( response:any)=>{
+        console.log(response);
+        if(response.isLogin){
+            if(response.type === "doctor"){
+              this.loginService.setDoctor(response);
+            }else if (response.type === "admin") {
+              this.loginService.setAdmin(response);
+            } else {
+                console.log("server error");
+            }
+          this.router.navigate(["patients"]);
+        }else{
+          console.log("error");
+          
+        }
+    })
+    }
+  
+
+    

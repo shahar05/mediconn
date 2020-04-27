@@ -6,8 +6,8 @@ var patientSchema = new mongoose.Schema({
     lastName: {type:String , required:true},
     phoneNumber: {type:String , required:true , trim:true , unique:true },
     creatorID: {type:String , required:true},
-    startHour: {type:String , default:0 , min:0 , max:23},
-    endHour:   {type:String , default:23, min:0 , max:23},
+    startHour: {type:Number , default:0 , min:0 , max:23},
+    endHour:   {type:Number , default:23, min:0 , max:23},
     language : {type:String , enum: Language , required:true},
     lastSeen : {type:Number},
     treatments:[

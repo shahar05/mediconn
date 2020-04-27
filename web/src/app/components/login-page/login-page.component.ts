@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {  BaseDoctorDetails, Doctor } from 'src/app/models';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-login-page',
@@ -10,34 +11,23 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginPageComponent implements OnInit {
 
-  doctor : BaseDoctorDetails = {username :"" , password:""};
+  doctor : BaseDoctorDetails = {username :"" , password:"",user:"doctor"};
   msg : string;
-  constructor(private router : Router , private loginService : LoginService) { }
+  constructor(private router : Router , private userService : UserService ) { }
 
   ngOnInit(): void {
   }
 
   login(){
-  
-    
-    if(this.doctor.password.toString().length === 0 || this.doctor.username.toString().length === 0 ){
-      this.msg = "password or username is empty"
-    }else{
-      this.loginService.login(this.doctor).subscribe(( response:any)=>{
-        console.log(response);
-        if(response.isLogin){
-          
-          this.router.navigate(["patients"]);
-        }else{
-          console.log("from login-page dosent login ");
-          
-        }
-    })
-    }
-  
+     this.userService.login( this.doctor).subscribe((response : any)=>{
+      this.userService.tokenSaver(response);
+      this.router.navigate(["patients"]);
 
-    
+}   ,(error)=>{
+console.log("in the error");
+console.log(error);
 
+} )
   }
 
 }

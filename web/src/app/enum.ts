@@ -7,3 +7,15 @@ export enum Language{
     French = "French",
     Russian = "Russian" 
 }
+
+export enum Type{
+    Binary = "Binary",
+    Regular = "Regular",
+    Quantity = "Quantity"
+
+}
+export enum LocalStorageKey {
+    Doctor = 'lkasd',
+    Admin = 'asdxc'
+ 
+}

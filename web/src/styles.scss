@@ -5,10 +5,9 @@ $white-color:white;
 $off-white : 	#f9f9f9;
 $grey:#e0e0e0;
 $optional-white: #f2f3f8;
+$red-color : #993f3f;
 
-
-html,
-body {
+html,body {
   height: 100%;
   font-size: 14px;
 }
@@ -72,7 +71,7 @@ body {
     padding: 6px 15px;
   }
   &.small {
-    padding: 2px 15px;
+    padding: 4px 9px;
   }
   &.primary {
     background-color: $dashboard-blue-btn-color;
@@ -88,6 +87,15 @@ body {
     &:hover {
       color: $white-color;
       background-color: $dashboard-blue-btn-color;
+    }
+  }
+  &.redanger {
+    color: $white-color;
+      background-color: $red-color;
+    
+    &:hover {
+      background-color: $white-color;
+    color: $red-color;
     }
   }
   &:hover {

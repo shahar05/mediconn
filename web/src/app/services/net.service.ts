@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseDoctorDetails } from '../models';
+import { LocalStorageKey } from '../enum';
 
-const BaseURL : string = "http://localhost:3000/";
+
+
+
+const BaseURL: string = "http://localhost:3000/";
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +14,28 @@ const BaseURL : string = "http://localhost:3000/";
 
 
 export class NetService {
+ 
 
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
-  login(doctorDetails : BaseDoctorDetails) {      
-    return this.http.post(BaseURL + "login" ,doctorDetails );
+  login(doctorDetails: BaseDoctorDetails) {
+    return this.http.post(BaseURL + "login", doctorDetails);
   }
 
-  getPatients(doctorID : String){
-    return this.http.get(BaseURL + "patients/" + doctorID);
+  getPatients() {
+    return this.http.get(BaseURL + "patients/" + JSON.parse(localStorage.getItem(LocalStorageKey.Doctor)));
   }
+  getPatientByID(patientID: String) {
+    return this.http.get(BaseURL + "patient/" + patientID);
+  }
+
+  getQuestionsByPatientID(patientID : String){
+    return this.http.get('/patients/'+patientID+'/questions');
+  }
+
+
 
 }
 

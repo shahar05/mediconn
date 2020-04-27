@@ -7,6 +7,7 @@ import { BaseDoctorDetails } from '../models';
 })
 export class LoginService {
 
+
   constructor(private net: NetService) { }
 
   login(doctorDetails : BaseDoctorDetails){

@@ -6,10 +6,13 @@ import { NetService } from './net.service';
 })
 export class PatientService {
 
+
   constructor(private net : NetService) { }
 
-  getPatients(doctorID : String){
-      return this.net.getPatients(doctorID);
+  getPatients(){
+      return this.net.getPatients();
   }
-
+  getPatientByID(patientID: String) {
+    return this.net.getPatientByID(patientID);
+  }
 }

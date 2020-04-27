@@ -13,13 +13,27 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { PatientsComponent } from './components/patients/patients.component';
+import { PatientComponent } from './components/patient/patient.component';
+import { PatientProfileComponent } from './components/patient-profile/patient-profile.component'
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDividerModule} from '@angular/material/divider'
+import {MatListModule} from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { QuestionsComponent } from './components/questions/questions.component';
+import { QuestionComponent } from './components/question/question.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     NavbarComponent,
-    ViewPatientsComponent
+    ViewPatientsComponent,
+    PatientsComponent,
+    PatientComponent,
+    PatientProfileComponent,
+    QuestionsComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +46,11 @@ import {HttpClientModule} from '@angular/common/http'
     MatIconModule,
     MatButtonModule,
     NoopAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule,
+    MatDividerModule,
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -25,7 +25,6 @@ app.use(function(req, res, next) {
 });
 
 
-
 // =========== Authentication-routes =========
 app.use(authenticationRoute);
 //============= Admin Routes =============

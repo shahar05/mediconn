@@ -10,7 +10,7 @@ const Type = { Binary: "Binary", Regular: "Regular", Quantity: "Quantity" };
 
 
 // add new question to the user array of questions
-router.post("/patients/:id/questions",  (req, res)=> {
+router.post("/questions/patients/:id",  (req, res)=> {
 
     console.log("new Question");
     console.log(req.body);
