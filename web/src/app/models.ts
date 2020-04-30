@@ -26,7 +26,7 @@ export interface Medication extends BaseEntity{
     medication : string
 }
 export interface Treatment extends BaseEntity{
-    treatments:string
+    treatment:string
 }
 
 export interface  BaseDoctorDetails {

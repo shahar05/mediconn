@@ -37,7 +37,7 @@ router.post( "/doctors",  (req,res)=> {
             Doctor.create(req.body , (err , newDoctor)=>{
                 if (err) {
                     console.log(err);
-                    res.status(400).send(err.massage)
+                    res.status(400).send(err.message)
                 } else {
 
                     let token = Authenticate.createToken({

@@ -1,5 +1,5 @@
-<mat-accordion>
-  <mat-expansion-panel>
+<mat-accordion >
+  <mat-expansion-panel >
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{question.questionType}}
@@ -9,16 +9,22 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div class="d-flex align-contet-start" >
-      <div class="col-3 text-left">{{question.timestemp | date}} </div> 
-      <div class="col-6" ></div>
+    <div class="d-flex align-contet-start">
+      <div class="col-3 m-3  ">{{question.timestemp | date}} </div>
+      <div class="col-6"></div>
       <div class="col-3 text-right">
-        <button   class="btn primary small mr-2 "><mat-icon>edit</mat-icon></button>
-        <button class="btn redanger small"><mat-icon>delete</mat-icon></button> 
-    </div>
-    </div>
-    
 
-    
+        <button mat-mini-fab color="primary" class="mr-2" aria-label="Example icon button with a delete icon ">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-mini-fab color="warn" class="ml-2" aria-label="Example icon button with a delete icon">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+
+
   </mat-expansion-panel>
 </mat-accordion>

@@ -1,17 +1,20 @@
 <div class="d-flex justify-content-center mt-4 ">
-    <mat-card class="col-10 p-0">
+    <mat-card class="col-10 p-0 ">
 
 
         <div class="d-flex justify-content-center ">
             <div class="col text-center p-0">
-                <mat-card >
+                <mat-card class="shadow">
 
                     <mat-form-field class=" text-center col-3 ">
                         <mat-label>Enter Phone Number</mat-label>
                         <input matInput placeholder="Example  050-2347865">
                     </mat-form-field>
 
-                    <button class="btn primary medium "> Search</button>
+                    <button mat-mini-fab color="primary"   aria-label="Example icon button with a delete icon ">
+                        <mat-icon>search</mat-icon>
+                      </button>
+
                 </mat-card>
             </div>
         </div>

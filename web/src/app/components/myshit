@@ -21,4 +21,7 @@
     }
   
 
+
+  <button class="btn redanger small"><mat-icon>delete</mat-icon></button> 
+
     

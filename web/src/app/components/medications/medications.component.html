@@ -1,0 +1,7 @@
+<div   *ngFor="let medication of medications">
+    <app-medication   [medication]="medication" ></app-medication>   
+</div>
+
+<mat-card class="m-1 display-1 f-m" *ngIf="!medications.length">
+    No medications to display
+</mat-card>

@@ -44,7 +44,8 @@ router.post( "/admins",  (req,res)=> {
             
                 if (err) {
                     console.log("Failed Create New Admin");
-                    res.status(400).send(err.massage);
+                    console.log(err);
+                    res.status(400).send(err.message);
                 } else {
                     console.log(newAdmin);    
                     res.send(newAdmin);       

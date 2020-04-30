@@ -6,6 +6,8 @@ $off-white : 	#f9f9f9;
 $grey:#e0e0e0;
 $optional-white: #f2f3f8;
 $red-color : #993f3f;
+$blue-mat : #6A1B9A;
+$red-mat : #F44336;
 
 html,body {
   height: 100%;
@@ -53,14 +55,29 @@ body {
   color: $white-color;
 }
 
-// .shadow{
-//   box-shadow: 2px 4px 4px -2px rgba(0,0,0,.5) !important;
-// }
+.shadow{
+  box-shadow: 2px 4px 5px -1px rgba(0,0,0,.4) !important;
+}
 .blue-color{
   background-color: $dashboard-blue-btn-color;
-  box-shadow: 0 3px 4px -1px rgba(0,0,0,.3);
+  box-shadow: 0 3px 4px -1px rgba(0,0,0,.3) !important;
 }
 
+.btn-sm{
+  padding: 4px 9px;
+}
+.mat-raised-button:hover{
+  color: $blue-mat;
+  background-color: $white-color;
+}
+.mat-mini-fab:hover{
+  color: $blue-mat;
+  background-color: $white-color;
+}
+.mat-mini-fab.mat-warn:hover{
+  color: $red-mat;
+  background-color: $white-color;
+}
 .btn {
   border-radius: 20px !important;
   border-color: $dashboard-blue-btn-color !important;

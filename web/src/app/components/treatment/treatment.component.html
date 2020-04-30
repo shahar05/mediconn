@@ -1,0 +1,28 @@
+<mat-accordion >
+    <mat-expansion-panel >
+      <mat-expansion-panel-header >
+        <mat-panel-title>
+         
+        </mat-panel-title>
+     
+          <mat-panel-description *ngIf="treatment">
+            {{treatment.treatment}}
+          </mat-panel-description>
+        
+      </mat-expansion-panel-header>
+  
+    
+        <div class=" text-right">
+            <button mat-mini-fab color="primary" class="mr-2" >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" class="ml-2" >
+                <mat-icon>delete</mat-icon>
+              </button>
+      </div>
+    
+      
+  
+      
+    </mat-expansion-panel>
+  </mat-accordion>

@@ -28,7 +28,7 @@ router.get("/patients/:id", function (req, res) {
 // Show All information about user
 router.get("/patient/:id",  (req, res)=> {
 
-    Patient.findById(req.params.id).populate("questions").exec( (err, foundPatient)=> {
+    Patient.findById(req.params.id).populate("questions").populate("treatments").populate("medications").exec( (err, foundPatient)=> {
         if (err || !foundPatient) {
             console.log("its an error my friend!");
         } else {
@@ -93,7 +93,7 @@ router.post( "/patients",  (req,res)=> {
                     }
                 })
             }else{ // Language is not exist
-                return res.status(401).send("Patient language does not match doctor language");
+                return res.status(401).send("Patient language does not match doctor languages: " + foundedDoctor.languages);
             }
           
         }

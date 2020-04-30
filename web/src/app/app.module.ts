@@ -23,6 +23,11 @@ import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { QuestionsComponent } from './components/questions/questions.component';
 import { QuestionComponent } from './components/question/question.component';
+
+import { MedicationsComponent } from './components/medications/medications.component';
+import { MedicationComponent } from './components/medication/medication.component';
+import { TreatmentsComponent } from './components/treatments/treatments.component';
+import { TreatmentComponent } from './components/treatment/treatment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +38,11 @@ import { QuestionComponent } from './components/question/question.component';
     PatientComponent,
     PatientProfileComponent,
     QuestionsComponent,
-    QuestionComponent
+    QuestionComponent,
+    MedicationsComponent,
+    MedicationComponent,
+    TreatmentsComponent,
+    TreatmentComponent
   ],
   imports: [
     BrowserModule,

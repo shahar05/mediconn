@@ -11,6 +11,8 @@ const doctorRoute = require("./routes/doctor");
 const patientRoute = require("./routes/patient");
 const questionRoute = require("./routes/question");
 const authenticationRoute = require("./routes/authentications");
+const treatmentRoute = require("./routes/treatments");
+const medicationRoute = require("./routes/medications");
 
 mongoose.connect('mongodb://localhost:27017/demo_shiba', { useUnifiedTopology: true, useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
@@ -35,7 +37,10 @@ app.use(doctorRoute);
 app.use(patientRoute);
 // ========== Question Routes ==========
 app.use(questionRoute);
-
+// ========== Treatment Routes ==========
+app.use(treatmentRoute);
+// ========== Medication Routes ==========
+app.use(medicationRoute);
 
 
 app.get("*", function (req, res) {

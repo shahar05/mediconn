@@ -1,0 +1,6 @@
+<div   *ngFor="let treatment of treatments">
+    <app-treatment   [treatment]="treatment" ></app-treatment>   
+</div>
+<mat-card class="m-1 display-1 f-m" *ngIf="!treatments.length">
+    No treatments to display
+</mat-card>
