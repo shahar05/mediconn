@@ -50,7 +50,7 @@ app.get("*", function (req, res) {
 
 app.post("*", function (req, res) {
     console.log("SomeOne hit the star Route");
-    res.send("you hit the * route");
+    res.status(400).send("you hit the * route");
 });
 
 app.listen(3000 ,function (req, res) {

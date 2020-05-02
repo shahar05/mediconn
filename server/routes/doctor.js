@@ -5,6 +5,20 @@ const Admin = require("../models/admin");
 const router = express.Router();
 
 
+
+router.get("/doctors/:id" , (req,res)=>{
+    Doctor.findById(req.params.id , (err , foundedDoctor)=>{
+        if (err || !foundedDoctor) {
+                console.log(err);
+                res.status(400).send("Doctor has not been found");
+        } else {
+                console.log("found doctor ");
+                res.send(foundedDoctor);
+        }
+    })
+})
+
+
 router.get("/doctors" , (req,res)=>{
     Doctor.find({creatorID : res.body.creatorID} , (err , doctors)=>{
         if (err || !doctors || doctors.length === 0) {

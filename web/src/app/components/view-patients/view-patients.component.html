@@ -8,10 +8,10 @@
 
                     <mat-form-field class=" text-center col-3 ">
                         <mat-label>Enter Phone Number</mat-label>
-                        <input matInput placeholder="Example  050-2347865">
+                        <input matInput placeholder="Example  050-2347865"  [(ngModel)]="phoneNumber">
                     </mat-form-field>
 
-                    <button mat-mini-fab color="primary"   aria-label="Example icon button with a delete icon ">
+                    <button mat-mini-fab color="primary"  (click)="filter()" >
                         <mat-icon>search</mat-icon>
                       </button>
 

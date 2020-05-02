@@ -1,15 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
 $dashboard-blue-btn-color: #4b79ff;
-$white-color:white;
-$off-white : 	#f9f9f9;
-$grey:#e0e0e0;
+$white-color: white;
+$off-white: #f9f9f9;
+$grey: #e0e0e0;
 $optional-white: #f2f3f8;
-$red-color : #993f3f;
-$blue-mat : #6A1B9A;
-$red-mat : #F44336;
+$red-color: #993f3f;
+$blue-mat: #6a1b9a;
+$red-mat: #f44336;
 
-html,body {
+html,
+body {
   height: 100%;
   font-size: 14px;
 }
@@ -25,56 +26,104 @@ body {
   background-color: $optional-white;
 }
 
+.example-stretched-tabs {
+  max-width: 800px;
+}
+
 .navBardemoBasicUsage md-content .ext-content {
   padding: 50px;
   margin: 20px;
   background-color: #fff2e0;
 }
 
-
+.dialog-width {
+  width: 68%;
+}
 
 .full-width {
   width: 100%;
 }
 .semi-width {
-  width: 71%;
+  width: 70%;
 }
 
 .f-m {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
-.f-s{
+.f-2 {
+  font-size: 1.9rem;
+}
+.f-1-5{
+  font-size: 1.5rem;
+}
+
+.f-s {
   font-size: 1rem;
 }
 .f-2-5 {
   font-size: 2.5rem;
 }
 
-.white-font{
+.white-font {
   color: $white-color;
 }
 
-.shadow{
-  box-shadow: 2px 4px 5px -1px rgba(0,0,0,.4) !important;
-}
-.blue-color{
-  background-color: $dashboard-blue-btn-color;
-  box-shadow: 0 3px 4px -1px rgba(0,0,0,.3) !important;
+.shadow {
+  box-shadow: 3px 3px 8px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
-.btn-sm{
+.blue-color {
+  background-color: $dashboard-blue-btn-color;
+  box-shadow: 0 3px 4px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+.blue-shadow{
+  box-shadow: 3px 3px 8px 2px rgba(75, 121, 255, 0.5) !important;
+}
+
+
+.mat-radio-inner-circle{
+  background-color: $dashboard-blue-btn-color !important;
+}
+.mat-ink-bar._mat-animation-noopable{
+  background-color: $dashboard-blue-btn-color !important;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+  overflow: inherit !important;
+}
+.btn-sm {
   padding: 4px 9px;
 }
-.mat-raised-button:hover{
-  color: $blue-mat;
+
+.mat-raised-button.mat-warn {
+  color: $white-color;
+  background-color: $red-mat;
+}
+.mat-raised-button.mat-warn:hover {
+  color: $red-mat;
   background-color: $white-color;
 }
-.mat-mini-fab:hover{
-  color: $blue-mat;
+
+.mat-raised-button.mat-primary {
+  color: $white-color;
+  background-color: $dashboard-blue-btn-color;
+}
+.mat-raised-button:hover {
+  color: $dashboard-blue-btn-color;
   background-color: $white-color;
 }
-.mat-mini-fab.mat-warn:hover{
+.mat-mini-fab.mat-primary {
+  color: $white-color;
+  background-color: $dashboard-blue-btn-color;
+}
+.mat-mini-fab:hover {
+  color: $dashboard-blue-btn-color;
+  background-color: $white-color;
+}
+.mat-mini-fab.mat-warn:hover {
   color: $red-mat;
   background-color: $white-color;
 }
@@ -96,7 +145,7 @@ body {
     &:hover {
       color: $dashboard-blue-btn-color;
       background-color: $white-color;
-    }  
+    }
   }
   &.secondary {
     background-color: $white-color;
@@ -108,16 +157,15 @@ body {
   }
   &.redanger {
     color: $white-color;
-      background-color: $red-color;
-    
+    background-color: $red-color;
+
     &:hover {
       background-color: $white-color;
-    color: $red-color;
+      color: $red-color;
     }
   }
   &:hover {
-    transition: background-color .5s ease;
-    transition: color .3s ease;
-   
+    transition: background-color 0.5s ease;
+    transition: color 0.3s ease;
   }
 }

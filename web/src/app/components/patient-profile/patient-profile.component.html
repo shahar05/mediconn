@@ -3,9 +3,9 @@
 
     <div class="col-3 mt-5 text-center">
 
-        <mat-card *ngIf="patient">
+        <mat-card *ngIf="patient" class="shadow">
             <div class="border-bottom ">
-                <mat-card-title>{{patient.firstName}}  {{patient.lastName}}  </mat-card-title>
+                <mat-card-title class="p-3 display-4 f-2-5"> {{patient.firstName}}  {{patient.lastName}}  </mat-card-title>
             </div>
 
             <mat-card-content>
@@ -21,18 +21,32 @@
 
     </div>
 
-    <div class="col-8  mt-5 text-center">
+    <div class="col-8  mt-5">
 
-        <mat-card *ngIf="patient">
-            <mat-tab-group class="m-2">
-                <mat-tab label="Questions"> <app-questions [patientLanguage]="patient.language"   [questions] = "patient.questions"></app-questions></mat-tab>
+        <mat-card *ngIf="patient" class="shadow">
+
+            
+            <div class="d-flex justify-content-center" >
+                
+                <button  class="col-3 shadow"  mat-raised-button color="primary">New Question</button>
+                <span class="col-1"></span>
+                <button  class="col-3 shadow"  mat-raised-button color="primary">New Medications</button>
+                <span class="col-1"></span>
+                <button  class="col-3 shadow"  mat-raised-button color="primary">New Treatments</button>
+
+            </div>
+            <mat-tab-group  mat-stretch-tabs   class="m-2" >
+                <mat-tab label="Questions">  <app-questions [patientLanguage]="patient.language"   [questions] = "patient.questions"></app-questions></mat-tab>
                 <mat-tab label="Medications"> <app-medications [medications] = "patient.medications" ></app-medications> </mat-tab>
-                <mat-tab label="Treatments"> <app-treatments  [treatments] = "patient.treatments" ></app-treatments> </mat-tab>
-            </mat-tab-group>
-
+                <mat-tab label="Treatments"> <app-treatments  [treatments] = "patient.treatments" ></app-treatments> </mat-tab>        
+                
+            </mat-tab-group>        
         </mat-card>
 
     </div>
 
 
 </div>
+
+
+<!-- <button   mat-raised-button color="primary">Detail</button> -->

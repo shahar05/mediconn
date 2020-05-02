@@ -21,13 +21,18 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider'
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+
 import { QuestionsComponent } from './components/questions/questions.component';
 import { QuestionComponent } from './components/question/question.component';
-
 import { MedicationsComponent } from './components/medications/medications.component';
 import { MedicationComponent } from './components/medication/medication.component';
 import { TreatmentsComponent } from './components/treatments/treatments.component';
 import { TreatmentComponent } from './components/treatment/treatment.component';
+import { PatientEditorComponent } from './components/patient-editor/patient-editor.component';
+import { DefaultQuestionComponent } from './components/default-question/default-question.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +47,9 @@ import { TreatmentComponent } from './components/treatment/treatment.component';
     MedicationsComponent,
     MedicationComponent,
     TreatmentsComponent,
-    TreatmentComponent
+    TreatmentComponent,
+    PatientEditorComponent,
+    DefaultQuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +66,10 @@ import { TreatmentComponent } from './components/treatment/treatment.component';
     MatTabsModule,
     MatDividerModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

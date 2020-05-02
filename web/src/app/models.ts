@@ -12,14 +12,23 @@ export interface QuestionText {
      language :  Language
 }
 
+export interface  BaseQuestion {
+    textArr:  QuestionText[] ,
+    creatorID:string,
+    isDefault: Boolean,
+    questionType: Type,
+    min?:Number,
+    max?:Number
+}
+
 export interface  Question extends BaseEntity{
     textArr:  QuestionText[] ,
     creatorID:string,
     isDefault: Boolean,
     timestemp: Number,
     questionType: Type,
-    min:Number,
-    max:Number
+    min?:Number,
+    max?:Number
 }
 
 export interface Medication extends BaseEntity{
@@ -33,6 +42,16 @@ export interface  BaseDoctorDetails {
     username : string;
     password:string;
     user : string;
+}
+
+export interface BasePatient {
+    firstName: string,
+    lastName:   string ,
+    creatorID: string,
+    phoneNumber : string,
+    language? : Language,
+    startHour? :  Number,
+    endHour? : Number,
 }
 
 

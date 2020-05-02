@@ -70,6 +70,7 @@ router.post( "/patients",  (req,res)=> {
                     console.log("languageIsExist");   
                 }
             });       
+
             if(languageIsExist){
                 Patient.create(req.body , (err , newPatient)=>{
                     if (err || !newPatient) {
@@ -87,12 +88,16 @@ router.post( "/patients",  (req,res)=> {
                                     newPatient.questions.push(questionDefaultArray[i]);
                                 }
                                 newPatient.save();
-                                return res.send("New Patient Create Successfully and the number of default question is: " + i);
+
+                                console.log("New Patient Create Successfully and the number of default question is: " + i);
+                                return res.status(200).send(newPatient);
                             }
                         })
                     }
                 })
             }else{ // Language is not exist
+                console.log("wtf");
+                
                 return res.status(401).send("Patient language does not match doctor languages: " + foundedDoctor.languages);
             }
           

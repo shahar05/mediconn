@@ -9,17 +9,28 @@ import { Patient } from 'src/app/models';
   styleUrls: ['./view-patients.component.scss']
 })
 export class ViewPatientsComponent implements OnInit {
-  patients:Patient[];
+  phoneNumber: string;
+  patients: Patient[];
+  patientsFilter : Patient[] = [];
   constructor(private patientService: PatientService, private userService: UserService) { }
 
   ngOnInit(): void {
-
-       this.patientService.getPatients().subscribe((patients:Patient[] )=>{
-          this.patients = patients;
-          console.log(this.patients);
-               
-       })
-     
-
+    this.patientService.getPatients().subscribe((patients: Patient[]) => {
+      this.patients = patients;
+    })
   }
+
+  filter(){
+    console.log("asd");
+    
+    this.patients.forEach(patient => {
+      if (patient.phoneNumber.includes(this.phoneNumber) ) {
+          this.patientsFilter.push(patient);
+      } 
+  });
+  this.patients = this.patientsFilter;
+  
+    
+  }
+
 }

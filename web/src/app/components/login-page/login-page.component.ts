@@ -19,6 +19,11 @@ export class LoginPageComponent implements OnInit {
   }
 
   login(){
+
+      if( !this.doctor.username.length || !this.doctor.password.length    ){
+        this.msg = "Password and username cannot be empty";
+        return;
+      }
      this.userService.login( this.doctor).subscribe((response : any)=>{
       this.userService.tokenSaver(response);
       this.router.navigate(["patients"]);
@@ -26,7 +31,7 @@ export class LoginPageComponent implements OnInit {
 }   ,(error)=>{
 console.log("in the error");
 console.log(error);
-
+    this.msg = "Password or username is incorrect";
 } )
   }
 

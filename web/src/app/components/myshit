@@ -24,4 +24,15 @@
 
   <button class="btn redanger small"><mat-icon>delete</mat-icon></button> 
 
+
+
+
+       this.patientService.createNewPatient(result).subscribe((response : any)=>{
+          console.log(response);
+            this.router.navigate(["patients"]);
+        },(err:any)=>{
+            alert("error create new patient");
+            console.log(err);
+            
+        })
     

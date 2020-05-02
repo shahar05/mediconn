@@ -5,15 +5,19 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item  (click)="navToViewPatient()"  >
+        <mat-icon>home</mat-icon>
+        <span  >Home</span>
+      </button>
+      <button mat-menu-item  (click)="navToDefaultQuestion()" >
         <mat-icon>?</mat-icon>
         <span >Default Question</span>
       </button>
-      <button mat-menu-item  (click)="navToPatientEditor()"  >
+      <button mat-menu-item  (click)="openPatientEditor()"  >
         <mat-icon>create</mat-icon>
         <span  >New Patient</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item   (click)="logout()" >
         <mat-icon>logout</mat-icon>
         <span>Logout</span>
       </button>
