@@ -3,7 +3,7 @@ const express = require("express");
 const Doctor = require("../models/doctor");
 const Admin = require("../models/admin");
 const router = express.Router();
-
+const Authenticate = require('../AuthenticationHandler/Authentication');
 
 
 router.get("/doctors/:id" , (req,res)=>{
@@ -34,7 +34,6 @@ router.get("/doctors" , (req,res)=>{
 router.post( "/doctors",  (req,res)=> { 
 
     let adminID = req.body.creatorID;
-    console.log(req.body);
    
     if (!ContainMainLanguage(req.body.languages ,req.body.mainLanguage )) {
         console.log("MainLanguage does not exist in the languages array of doctor");
@@ -53,14 +52,7 @@ router.post( "/doctors",  (req,res)=> {
                     console.log(err);
                     res.status(400).send(err.message)
                 } else {
-
-                    let token = Authenticate.createToken({
-                        username: user.username,
-                        password: user.password,
-                        _id: user._id
-                    })
-                    res.send(token);
-                   // res.send(newDoctor);
+                   res.send(newDoctor);
                 }
             })
         }

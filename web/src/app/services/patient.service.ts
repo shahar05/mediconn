@@ -8,19 +8,20 @@ import { BasePatient } from '../models';
 export class PatientService {
 
 
-  constructor(private net : NetService) { }
+  constructor(private net: NetService) { }
 
-  getPatients(){
-      return this.net.getPatients();
+  getPatients(doctorId: string) {
+    return this.net.getPatients(doctorId);
   }
-  getPatientByID(patientID: String) {
+  
+  getPatientByID(patientID: string) {
     return this.net.getPatientByID(patientID);
   }
 
-  createNewPatient(basePatient : BasePatient){
-    
+  createNewPatient(basePatient: BasePatient) {
+
     return this.net.createNewPatient(basePatient);
-}
+  }
 
 
 }
