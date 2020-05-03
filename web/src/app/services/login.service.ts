@@ -8,10 +8,7 @@ import { BaseDoctorDetails } from '../models';
 export class LoginService {
 
 
-  constructor(private net: NetService) { }
+  constructor() { }
 
-  login(doctorDetails : BaseDoctorDetails){
-    return this.net.login(doctorDetails);
-  }
 
 }

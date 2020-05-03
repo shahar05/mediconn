@@ -16,6 +16,7 @@ export enum Type{
 }
 export enum LocalStorageKey {
     Doctor = 'lkasd',
-    Admin = 'asdxc'
+    Admin = 'asdxc',
+    Token='t'
  
 }

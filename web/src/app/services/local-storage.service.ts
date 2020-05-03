@@ -11,11 +11,19 @@ export class LocalStorageService {
 
 
   setItem(key: LocalStorageKey, value): void {
-    localStorage.setItem(key, JSON.stringify(value));
+    if (typeof value !== 'string') {
+      value = JSON.stringify(value);
+    }
+    localStorage.setItem(key, value);
   }
-  getItem(key: LocalStorageKey): any {
-    JSON.parse(localStorage.getItem(key)) ;
+  getItem(key: LocalStorageKey, shouldParse = true): any {
+    let value = localStorage.getItem(key)
+    if (shouldParse) {
+      value = JSON.parse(value);
+    }
+    return value;
   }
+
 
 
 

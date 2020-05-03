@@ -15,38 +15,44 @@ const BaseURL: string = "http://localhost:3000/";
 
 
 export class NetService {
-
- 
   constructor(private http: HttpClient) { }
-
 
   login(doctorDetails: BaseDoctorDetails) {
     return this.http.post(BaseURL + "login", doctorDetails);
   }
 
   getPatients() {
-    return this.http.get(BaseURL + "patients/" +   this.getDoctorID());
+    return this.http.get(BaseURL + "patients/" + this.getDoctorID());
   }
   getPatientByID(patientID: String) {
     return this.http.get(BaseURL + "patient/" + patientID);
   }
 
-  getQuestionsByPatientID(patientID : String){
-    return this.http.get(BaseURL +'patients/'+patientID+'/questions');
+  getQuestionsByPatientID(patientID: String) {
+    return this.http.get(BaseURL + 'patients/' + patientID + '/questions');
   }
 
-  createNewPatient(basePatient : BasePatient){
-    
-      return this.http.post(BaseURL + "patients", basePatient)
+  createNewPatient(basePatient: BasePatient) {
+
+    return this.http.post(BaseURL + "patients", basePatient)
   }
 
   getDoctor() {
-    return this.http.get(BaseURL + "doctors/" + this.getDoctorID() )
+    return this.http.get(BaseURL + "doctors/" + this.getDoctorID())
   }
 
 
-  getDoctorID():string {
+  getDoctorID(): string {
     return JSON.parse(localStorage.getItem(LocalStorageKey.Doctor));
+  }
+
+
+  postDefaultQuestion(question) {
+    return this.http.post(BaseURL + "questions/default", question);
+  }
+
+  getDefaultQuestions() {
+    return this.http.get(BaseURL + "questions/default");
   }
 
 }

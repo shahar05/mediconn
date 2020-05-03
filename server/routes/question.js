@@ -57,7 +57,7 @@ router.post("/questions/patients/:id",  (req, res)=> {
 
 //Find All Default questions
 router.get("/questions/default", function (req, res) {
-
+// TODO :  Should Get The Doctor ID ANd serach only Related Default Questions
     Question.find({ isDefault: true }, function (err, ArrayOfdefQuest) {
         if (err) {
             console.log(err);

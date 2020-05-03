@@ -13,7 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { PatientsComponent } from './components/patients/patients.component';
 import { PatientComponent } from './components/patient/patient.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component'
@@ -33,6 +33,7 @@ import { TreatmentsComponent } from './components/treatments/treatments.componen
 import { TreatmentComponent } from './components/treatment/treatment.component';
 import { PatientEditorComponent } from './components/patient-editor/patient-editor.component';
 import { DefaultQuestionComponent } from './components/default-question/default-question.component';
+import { TokenInterceptor } from './interceptors/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +72,13 @@ import { DefaultQuestionComponent } from './components/default-question/default-
     MatSelectModule,
     MatRadioModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

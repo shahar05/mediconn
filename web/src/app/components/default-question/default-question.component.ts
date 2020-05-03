@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import { Language } from 'src/app/enum';
+import { Language, Type } from 'src/app/enum';
 import { Doctor, Question, QuestionText, BaseQuestion } from 'src/app/models';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-default-question',
@@ -15,10 +16,22 @@ export class DefaultQuestionComponent implements OnInit {
   languages: Language[];
   doctor: Doctor;
   question: BaseQuestion = { textArr: [], isDefault: true, creatorID: null, questionType: null };
-
-  constructor(private userService: UserService) { }
+  questions : Question[];
+  constructor(private userService: UserService, private questionService: QuestionService) { }
 
   ngOnInit(): void {
+
+
+      this.questionService.getDefaultQuestions().subscribe((defaultQuestions:Question[])=>{
+        this.questions = defaultQuestions;
+        console.log(this.questions);
+        
+      },(err)=>{
+          console.log(err);
+          
+      })
+
+
     this.userService.getDoctor().subscribe((doctor: Doctor) => {
       this.languages = doctor.languages;
       this.doctor = doctor;
@@ -33,17 +46,42 @@ export class DefaultQuestionComponent implements OnInit {
 
   createDefaultQuestion() {
 
-    if (this.isAllLangugesExists()) {
-
+    if (!this.allLangugesExists()) {
+      alert("Not all language exists!!!")
+      return;
     }
-    
+    if (this.question.questionType === Type.Quantity) {
+      if (!this.question.min || !this.question.max) {
+        console.log(this.question);
+        alert("Min And Max should be assign")
+        return;
+      }
+      if (this.question.min > this.question.max) {
+        alert("MIN Should have lower value then MAX")
+        return;
+      }
+    }
 
+    this.insertQuestions();
+    this.questionService.postDefaultQuestion(this.question).subscribe((response) => {
+      console.log("suscess");
+      console.log(response);
+
+    }, (err) => {
+      console.log("error");
+      console.log(err);
+    })
 
   }
+  insertQuestions() {
+    this.question.textArr.forEach((element) => {
+      element.text = this.texts[element.language];
+    });
+  }
 
-  isAllLangugesExists() {
+  allLangugesExists() {
     let numOfQuestions = 0;
-    this.languages.forEach(element => {   if(this.texts[element]) numOfQuestions++;  });
+    this.languages.forEach(element => { if (this.texts[element]) numOfQuestions++; });
     return this.languages.length === numOfQuestions;
   }
 }
