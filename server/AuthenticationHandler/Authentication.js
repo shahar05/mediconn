@@ -14,7 +14,6 @@ class Authenticate {
 
     static deserializeObject(token) {
         return new Promise((resolve, reject) => {
-            console.log('inside promise')
             jwt.verify(token, env.secret, (err, decodedObj) => {
                 if (err) {
                     reject(err);
