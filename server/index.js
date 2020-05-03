@@ -29,33 +29,6 @@ app.use(methodOverride("_method"));
 
 
 
-
-
-//   app.get('/', middleware.checkToken, handlers.index);
-
-// app.use(jwt({
-//     secret: SECRET,
-//     credentialsRequired: false,
-
-//     getToken: function fromHeaderOrQuerystring(req) {
-//         console.log('----------------------------------------------------------------------')
-//         console.log(req.headers.authorization)
-//         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-//             console.log('req.headers.authorization',req.headers.authorization)
-//             let d = nJwt.verify(req.headers.authorization.split(' ')[1],SECRET);
-//             console.log(d)
-
-//             return req.headleters.authorization.split(' ')[1];
-//         } else if (req.query && req.query.token) {
-//             return req.query.token;
-//         }
-
-//     },
-
-// }).unless({ path: ['/login'] }));
-
-
-
 app.use((req, res, next) => {
     if (req.url.includes('login')) {
         next();
