@@ -6,7 +6,7 @@ class Authenticate {
 
     static createToken(user) {
         var token = jwt.sign({
-            data: user
+            user,
         }, env.secret, { expiresIn: '3h' });
 
         return token;

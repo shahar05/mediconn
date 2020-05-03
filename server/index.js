@@ -37,6 +37,7 @@ app.use((req, res, next) => {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
         const userToken = req.headers.authorization.split(' ')[1];
         Authenticate.deserializeObject(userToken).then((res) => {
+            req.user = res.user
             next();
             return;
         }).catch(() => {
