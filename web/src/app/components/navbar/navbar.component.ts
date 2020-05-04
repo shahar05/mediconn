@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PatientEditorComponent } from '../patient-editor/patient-editor.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PatientService } from 'src/app/services/patient/patient.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'navbar',
@@ -11,7 +12,7 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router, private dialog: MatDialog, private patientService: PatientService) { }
+  constructor(private userService : UserService,private router: Router, private dialog: MatDialog, private patientService: PatientService) { }
 
   ngOnInit(): void {
   }
@@ -38,6 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    this.userService.logout();
     this.router.navigate([""]);
   }
 

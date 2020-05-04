@@ -9,16 +9,23 @@ export class LocalStorageService {
   constructor() { }
 
 
+
+  removeAll(){
+    localStorage.clear();
+  }
   setItem(key: LocalStorageKey, value): void {
     if (typeof value !== 'string') {
       value = JSON.stringify(value);
     }
     localStorage.setItem(key, value);
+    
   }
-  getItem(key: LocalStorageKey, shouldParse = true): any {
+  getItem(key: LocalStorageKey, shouldParse : boolean  = false): any {
 
     let value = localStorage.getItem(key);
-    return shouldParse ? JSON.parse(value) : value; 
+
+    if(shouldParse) value = JSON.parse(value) 
+    return  value; 
     
   }
 

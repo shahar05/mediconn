@@ -8,10 +8,7 @@ const Question = require("../models/question");
 //get All Patients
 router.get("/patients/:id", function (req, res) {
     
-
     console.log("all patiens");
-    console.log(req.user);
-    
     
     // TODO:  creatorId: req.user["_id"]   --> Send id through header
     Patient.find( { creatorID: req.params.id},  (err, patients)=> {

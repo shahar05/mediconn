@@ -1,10 +1,10 @@
-<mat-accordion >
+<mat-accordion *ngIf="question" >
   <mat-expansion-panel >
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{question.questionType}}
       </mat-panel-title>
-      <mat-panel-description *ngIf="question">
+      <mat-panel-description >
         {{questionDisplay()}}
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -18,7 +18,9 @@
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-mini-fab color="warn" class="ml-2" aria-label="Example icon button with a delete icon">
+        <button mat-mini-fab color="warn" class="ml-2"
+        (click)="delete()"
+        aria-label="Example icon button with a delete icon">
           <mat-icon>delete</mat-icon>
         </button>
       </div>

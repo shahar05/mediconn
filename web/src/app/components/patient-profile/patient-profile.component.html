@@ -36,7 +36,7 @@
 
             </div>
             <mat-tab-group  mat-stretch-tabs   class="m-2" >
-                <mat-tab label="Questions">  <app-questions [patientLanguage]="patient.language"   [questions] = "patient.questions"></app-questions></mat-tab>
+                <mat-tab label="Questions">  <app-questions  (deleteClicked)="deleteQuestion($event)" [patientLanguage]="patient.language"   [questions] = "patient.questions"></app-questions></mat-tab>
                 <mat-tab label="Medications"> <app-medications [medications] = "patient.medications" ></app-medications> </mat-tab>
                 <mat-tab label="Treatments"> <app-treatments  [treatments] = "patient.treatments" ></app-treatments> </mat-tab>        
                 

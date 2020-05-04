@@ -11,6 +11,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class UserService {
 
+
   token: String;
   doctor: Doctor;
   admin: Admin;
@@ -33,10 +34,13 @@ export class UserService {
     this.localStorageService.setItem(LocalStorageKey.Token, token);
     this.authService.setToken(token);
   }
-
+  logout() {
+    this.localStorageService.removeAll();
+  }
   login(doctorDetailes: BaseDoctorDetails) {
     return this.net.login(doctorDetailes).pipe(
-      tap((response: { token: string }) => {
+      tap((response: { token: string , object : Doctor}) => {
+        this.setDoctor(response.object)
         this.handleLogin(response);
       })
     )
@@ -62,6 +66,7 @@ export class UserService {
     return this.doctor._id;
   }
   getDoctor() {
+    
     return this.net.getDoctor().pipe(
       tap( (doctor : Doctor)=>{
         this.setDoctor(doctor);

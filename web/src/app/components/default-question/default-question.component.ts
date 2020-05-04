@@ -16,20 +16,17 @@ export class DefaultQuestionComponent implements OnInit {
   languages: Language[];
   doctor: Doctor;
   question: BaseQuestion = { textArr: [], isDefault: true, creatorID: null, questionType: null };
-  questions : Question[];
+  questions: Question[];
   constructor(private userService: UserService, private questionService: QuestionService) { }
 
   ngOnInit(): void {
 
 
-      this.questionService.getDefaultQuestions().subscribe((defaultQuestions:Question[])=>{
-        this.questions = defaultQuestions;
-        console.log(this.questions);
-        
-      },(err)=>{
-          console.log(err);
-          
-      })
+    this.questionService.getDefaultQuestions().subscribe((defaultQuestions: Question[]) => {
+      this.questions = defaultQuestions;
+    }, (err) => {
+      console.log(err);
+    })
 
 
     this.userService.getDoctor().subscribe((doctor: Doctor) => {
@@ -44,20 +41,14 @@ export class DefaultQuestionComponent implements OnInit {
     })
   }
 
-    minMax(){
-      console.log(this.question.min);
-      console.log(this.question.max);
-      
-    }
   createDefaultQuestion() {
 
-    
     if (!this.allLangugesExists()) {
       alert("Not all language exists!!!")
       return;
     }
     if (this.question.questionType === Type.Quantity) {
-      if (!this.question.min|| !this.question.max) {
+      if (!this.question.min || !this.question.max) {
         console.log(this.question);
         alert("Min And Max should be assign")
         return;
@@ -67,13 +58,13 @@ export class DefaultQuestionComponent implements OnInit {
         return;
       }
     }
-
     this.insertQuestions();
+
     this.questionService.postDefaultQuestion(this.question).subscribe((response) => {
-      console.log("suscess");console.log(response);
-        window.location.reload();
+      console.log("suscess"); console.log(response);
+      window.location.reload();
     }, (err) => {
-      console.log("error");console.log(err);      
+      console.log("error"); console.log(err);
     })
 
   }
