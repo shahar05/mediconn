@@ -21,14 +21,15 @@ export class NetService {
     return this.http.post(BaseURL + "login", doctorDetails);
   }
 
-  getPatients() {
-    return this.http.get(BaseURL + "patients/" + this.getDoctorID());
+  getPatients(doctorId: string) {
+    // return this.http.get(BaseURL + "patients/" + this.getDoctorID()); !!!!! <--- very fucking bad!!!!!!!!!!!
+    return this.http.get(`${BaseURL}patients/${doctorId}`);
   }
-  getPatientByID(patientID: String) {
+  getPatientByID(patientID: string) {
     return this.http.get(BaseURL + "patient/" + patientID);
   }
 
-  getQuestionsByPatientID(patientID: String) {
+  getQuestionsByPatientID(patientID: string) {
     return this.http.get(BaseURL + 'patients/' + patientID + '/questions');
   }
 

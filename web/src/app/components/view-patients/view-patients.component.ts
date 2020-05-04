@@ -11,26 +11,25 @@ import { Patient } from 'src/app/models';
 export class ViewPatientsComponent implements OnInit {
   phoneNumber: string;
   patients: Patient[];
-  patientsFilter : Patient[] = [];
+  patientsFilter: Patient[] = [];
   constructor(private patientService: PatientService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.patientService.getPatients().subscribe((patients: Patient[]) => {
+    const doctorId: string = this.userService.getCurrentDoctorDetails();
+    this.patientService.getPatients(doctorId).subscribe((patients: Patient[]) => {
       this.patients = patients;
-    })
+    });
   }
 
-  filter(){
-    console.log("asd");
-    
-    this.patients.forEach(patient => {
-      if (patient.phoneNumber.includes(this.phoneNumber) ) {
-          this.patientsFilter.push(patient);
-      } 
-  });
-  this.patients = this.patientsFilter;
-  
-    
+  filter() {
+    this.patients.forEach(patient => {    // dont use foreach in JS you cannot debug it, also start debuging you code!  
+      if (patient.phoneNumber.includes(this.phoneNumber)) {
+        this.patientsFilter.push(patient);
+      }
+    });
+    this.patients = this.patientsFilter;
+
+
   }
 
 }

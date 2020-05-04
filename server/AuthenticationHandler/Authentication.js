@@ -1,25 +1,26 @@
 const jwt = require('jsonwebtoken');
-const jwtKey = "NJxe+Xn+hshj6tIH63/FjQ0nuQp699C+ZsmdLvqYanngf4zHzMq9rOcUp6EPNEzkyyFLFjFehLxgk+Jnfmjbg==";
 
- class Authenticate {
+var env = require('../env.json')
 
-    static createToken(object) {
-        let token = jwt.sign(object, jwtKey);
+class Authenticate {
+
+    static createToken(user) {
+        var token = jwt.sign({
+            user,
+        }, env.secret, { expiresIn: '3h' });
+
         return token;
     }
 
     static deserializeObject(token) {
         return new Promise((resolve, reject) => {
-        
-            jwt.verify(token, jwtKey, (err, decodedObj) => {
+            jwt.verify(token, env.secret, (err, decodedObj) => {
                 if (err) {
                     reject(err);
                     return;
                 }
                 resolve(decodedObj);
-                
             });
-
         });
     }
 }

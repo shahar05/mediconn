@@ -22,6 +22,7 @@ router.post('/login', function (req, res) {
                     password: foundedAdmin.password,
                     _id: foundedAdmin._id
                 })
+
                 res.send({token : token , isLogin : true ,type:"admin" , object :foundedAdmin })
                 
             }

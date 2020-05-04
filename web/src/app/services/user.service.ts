@@ -28,7 +28,7 @@ export class UserService {
       this.localStorageService.setItem(LocalStorageKey.Admin, this.admin._id);
     }
   }
-  
+
   private initAuthToken(token: string) {
     this.localStorageService.setItem(LocalStorageKey.Token, token);
     this.authService.setToken(token);
@@ -68,5 +68,7 @@ export class UserService {
     return this.net.getDoctor();
   }
 
-
+  getCurrentDoctorDetails() {
+    return this.localStorageService.getItem(LocalStorageKey.Doctor, false);
+  }
 }

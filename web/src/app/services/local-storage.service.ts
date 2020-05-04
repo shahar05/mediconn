@@ -17,7 +17,7 @@ export class LocalStorageService {
     localStorage.setItem(key, value);
   }
   getItem(key: LocalStorageKey, shouldParse = true): any {
-    let value = localStorage.getItem(key)
+    let value = localStorage.getItem(key);
     if (shouldParse) {
       value = JSON.parse(value);
     }
