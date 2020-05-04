@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BaseDoctorDetails, BasePatient } from '../models';
-import { LocalStorageKey } from '../enum';
+import { BaseDoctorDetails, BasePatient } from '../../models';
+import { LocalStorageKey } from '../../enum';
 
 
 
@@ -39,7 +39,7 @@ export class NetService {
   }
 
   getDoctor() {
-    return this.http.get(BaseURL + "doctors/" + this.getDoctorID())
+    return this.http.get(BaseURL + "doctors" )
   }
 
 

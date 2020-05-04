@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NetService } from './net.service';
-import { BaseQuestion } from '../models';
+import { NetService } from '../net/net.service';
+import { BaseQuestion } from '../../models';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Doctor } from '../models';
-import { LocalStorageKey } from '../enum';
+import { LocalStorageKey } from '../../enum';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +16,10 @@ export class LocalStorageService {
     localStorage.setItem(key, value);
   }
   getItem(key: LocalStorageKey, shouldParse = true): any {
+
     let value = localStorage.getItem(key);
-    if (shouldParse) {
-      value = JSON.parse(value);
-    }
-    return value;
+    return shouldParse ? JSON.parse(value) : value; 
+    
   }
 
 

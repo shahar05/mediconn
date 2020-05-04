@@ -11,6 +11,7 @@ var router = express.Router();
 router.post('/login', function (req, res) {
     if (req.body.user === "admin") {
         delete req.body.user;
+    
         Admin.findOne(req.body, (err, foundedAdmin) => {
             if (err || !foundedAdmin) {
                     console.log(err);

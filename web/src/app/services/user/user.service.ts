@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Doctor, Admin, BaseDoctorDetails } from '../models';
-import { NetService } from './net.service';
-import { LocalStorageService } from './local-storage.service';
-import { LocalStorageKey } from '../enum';
+import { Doctor, Admin, BaseDoctorDetails } from '../../models';
+import { NetService } from '../net/net.service';
+import { LocalStorageService } from '../local/local-storage.service';
+import { LocalStorageKey } from '../../enum';
 import { tap } from 'rxjs/operators';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -62,10 +62,11 @@ export class UserService {
     return this.doctor._id;
   }
   getDoctor() {
-    this.net.getDoctor().subscribe((doctor: Doctor) => {
-      this.setDoctor(doctor);
-    })
-    return this.net.getDoctor();
+    return this.net.getDoctor().pipe(
+      tap( (doctor : Doctor)=>{
+        this.setDoctor(doctor);
+      } )
+    );   
   }
 
   getCurrentDoctorDetails() {

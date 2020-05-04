@@ -6,8 +6,12 @@ const router = express.Router();
 const Authenticate = require('../AuthenticationHandler/Authentication');
 
 
-router.get("/doctors/:id" , (req,res)=>{
-    Doctor.findById(req.params.id , (err , foundedDoctor)=>{
+// Get Specific doctor
+router.get("/doctors" , (req,res)=>{
+    console.log(req.user);
+    console.log(" Get Specific doctor");
+    
+    Doctor.findById(req.user["_id"] , (err , foundedDoctor)=>{
         if (err || !foundedDoctor) {
                 console.log(err);
                 res.status(400).send("Doctor has not been found");

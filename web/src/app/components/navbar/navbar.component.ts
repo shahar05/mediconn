@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PatientEditorComponent } from '../patient-editor/patient-editor.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PatientService } from 'src/app/services/patient.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'navbar',

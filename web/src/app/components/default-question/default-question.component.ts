@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { Language, Type } from 'src/app/enum';
 import { Doctor, Question, QuestionText, BaseQuestion } from 'src/app/models';
-import { QuestionService } from 'src/app/services/question.service';
+import { QuestionService } from 'src/app/services/question/question.service';
 
 @Component({
   selector: 'app-default-question',
@@ -44,14 +44,20 @@ export class DefaultQuestionComponent implements OnInit {
     })
   }
 
+    minMax(){
+      console.log(this.question.min);
+      console.log(this.question.max);
+      
+    }
   createDefaultQuestion() {
 
+    
     if (!this.allLangugesExists()) {
       alert("Not all language exists!!!")
       return;
     }
     if (this.question.questionType === Type.Quantity) {
-      if (!this.question.min || !this.question.max) {
+      if (!this.question.min|| !this.question.max) {
         console.log(this.question);
         alert("Min And Max should be assign")
         return;
@@ -64,12 +70,10 @@ export class DefaultQuestionComponent implements OnInit {
 
     this.insertQuestions();
     this.questionService.postDefaultQuestion(this.question).subscribe((response) => {
-      console.log("suscess");
-      console.log(response);
-
+      console.log("suscess");console.log(response);
+        window.location.reload();
     }, (err) => {
-      console.log("error");
-      console.log(err);
+      console.log("error");console.log(err);      
     })
 
   }

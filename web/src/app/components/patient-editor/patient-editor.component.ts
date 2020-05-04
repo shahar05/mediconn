@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Language } from 'src/app/enum';
+import { Language, LocalStorageKey } from 'src/app/enum';
 import { Patient, BasePatient, Doctor } from 'src/app/models';
-import { PatientService } from 'src/app/services/patient.service';
-import { UserService } from 'src/app/services/user.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { LocalStorageService } from 'src/app/services/local/local-storage.service';
 
 @Component({
   selector: 'app-patient-editor',
@@ -17,7 +18,7 @@ export class PatientEditorComponent implements OnInit {
   languages: Language[];
   doctor: Doctor;
   patient: BasePatient = { firstName: "", lastName: "", phoneNumber: "", creatorID: ""};
-  constructor(private userService: UserService, private patientService: PatientService, public dialogRef: MatDialogRef<PatientEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: string) { }
+  constructor( private userService: UserService, private patientService: PatientService, public dialogRef: MatDialogRef<PatientEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit(): void {
     this.userService.getDoctor().subscribe((doctor: Doctor) => {

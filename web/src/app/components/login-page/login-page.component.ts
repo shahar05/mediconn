@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseDoctorDetails, Doctor } from 'src/app/models';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 @Component({

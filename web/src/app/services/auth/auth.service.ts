@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from './local-storage.service';
-import { LocalStorageKey } from '../enum';
+import { LocalStorageService } from '../local/local-storage.service';
+import { LocalStorageKey } from '../../enum';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,6 @@ export class AuthService {
   getToken() {
     if (!this.token) {
       let lsToken = this.localstoragService.getItem(LocalStorageKey.Token, false);
-      console.log(lsToken)
       if (lsToken) {
         this.token = lsToken;
       }
