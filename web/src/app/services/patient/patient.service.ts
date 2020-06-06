@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NetService } from '../net/net.service';
-import { BasePatient } from '../../models';
+import { BasePatient, MedicalAdditions } from '../../models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class PatientService {
   getPatients(doctorId: string) {
     return this.net.getPatients(doctorId);
   }
-  
+
   getPatientByID(patientID: string) {
     return this.net.getPatientByID(patientID);
   }
@@ -23,5 +23,7 @@ export class PatientService {
     return this.net.createNewPatient(basePatient);
   }
 
-
+  createMedicalAdditions(medicalAddition: MedicalAdditions) {
+    return this.net.createMedicalAdditions(medicalAddition);
+  }
 }

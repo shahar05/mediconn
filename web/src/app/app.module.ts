@@ -35,6 +35,7 @@ import { PatientEditorComponent } from './components/patient-editor/patient-edit
 import { DefaultQuestionComponent } from './components/default-question/default-question.component';
 import { TokenInterceptor } from './interceptors/auth.interceptor';
 import { DialogAlertComponent } from './components/dialog-alert/dialog-alert.component';
+import { AddMedicationPopupComponent } from './components/add-medication-popup/add-medication-popup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { DialogAlertComponent } from './components/dialog-alert/dialog-alert.com
     TreatmentComponent,
     PatientEditorComponent,
     DefaultQuestionComponent,
-    DialogAlertComponent
+    DialogAlertComponent,
+    AddMedicationPopupComponent
   ],
   imports: [
     BrowserModule,

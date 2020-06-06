@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Treatment } from 'src/app/models';
 
 @Component({
   selector: 'app-treatment',
@@ -7,7 +6,7 @@ import { Treatment } from 'src/app/models';
   styleUrls: ['./treatment.component.scss']
 })
 export class TreatmentComponent implements OnInit {
-  @Input() treatment : Treatment;
+  @Input() treatment: any;
 
   constructor() { }
 

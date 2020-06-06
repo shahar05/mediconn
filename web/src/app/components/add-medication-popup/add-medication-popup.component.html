@@ -1,0 +1,34 @@
+<div class="d-flex flex-column p-4">
+  <div class="col">
+    <span>
+      {{ pageTitle }}
+    </span>
+  </div>
+  <div class="col d-flex flex-column" *ngIf="medicalAddition">
+    <div class="d-flex">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="medicalAddition.name" matInput />
+      </mat-form-field>
+    </div>
+
+    <div class="d-flex">
+      <mat-form-field class="example-full-width">
+        <mat-label>description</mat-label>
+        <textarea [(ngModel)]="medicalAddition.description" matInput></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="col d-flex">
+    <div class="col">
+      <button class="btn btn-secondary" (click)="close()">
+        Cancel
+      </button>
+    </div>
+    <div class="col">
+      <button class="btn btn-primary" (click)="submitForm()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>

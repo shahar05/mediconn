@@ -6,7 +6,7 @@ import { LocalStorageKey } from '../../enum';
   providedIn: 'root'
 })
 export class AuthService {
-  private token: string = '';
+  private token = '';
 
   constructor(private localstoragService: LocalStorageService) { }
 
@@ -15,7 +15,7 @@ export class AuthService {
   }
   getToken() {
     if (!this.token) {
-      let lsToken = this.localstoragService.getItem(LocalStorageKey.Token, false);
+      const lsToken = this.localstoragService.getItem(LocalStorageKey.Token, false);
       if (lsToken) {
         this.token = lsToken;
       }

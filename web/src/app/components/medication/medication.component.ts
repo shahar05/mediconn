@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Medication } from 'src/app/models';
 
 @Component({
   selector: 'app-medication',
@@ -7,7 +6,7 @@ import { Medication } from 'src/app/models';
   styleUrls: ['./medication.component.scss']
 })
 export class MedicationComponent implements OnInit {
-  @Input() medication : Medication;
+  @Input() medication: any;
   constructor() { }
 
   ngOnInit(): void {

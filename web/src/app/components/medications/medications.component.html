@@ -1,7 +1,32 @@
-<div   *ngFor="let medication of medications">
-    <app-medication   [medication]="medication" ></app-medication>   
-</div>
+<mat-accordion *ngIf="medications">
+  <mat-expansion-panel *ngFor="let medication of medications">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ medication.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ medication.description }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-<mat-card class="m-1 display-1 f-m" *ngIf="!medications.length">
-    No medications to display
-</mat-card>
+    <div class="d-flex justify-content-end">
+      <button
+        mat-mini-fab
+        color="primary"
+        class="mr-2"
+        aria-label="Example icon button with a delete icon "
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button
+        mat-mini-fab
+        color="warn"
+        class="ml-2"
+        aria-label="Example icon button with a delete icon"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

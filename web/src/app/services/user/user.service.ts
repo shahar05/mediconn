@@ -12,9 +12,10 @@ import { AuthService } from '../auth/auth.service';
 export class UserService {
 
 
-  token: String;
+  token: string;
   doctor: Doctor;
   admin: Admin;
+
   constructor(private net: NetService,
     private localStorageService: LocalStorageService,
     private authService: AuthService) { }
@@ -39,7 +40,7 @@ export class UserService {
   }
   login(doctorDetailes: BaseDoctorDetails) {
     return this.net.login(doctorDetailes).pipe(
-      tap((response: { token: string , object : Doctor}) => {
+      tap((response: { token: string, object: Doctor }) => {
         this.setDoctor(response.object)
         this.handleLogin(response);
       })
@@ -51,7 +52,7 @@ export class UserService {
     this.initAuthToken(response.token);
   }
 
-  setToken(token: String): void {
+  setToken(token: string): void {
     this.token = token;
   }
 
@@ -62,16 +63,16 @@ export class UserService {
   setDoctor(doctor: Doctor): void {
     this.doctor = doctor;
   }
-  getDoctorID(): String {
+  getDoctorID(): string {
     return this.doctor._id;
   }
   getDoctor() {
-    
+
     return this.net.getDoctor().pipe(
-      tap( (doctor : Doctor)=>{
+      tap((doctor: Doctor) => {
         this.setDoctor(doctor);
-      } )
-    );   
+      })
+    );
   }
 
   getCurrentDoctorDetails() {

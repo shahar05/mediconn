@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Treatment } from 'src/app/models';
 
 @Component({
   selector: 'app-treatments',
@@ -7,13 +6,13 @@ import { Treatment } from 'src/app/models';
   styleUrls: ['./treatments.component.scss']
 })
 export class TreatmentsComponent implements OnInit {
-  @Input() treatments : Treatment[];
+  @Input() treatments: any[];
 
   constructor() { }
 
   ngOnInit(): void {
-  
-    
+
+
 
   }
 

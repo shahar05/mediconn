@@ -14,6 +14,7 @@ body {
   height: 100%;
   font-size: 14px;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -43,6 +44,7 @@ body {
 .full-width {
   width: 100%;
 }
+
 .semi-width {
   width: 70%;
 }
@@ -54,13 +56,15 @@ body {
 .f-2 {
   font-size: 1.9rem;
 }
-.f-1-5{
+
+.f-1-5 {
   font-size: 1.5rem;
 }
 
 .f-s {
   font-size: 1rem;
 }
+
 .f-2-5 {
   font-size: 2.5rem;
 }
@@ -77,20 +81,22 @@ body {
   background-color: $dashboard-blue-btn-color;
   box-shadow: 0 3px 4px -1px rgba(0, 0, 0, 0.3) !important;
 }
+
 .red-color {
   background-color: $red-mat;
   box-shadow: 0 3px 4px -1px rgba(0, 0, 0, 0.3) !important;
 }
 
-.blue-shadow{
+.blue-shadow {
   box-shadow: 3px 3px 8px 2px rgba(75, 121, 255, 0.5) !important;
 }
 
 
-.mat-radio-inner-circle{
+.mat-radio-inner-circle {
   background-color: $dashboard-blue-btn-color !important;
 }
-.mat-ink-bar._mat-animation-noopable{
+
+.mat-ink-bar._mat-animation-noopable {
   background-color: $dashboard-blue-btn-color !important;
 }
 
@@ -98,6 +104,7 @@ body {
   padding: 0 !important;
   overflow: inherit !important;
 }
+
 .btn-sm {
   padding: 4px 9px;
 }
@@ -106,6 +113,7 @@ body {
   color: $white-color;
   background-color: $red-mat;
 }
+
 .mat-raised-button.mat-warn:hover {
   color: $red-mat;
   background-color: $white-color;
@@ -115,50 +123,63 @@ body {
   color: $white-color;
   background-color: $dashboard-blue-btn-color;
 }
+
 .mat-raised-button:hover {
   color: $dashboard-blue-btn-color;
   background-color: $white-color;
 }
+
 .mat-mini-fab.mat-primary {
   color: $white-color;
   background-color: $dashboard-blue-btn-color;
 }
+
 .mat-mini-fab:hover {
   color: $dashboard-blue-btn-color;
   background-color: $white-color;
 }
+
 .mat-mini-fab.mat-warn:hover {
   color: $red-mat;
   background-color: $white-color;
 }
+
 .btn {
   border-radius: 20px !important;
   border-color: $dashboard-blue-btn-color !important;
+
   &.large {
     padding: 9px 20px;
   }
+
   &.medium {
     padding: 6px 15px;
   }
+
   &.small {
     padding: 4px 9px;
   }
+
   &.primary {
     background-color: $dashboard-blue-btn-color;
     color: $white-color;
+
     &:hover {
       color: $dashboard-blue-btn-color;
       background-color: $white-color;
     }
   }
+
   &.secondary {
     background-color: $white-color;
     color: $dashboard-blue-btn-color;
+
     &:hover {
       color: $white-color;
       background-color: $dashboard-blue-btn-color;
     }
   }
+
   &.redanger {
     color: $white-color;
     background-color: $red-color;
@@ -168,8 +189,13 @@ body {
       color: $red-color;
     }
   }
+
   &:hover {
     transition: background-color 0.5s ease;
     transition: color 0.3s ease;
+  }
+
+  &.square {
+    border-radius: 10px !important;
   }
 }

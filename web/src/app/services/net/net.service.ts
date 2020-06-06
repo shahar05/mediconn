@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BaseDoctorDetails, BasePatient } from '../../models';
+import { BaseDoctorDetails, BasePatient, MedicalAdditions } from '../../models';
 import { LocalStorageKey } from '../../enum';
 
 
 
 
 
-const BaseURL: string = "http://localhost:3000/";
+const BaseURL = 'http://localhost:3000/';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,15 @@ export class NetService {
   constructor(private http: HttpClient) { }
 
   login(doctorDetails: BaseDoctorDetails) {
-    return this.http.post(BaseURL + "login", doctorDetails);
+    return this.http.post(BaseURL + 'login', doctorDetails);
   }
 
   getPatients(doctorId: string) {
-    // return this.http.get(BaseURL + "patients/" + this.getDoctorID()); !!!!! <--- very fucking bad!!!!!!!!!!!
+    // return this.http.get(BaseURL + 'patients/' + this.getDoctorID()); !!!!! <--- very fucking bad!!!!!!!!!!!
     return this.http.get(`${BaseURL}patients/${doctorId}`);
   }
   getPatientByID(patientID: string) {
-    return this.http.get(BaseURL + "patient/" + patientID);
+    return this.http.get(BaseURL + 'patient/' + patientID);
   }
 
   getQuestionsByPatientID(patientID: string) {
@@ -35,11 +35,11 @@ export class NetService {
 
   createNewPatient(basePatient: BasePatient) {
 
-    return this.http.post(BaseURL + "patients", basePatient)
+    return this.http.post(BaseURL + 'patients', basePatient);
   }
 
   getDoctor() {
-    return this.http.get(BaseURL + "doctors" )
+    return this.http.get(BaseURL + 'doctors');
   }
 
 
@@ -49,13 +49,16 @@ export class NetService {
 
 
   postDefaultQuestion(question) {
-    return this.http.post(BaseURL + "questions/default", question);
+    return this.http.post(BaseURL + 'questions/default', question);
   }
 
   getDefaultQuestions() {
-    return this.http.get(BaseURL + "questions/default");
+    return this.http.get(BaseURL + 'questions/default');
   }
 
+  createMedicalAdditions(medicalAddition: MedicalAdditions) {
+    return this.http.post(`${BaseURL}medical-additions`, { medicalAddition });
+  }
 }
 
 
