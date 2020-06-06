@@ -5,6 +5,7 @@
         <app-question 
         (deleteClicked)="deleteQuestion($event)" 
         [patientLanguage]="patientLanguage"
+        [isNotDefaultPage] = "isNotDefaultPage"
           [question]="question" ></app-question>
     </div>
     <mat-card class="m-1 display-1 f-m" *ngIf="!questions.length">

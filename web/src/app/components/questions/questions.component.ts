@@ -10,6 +10,7 @@ export class QuestionsComponent implements OnInit {
   @Output() deleteClicked: EventEmitter<Question> = new EventEmitter<Question>();
   @Input() questions: Question[];
   @Input() patientLanguage: String;
+  @Input() isNotDefaultPage : boolean;
   constructor() { }
 
   ngOnInit(): void { }

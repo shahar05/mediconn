@@ -13,8 +13,9 @@ export class QuestionService {
 
   postDefaultQuestion(question: BaseQuestion) {
     return this.net.postDefaultQuestion(question);
-
   }
+
+  
 
   getDefaultQuestions() {
     return this.net.getDefaultQuestions();

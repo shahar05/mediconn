@@ -11,6 +11,7 @@ export class QuestionComponent implements OnInit {
   @Output() deleteClicked : EventEmitter<Question> = new EventEmitter<Question>();
   @Input() question: Question;
   @Input() patientLanguage: string;
+  @Input() isNotDefaultPage : boolean;
   text: string = "How Many Times...";
   constructor() { }
 

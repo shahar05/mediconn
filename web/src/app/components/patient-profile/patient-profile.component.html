@@ -36,6 +36,7 @@
             <button
               class="d-flex shadow justify-content-center btn btn-primary square"
               mat-raised-button
+              (click)="addNewQuestions()"
             >
               New Question
             </button>
@@ -43,6 +44,7 @@
               (deleteClicked)="deleteQuestion($event)"
               [patientLanguage]="patient.language"
               [questions]="patient.questions"
+              [isNotDefaultPage] = "true"
             ></app-questions>
           </div>
         </mat-tab>
@@ -79,5 +81,6 @@
     </mat-card>
   </div>
 </div>
+
 
 <!-- <button   mat-raised-button color="primary">Detail</button> -->

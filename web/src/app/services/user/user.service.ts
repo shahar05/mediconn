@@ -63,8 +63,15 @@ export class UserService {
   setDoctor(doctor: Doctor): void {
     this.doctor = doctor;
   }
+
   getDoctorID(): string {
-    return this.doctor._id;
+      if(!this.doctor){
+        this.getDoctor();    
+        return this.localStorageService.getItem(LocalStorageKey.Doctor );
+      }else{
+        return this.doctor._id;
+      }
+      
   }
   getDoctor() {
 

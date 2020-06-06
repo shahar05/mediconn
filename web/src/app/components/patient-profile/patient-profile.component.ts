@@ -6,8 +6,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAlertComponent } from '../dialog-alert/dialog-alert.component';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { AddMedicationPopupComponent } from '../add-medication-popup/add-medication-popup.component';
-import { AddPopupType } from 'src/app/enum';
+import { AddPopupType, Language } from 'src/app/enum';
 import { UserService } from 'src/app/services/user/user.service';
+import { QuestionEditorComponent } from '../question-editor/question-editor.component';
+import { QuestionEditorWrapperComponent } from '../question-editor-wrapper/question-editor-wrapper.component';
 
 @Component({
   selector: 'app-patient-profile',
@@ -17,6 +19,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class PatientProfileComponent implements OnInit {
   patientID: string;
   patient: Patient;
+  creatorID : string;
   constructor(
     private patientService: PatientService,
     private dialogService: DialogService,
@@ -27,6 +30,8 @@ export class PatientProfileComponent implements OnInit {
   ngOnInit(): void {
     this.patientID = this.route.snapshot.paramMap.get('id');
     this.initPatient();
+     this.creatorID  =  this.userService.getDoctorID();
+       
   }
   initPatient() {
     this.patientService.getPatientByID(this.patientID).subscribe((patient: Patient) => {
@@ -45,6 +50,13 @@ export class PatientProfileComponent implements OnInit {
     });
   }
 
+  addNewQuestions(){
+    let languages : Language[] = [];
+    languages.push( this.patient.language)
+    this.dialogService.openDialog( 
+      QuestionEditorWrapperComponent , { edit : false , languages : languages , creatorID : this.creatorID   }
+       )
+  }
 
   addNewMedications() {
     this.openAddMedicationPopupComponent(AddMedicationPopupComponent, AddPopupType.Medication);
@@ -53,6 +65,7 @@ export class PatientProfileComponent implements OnInit {
 
 
   private openAddMedicationPopupComponent(component, type: AddPopupType) {
+
     this.dialogService.openDialog(component, { type })
       .afterClosed().subscribe((medicalAddition: MedicalAdditions) => {
         if (!medicalAddition) {
