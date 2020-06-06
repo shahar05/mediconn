@@ -9,9 +9,7 @@ export class QuestionService {
 
   constructor(private net: NetService) { }
 
-  getQuestionsByPatientID(patientID: string) {
-    return this.net.getQuestionsByPatientID(patientID);
-  }
+
 
   postDefaultQuestion(question: BaseQuestion) {
     return this.net.postDefaultQuestion(question);

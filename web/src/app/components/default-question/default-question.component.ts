@@ -62,7 +62,6 @@ export class DefaultQuestionComponent implements OnInit {
 
     this.questionService.postDefaultQuestion(this.question).subscribe((response) => {
       console.log("suscess"); console.log(response);
-      window.location.reload();
     }, (err) => {
       console.log("error"); console.log(err);
     })
