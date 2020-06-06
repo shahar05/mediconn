@@ -12,7 +12,10 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private userService : UserService,private router: Router, private dialog: MatDialog, private patientService: PatientService) { }
+  constructor(private userService: UserService,
+              private router: Router,
+              private dialog: MatDialog,
+              private patientService: PatientService) { }
 
   ngOnInit(): void {
   }
@@ -22,11 +25,14 @@ export class NavbarComponent implements OnInit {
       width: '35%',
       height: '500px',
       disableClose: true,
-      data: "Edit"
+      data: 'Edit'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) this.navToViewPatient();
+      if (result)
+      {
+        this.navToViewPatient();
+      }
     });
   }
 

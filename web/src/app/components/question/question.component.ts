@@ -14,9 +14,7 @@ export class QuestionComponent implements OnInit {
   text: string = "How Many Times...";
   constructor() { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   questionDisplay() {
     this.question.textArr.forEach(element => {

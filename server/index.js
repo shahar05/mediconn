@@ -27,7 +27,6 @@ app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 
 
-
 app.use((req, res, next) => {
     if (req.url.includes('login')) {
         next();

@@ -10,26 +10,58 @@ import { Patient } from 'src/app/models';
 })
 export class ViewPatientsComponent implements OnInit {
   phoneNumber: string;
+  searchKey: string;
   patients: Patient[];
-  patientsFilter: Patient[] = [];
+  patientsTemp: Patient[];
+
   constructor(private patientService: PatientService, private userService: UserService) { }
 
   ngOnInit(): void {
     const doctorId: string = this.userService.getCurrentDoctorDetails();
     this.patientService.getPatients(doctorId).subscribe((patients: Patient[]) => {
       this.patients = patients;
+      this.patientsTemp = patients;
     });
   }
 
-  filter() {
-    this.patients.forEach(patient => {    // dont use foreach in JS you cannot debug it, also start debuging you code!  
-      if (patient.phoneNumber.includes(this.phoneNumber)) {
-        this.patientsFilter.push(patient);
+  searchByPhoneNumber(phoneNumber: string) {
+    let patientsFilter: Patient[] = []; // dont use foreach in JS you cannot debug it, also start debuging you code!  
+  
+
+    console.log(phoneNumber);
+
+
+    this.patientsTemp.forEach(patient => {
+      if (patient.phoneNumber.replace("-", "").includes(phoneNumber)) {
+        patientsFilter.push(patient);
       }
     });
-    this.patients = this.patientsFilter;
+    return patientsFilter;
+  }
+  searchByName(patientName: string) {
+    let patientsFilter: Patient[] = [];
+    if (!/^[a-zA-Z]+$/.test(patientName)) return this.patientsTemp;
+
+    patientName = patientName.toLowerCase();
+    this.patientsTemp.forEach(patient => {
+
+      if (patient.firstName.toLocaleLowerCase().includes(patientName)
+        || patient.lastName.toLocaleLowerCase().includes(patientName)) {
+        patientsFilter.push(patient);
+      }
+    });
+    return patientsFilter;
+  }
 
 
+  filter() {
+    let str:string =  this.searchKey.replace("-", "");
+    if (str && str.length != 0)
+      this.patients =
+        /[0-9]+$/.test(str) ?
+          this.searchByPhoneNumber(str) :
+          this.searchByName(str);
+    else this.patients = this.patientsTemp;
   }
 
 }
