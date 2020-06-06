@@ -11,8 +11,7 @@ const doctorRoute = require("./routes/doctor");
 const patientRoute = require("./routes/patient");
 const questionRoute = require("./routes/question");
 const authenticationRoute = require("./routes/authentications");
-const treatmentRoute = require("./routes/treatments");
-const medicationRoute = require("./routes/medications");
+const medicalAdditions = require("./routes/medicalAdditions");
 const Authenticate = require('./AuthenticationHandler/Authentication');
 
 var env = require('./env.json')
@@ -63,10 +62,8 @@ app.use(doctorRoute);
 app.use(patientRoute);
 // ========== Question Routes ==========
 app.use(questionRoute);
-// ========== Treatment Routes ==========
-app.use(treatmentRoute);
 // ========== Medication Routes ==========
-app.use(medicationRoute);
+app.use(medicalAdditions);
 
 
 app.get("*", function (req, res) {

@@ -13,13 +13,13 @@ var patientSchema = new mongoose.Schema({
     treatments:[
         { 
             type: mongoose.Schema.Types.ObjectId,
-            ref:"Treatment"
+            ref:"MedicalAdditions"
         }
     ],
     medications:[
         { 
             type: mongoose.Schema.Types.ObjectId,
-            ref:"Medication"
+            ref:"MedicalAdditions"
         }
     ],
     questions:[
