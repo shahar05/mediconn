@@ -17,9 +17,7 @@ export class MedicalAdditionsApi implements BaseApi {
 
     initRoutes() {
         this.router.post('/medical-additions', (req: Request, res: Response) => {
-            console.log('create medical-additions started', req.body.medicalAddition);
             this.medicalAdditionsBL.createMedicalAddition(req.body.medicalAddition).then((data) => {
-                console.log('123123123123123123123')
                 res.send(data);
             })
         })

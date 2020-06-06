@@ -37,7 +37,6 @@ class Server {
         this.app.use('/api', authMiddleware, new QuestionApi().router)
         this.app.use('/api', authMiddleware, new MedicalAdditionsApi().router)
 
-
     }
 
     private initTestRoute() {

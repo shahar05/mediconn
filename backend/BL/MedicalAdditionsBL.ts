@@ -6,18 +6,15 @@ export class MedicalAdditionsBL {
     createMedicalAddition(medicalAddition: IMedicalAdditions) {
         return new Promise((resolve, reject) => {
             MedicalAdditionsBL.dal.createMedicalAdditions(medicalAddition).then((res: IMedicalAdditions) => {
-                console.log('=========>', res)
                 MedicalAdditionsBL.dal.updateMedicationsOrTreatmentsToPatient(res).then((response) => {
                     resolve(response)
                     return;
                 }).catch((err) => {
-                    console.log('createMedicalAdditions 11 ');
                     console.log(err);
                     reject(err);
                 })
 
             }).catch((err) => {
-                console.log('createMedicalAdditions   22222', err);
                 reject(err);
             })
         })
