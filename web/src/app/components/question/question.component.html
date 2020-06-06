@@ -1,5 +1,6 @@
 <mat-accordion *ngIf="question" >
   <mat-expansion-panel >
+
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{question.questionType}}
@@ -9,24 +10,23 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div class="d-flex align-contet-start">
+      <div class="d-flex align-contet-start">
       <div class="col-3 m-3  ">{{question.timestemp | date}} </div>
       <div class="col-6"></div>
       <div class="col-3 text-right">
 
-        <button mat-mini-fab color="primary" class="mr-2" aria-label="Example icon button with a delete icon ">
+          
+        <button mat-mini-fab  [disabled]="question.isDefault"  color="primary" class="mr-2" aria-label="Example icon button with a delete icon ">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-mini-fab color="warn" class="ml-2"
+        <button mat-mini-fab [disabled]="question.isDefault"  color="warn" class="ml-2"
         (click)="delete()"
         aria-label="Example icon button with a delete icon">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
     </div>
-
-
 
   </mat-expansion-panel>
 </mat-accordion>

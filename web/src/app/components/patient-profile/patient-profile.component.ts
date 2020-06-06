@@ -30,7 +30,7 @@ export class PatientProfileComponent implements OnInit {
       width: '45%',
       height: '175px',
       disableClose: false,
-      data: "Edit"
+      data: 'Edit'
     });
   }
 
