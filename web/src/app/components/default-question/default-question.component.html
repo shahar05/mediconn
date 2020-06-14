@@ -1,6 +1,10 @@
 <div class="d-flex justify-content-center p-4">
     <div class="col-5 pr-0">
-        <app-question-editor [languages] ="languages" (createClicked)="createQuestion($event)"  ></app-question-editor>
+        <app-question-update-create *ngIf="question && question.creatorID"
+            [question]="question"
+            [questionNeedToUpdate]="questionNeedToUpdate"
+            (sendQuestionClicked)="createDefaultQuestion($event)">
+        </app-question-update-create>
     </div>
 
     <div class="col pl-0">
@@ -12,7 +16,14 @@
             </mat-card-header>
             <mat-tab-group mat-stretch-tabs>
                 <mat-tab *ngFor="let language of languages; let index = index" [label]="language">
-                    <app-questions [patientLanguage]="language" [isNotDefaultPage]="false" [questions]="questions"></app-questions>
+                    <app-questions 
+                    [patientLanguage]="language" 
+                    [isNotDefaultPage]="false" 
+                    [questions]="questions"
+                    (deleteClicked)="deleteQuestion($event)"
+                    (editClicked)="editQuestion($event)"
+                    >
+                    </app-questions>
                 </mat-tab>
             </mat-tab-group>
 

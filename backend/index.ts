@@ -8,6 +8,7 @@ import { PatientApi } from "./API/patientApi";
 import { QuestionApi } from "./API/QuestionApi";
 import { MedicalAdditionsBL } from "./BL/MedicalAdditionsBL";
 import { MedicalAdditionsApi } from "./API/MedicalAdditionsApi";
+import { AdminApi } from "./API/AdminAPI";
 
 const cors = require('cors')
 
@@ -25,24 +26,32 @@ class Server {
         this.app.use(cors({ origin: true }));
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
+        this.app.use((req, res, next)=> {
+            if(  req.originalUrl !== "/api/doctor/current")
+              console.log(req.originalUrl );
+               
+            // var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+            // console.log(ip); 
+            next();
+        });
     }
+ 
 
     private initNotGuardedRoutes() {
         this.app.use('/api', new LoginApi().router)
     }
 
     private initGuardedRoutes() {
+        this.app.use('/api', authMiddleware, new AdminApi().router)
         this.app.use('/api', authMiddleware, new DoctorApi().router)
         this.app.use('/api', authMiddleware, new PatientApi().router)
         this.app.use('/api', authMiddleware, new QuestionApi().router)
         this.app.use('/api', authMiddleware, new MedicalAdditionsApi().router)
-
-
     }
 
     private initTestRoute() {
         this.app.get('/', (req, res) => {
-            res.send('Hello World')
+            res.send();  
         })
     }
 

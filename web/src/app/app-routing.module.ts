@@ -5,11 +5,16 @@ import { ViewPatientsComponent } from './components/view-patients/view-patients.
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 import { DefaultQuestionComponent } from './components/default-question/default-question.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+import { DoctorsViewComponent } from './components/doctors-view/doctors-view.component';
+import { AuthAdminGuard } from './guards/auth-admin.guard';
 
 
 const routes: Routes = [
 
   {path : "" , component : LoginPageComponent } ,
+  {path : "admin" , component: AdminLoginComponent , },
+  {path: "doctors" , component : DoctorsViewComponent , canActivate:[AuthAdminGuard] },
   {path : "patients" , component: ViewPatientsComponent, canActivate:[AuthGuard]},
   {path : "patients/:id" , component: PatientProfileComponent, canActivate:[AuthGuard]},
   {path : "defaultQuestion" , component: DefaultQuestionComponent, canActivate:[AuthGuard]}

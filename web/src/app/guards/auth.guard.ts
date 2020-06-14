@@ -16,7 +16,8 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let isAuth : boolean= !!this.localStorageService.getItem(LocalStorageKey.Token );
+      // IMPORTANT TODO: need to check whether or not the Token has expired  
+      let isAuth : boolean= !!this.localStorageService.getItem( LocalStorageKey.Doctor );
             
       return   isAuth ? true :     this.router.parseUrl('/');
     

@@ -1,8 +1,9 @@
+
 <mat-card class="d-flex flex-column shadow p-0">
 
     <mat-card-header class="text-center f-2-5 white-font blue-color ">
         <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
-            New Default Question
+            {{ headline() }} Question
         </div>
     </mat-card-header>
 
@@ -10,15 +11,16 @@
     <mat-tab-group mat-stretch-tabs [selectedIndex]="selected.value"
         (selectedIndexChange)="selected.setValue($event)">
 
-        <mat-tab *ngFor="let language of languages" [label]="language">
+        <mat-tab *ngFor="let language of languages; let i = index;" [label]="language">
 
             <mat-form-field class="full-width text-center pl-5 pr-5 mt-4 mb-3">
                 <label class="display-4 f-m "> Enter Question in {{language}}</label>
-                <input matInput [(ngModel)]="texts[language]">
+                <input matInput [(ngModel)]="langugeDictionary[language]">
             </mat-form-field>
 
         </mat-tab>
     </mat-tab-group>
+    
     <div class="text-center ml-4 mr-4 ">
         <label id="example-radio-group-label" class="display-4 f-m"> Select Type Of Question</label> <br>
         <mat-radio-group aria-labelledby="example-radio-group-label" [(ngModel)]="question.questionType">
@@ -42,7 +44,9 @@
 
 
     <div class="text-center m-3">
-        <button mat-raised-button color="primary" (click)="createDefaultQuestion()">Submit</button>
+        <button mat-raised-button color="warn"  *ngIf="fromPopUp"  class="mr-3" (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="sendQuestion()">Submit</button>
+      
     </div>
 
 </mat-card>

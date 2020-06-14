@@ -1,0 +1,67 @@
+<mat-card class="d-flex flex-column shadow p-0">
+
+    <mat-card-header class="text-center f-2-5 white-font blue-color ">
+        <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
+            {{ headline }} Doctor
+        </div>
+    </mat-card-header>
+
+    <mat-card-content class="d-flex justify-content-center flex-wrap mt-3">
+
+        <mat-form-field class="col-5 text-center">
+            <input matInput placeholder="username" [(ngModel)]="doctor.username">
+        </mat-form-field>
+
+        <mat-form-field class="col-5 text-center">
+            <input matInput placeholder="password" [(ngModel)]="doctor.password">
+        </mat-form-field>
+
+
+        <mat-form-field class="col-5 text-center">
+            <input matInput placeholder="First Name" [(ngModel)]="doctor.firstName">
+        </mat-form-field>
+
+        <mat-form-field class="col-5 text-center">
+            <input matInput placeholder="Last Name" [(ngModel)]="doctor.lastName">
+        </mat-form-field>
+
+        <mat-form-field class="col-5 text-center">
+            <input matInput placeholder="Phone Number" [(ngModel)]="doctor.phoneNumber">
+        </mat-form-field>
+
+        <mat-form-field class="col-5 text-center">
+            <input matInput placeholder="Department" [(ngModel)]="doctor.department">
+        </mat-form-field>
+
+
+
+        <mat-form-field class="col-10 text-center" *ngIf="!data.edit">
+            <mat-label>Main Language</mat-label>
+            <mat-select [(ngModel)]="doctor.mainLanguage">
+                <mat-option *ngFor="let language of languages" [value]="language" class="text-center">
+                    <strong> {{language}}</strong>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="col-11 text-center p-3" *ngIf="!data.edit">
+            <label  class="display-4 f-1-5">  Select known languages</label>
+            <section>
+                <mat-checkbox class="m-2" [(ngModel)]="checks.Hebrew">Hebrew</mat-checkbox>
+                <mat-checkbox class="m-2" [(ngModel)]="checks.English">English</mat-checkbox>
+                <mat-checkbox class="m-2" [(ngModel)]="checks.Russian">Russian</mat-checkbox>
+                <mat-checkbox class="m-2" [(ngModel)]="checks.French">French</mat-checkbox>
+                <mat-checkbox class="m-2" [(ngModel)]="checks.Arabic">Arabic</mat-checkbox>
+            </section>
+        </div>
+
+
+    </mat-card-content>
+    <mat-card-actions class="p-2 pb-5">
+        <div class="d-flex justify-content-center">
+            <button mat-raised-button color="warn" (click)="cancel()" class="col-4">Cancel</button>
+            <button mat-raised-button color="primary" class="col-4" (click)="submit()">Submit</button>
+        </div>
+    </mat-card-actions>
+
+</mat-card>

@@ -7,7 +7,7 @@ export abstract class Authenticate {
     static createToken(user: any) {
         var token = jwt.sign({
             user,
-        }, env.secret, { expiresIn: '3h' });
+        }, env.secret, { expiresIn: '1h' });
 
         return token;
     }

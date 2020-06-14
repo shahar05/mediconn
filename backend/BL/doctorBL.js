@@ -15,6 +15,8 @@ var DoctorBL = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             DoctorBL.dal.getDoctor(doctorId).then(function (res) {
                 resolve(res);
+            }).catch(function (err) {
+                reject(err);
             });
         });
     };

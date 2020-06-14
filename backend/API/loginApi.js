@@ -19,7 +19,7 @@ var LoginApi = /** @class */ (function () {
         this.adminBL.login(req.body).then(function (admin) {
             res.send({ token: _this.createToken(admin), isLogin: true, type: "admin", object: admin });
         }).catch(function (err) {
-            res.status(401).send({ isLogin: false, response: "doctor not found" });
+            res.status(401).send({ isLogin: false, response: "admin not found" });
         });
     };
     LoginApi.prototype.loginDoctor = function (req, res) {

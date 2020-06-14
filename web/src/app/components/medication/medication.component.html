@@ -10,13 +10,12 @@
           </mat-panel-description>
         
       </mat-expansion-panel-header>
-  
-    
+
         <div class=" text-right">
-            <button mat-mini-fab color="primary" class="mr-2" >
+            <button mat-mini-fab color="primary" class="mr-2" (click)="editMedication()" >
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-mini-fab color="warn" class="ml-2" >
+              <button mat-mini-fab color="warn" class="ml-2" (click)="deleteMedication()" >
                 <mat-icon>delete</mat-icon>
               </button>
       </div>

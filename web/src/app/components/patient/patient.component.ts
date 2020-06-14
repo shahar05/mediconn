@@ -11,10 +11,7 @@ export class PatientComponent implements OnInit {
   @Input() patient : Patient;
   constructor(private router : Router) { }
 
-  ngOnInit(): void {
-    let  l = this.patient.phoneNumber.length;
-     this.patient.phoneNumber = this.patient.phoneNumber.substring(0,3) + "-" + this.patient.phoneNumber.substring(3,l);
-  }
+  ngOnInit(): void {}
 
 
   navigateToPatientProfile(){

@@ -19,10 +19,12 @@
                     <input matInput placeholder="Password" [(ngModel)]="doctor.password">
                 </mat-form-field><br />
 
+
                 <span *ngIf="msg" >{{msg}}</span>
                 <button (click)="login()" class="shadow mt-3 mb-5 semi-width"  mat-raised-button color="primary">Submit</button>
-
+                
             </mat-card-content>
+            
         </mat-card>
 
     </div>

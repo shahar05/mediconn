@@ -3,6 +3,8 @@ import { IDoctor, IPatient } from '../models';
 
 export class DoctorBL {
     private static dal: Dal = new Dal();
+
+    
     getUser() {
         return new Promise((resolve, reject) => {
             DoctorBL.dal.getDoctors().then((res) => {
@@ -15,6 +17,9 @@ export class DoctorBL {
         return new Promise((resolve, reject) => {
             DoctorBL.dal.getDoctor(doctorId).then((res: IDoctor) => {
                 resolve(res);
+            }).catch((err)=>{
+                reject(err);
+                
             })
         })
     }

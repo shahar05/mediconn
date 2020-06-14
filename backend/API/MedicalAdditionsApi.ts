@@ -3,7 +3,7 @@ import { DoctorBL } from '../BL/DoctorBL';
 import { PatientBL } from "../BL/PatientBL";
 import { BaseApi } from "./BaseApi";
 import { QuestionBL } from "../BL/QuestionBL";
-import { IQuestion } from '../models';
+import { IQuestion, IMedicalAdditions } from '../models';
 import { MedicalAdditionsBL } from "../BL/MedicalAdditionsBL";
 
 export class MedicalAdditionsApi implements BaseApi {
@@ -16,11 +16,28 @@ export class MedicalAdditionsApi implements BaseApi {
     }
 
     initRoutes() {
+
+        this.router.put('/medical-additions' , (req,res)=>{
+            this.medicalAdditionsBL.updateMedical(req.body).then((med :IMedicalAdditions)=>{
+                res.send(med);
+            }).catch((err)=>{
+                res.status(400).send(err);
+            })
+        })
+
+        this.router.delete('/medical-additions/:id' , (req,res)=>{
+            this.medicalAdditionsBL.deleteMedical(req.params.id).then(()=>{
+                res.status(204).send();
+            }).catch((err)=>{
+                res.status(400).send(err);
+            })
+        } )
+
         this.router.post('/medical-additions', (req: Request, res: Response) => {
             console.log('create medical-additions started', req.body.medicalAddition);
             this.medicalAdditionsBL.createMedicalAddition(req.body.medicalAddition).then((data) => {
-                console.log('123123123123123123123')
-                res.send(data);
+                 console.log("Medical Addition Created")
+                res.status(201).send(data);
             })
         })
 

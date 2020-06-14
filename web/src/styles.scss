@@ -40,7 +40,9 @@ body {
 .dialog-width {
   width: 68%;
 }
-
+.small-width{
+  width: 32%;
+}
 .full-width {
   width: 100%;
 }
@@ -104,6 +106,12 @@ body {
   padding: 0 !important;
   overflow: inherit !important;
 }
+
+.align-end{
+  justify-content: flex-end !important;
+}
+
+
 
 .btn-sm {
   padding: 4px 9px;

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-alert',
@@ -7,15 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogAlertComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<DialogAlertComponent>,
+              @Inject(MAT_DIALOG_DATA) private data: { isDefault : boolean }
+  ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-  onCance(){
-    
+  onCancel(){
+    this.dialogRef.close(false);
+
   }
   onDelete(){
-
+    this.dialogRef.close(true);
   }
 }

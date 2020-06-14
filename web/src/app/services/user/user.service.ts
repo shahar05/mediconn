@@ -11,7 +11,6 @@ import { AuthService } from '../auth/auth.service';
 })
 export class UserService {
 
-
   token: string;
   doctor: Doctor;
   admin: Admin;
@@ -38,6 +37,17 @@ export class UserService {
   logout() {
     this.localStorageService.removeAll();
   }
+
+  adminLogin(admin: BaseDoctorDetails) {
+    return this.net.login(admin).pipe(
+      tap((response: { token: string, object: Admin }) => {
+        this.setAdmin(response.object)
+        this.handleLogin(response);
+      })
+    )
+  }
+
+
   login(doctorDetailes: BaseDoctorDetails) {
     return this.net.login(doctorDetailes).pipe(
       tap((response: { token: string, object: Doctor }) => {
@@ -64,15 +74,7 @@ export class UserService {
     this.doctor = doctor;
   }
 
-  getDoctorID(): string {
-      if(!this.doctor){
-        this.getDoctor();    
-        return this.localStorageService.getItem(LocalStorageKey.Doctor );
-      }else{
-        return this.doctor._id;
-      }
-      
-  }
+
   getDoctor() {
 
     return this.net.getDoctor().pipe(
@@ -82,7 +84,19 @@ export class UserService {
     );
   }
 
+  getDoctorID(): string {
+    if(!this.doctor){
+      this.getDoctor();    
+      return this.localStorageService.getItem(LocalStorageKey.Doctor );
+    }else{
+      return this.doctor._id;
+    }   
+}
   getCurrentDoctorDetails() {
     return this.localStorageService.getItem(LocalStorageKey.Doctor, false);
   }
+  getAdminID(): string {
+    return this.localStorageService.getItem(LocalStorageKey.Admin, false);
+  }
+
 }

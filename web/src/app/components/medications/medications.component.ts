@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MedicalAdditions } from 'src/app/models';
 
 @Component({
@@ -8,12 +8,21 @@ import { MedicalAdditions } from 'src/app/models';
 })
 export class MedicationsComponent implements OnInit {
   @Input() medications: MedicalAdditions[];
+  @Output() editClicked : EventEmitter<MedicalAdditions> =  new EventEmitter<MedicalAdditions>();
+  @Output() deleteClicked : EventEmitter<MedicalAdditions> =  new EventEmitter<MedicalAdditions>();
 
   constructor() { }
 
   ngOnInit(): void {
 
-
   }
+
+  editMedication(medication : MedicalAdditions) {
+    this.editClicked.emit(medication);
+  }
+  deleteMedication(medication : MedicalAdditions) {
+    this.deleteClicked.emit(medication);
+  }
+
 
 }

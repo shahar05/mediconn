@@ -1,4 +1,45 @@
-    
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BaseQuestion, Question, Patient } from 'src/app/models';
+import { QuestionService } from 'src/app/services/question/question.service';
+import { Language } from 'src/app/enum';
+@Component({
+  selector: 'app-question-editor-wrapper',
+  templateUrl: './question-editor-wrapper.component.html',
+  styleUrls: ['./question-editor-wrapper.component.scss']
+})
+export class QuestionEditorWrapperComponent implements OnInit {
+  languages: Language[] = [];
+  constructor(public dialogRef: MatDialogRef<QuestionEditorWrapperComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      questionToEdit: Question;
+      patient: Patient;
+      isDefault: boolean;
+    }, private questionService: QuestionService) { }
+  ngOnInit(): void {
+    this.languages.push(this.data.patient.language);
+  }
+  createNewQuestion(newQuestion: BaseQuestion) {
+    console.log(newQuestion);
+    newQuestion.isDefault = false;
+    newQuestion.creatorID = this.data.patient.creatorID;
+    console.log(newQuestion.creatorID);
+    this.questionService.createNewQuestionToPatient(newQuestion, this.data.patient._id).subscribe((newQuestion) => {
+      console.log("wonderfull");
+      console.log(newQuestion);
+      this.dialogRef.close(newQuestion);
+    }, (err: any) => {
+      console.log("error when create new question");
+      console.log(err);
+    });
+  }
+}
+
+
+
+
+
       // this.languages.forEach((lang, index) => {
       //   let textQuestion: QuestionText = { language: lang, text: null }
       //   this.question.textArr.push(textQuestion)

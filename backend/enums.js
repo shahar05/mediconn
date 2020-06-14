@@ -2,7 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Language;
 (function (Language) {
-    Language[Language["english"] = 0] = "english";
+    Language["Hebrew"] = "Hebrew";
+    Language["English"] = "English";
+    Language["Arabic"] = "Arabic";
+    Language["French"] = "French";
+    Language["Russian"] = "Russian";
 })(Language = exports.Language || (exports.Language = {}));
 var QuestionType;
 (function (QuestionType) {
