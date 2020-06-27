@@ -104,7 +104,7 @@ export class NavbarComponent implements OnInit {
   }
 
   navToViewPatient() {
-    if (!!this.doctorID)
+    if (this.isDoctor)
       this.router.navigate(["patients"]);
     else
       this.router.navigate(["doctors"]);
