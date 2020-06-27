@@ -9,12 +9,14 @@ import { Question, QuestionText } from 'src/app/models';
 export class QuestionComponent implements OnInit {
 
   @Output() deleteClicked : EventEmitter<Question> = new EventEmitter<Question>();
+  @Output() editClicked : EventEmitter<Question> = new EventEmitter<Question>();
   @Input() question: Question;
   @Input() patientLanguage: string;
+  @Input() isNotDefaultPage : boolean;
   text: string = "How Many Times...";
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   questionDisplay() {
     this.question.textArr.forEach(element => {
@@ -25,6 +27,10 @@ export class QuestionComponent implements OnInit {
     return this.text;
   }
   
+  edit():void{
+    this.editClicked.emit(this.question);
+  }
+
   delete():void {
       this.deleteClicked.emit(this.question);
   } 

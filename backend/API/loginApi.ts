@@ -21,18 +21,23 @@ export class LoginApi implements BaseApi {
             res.send({ token: this.createToken(admin), isLogin: true, type: "admin", object: admin })
 
         }).catch(err => {
-            res.status(401).send({ isLogin: false, response: "doctor not found" });
+            res.status(401).send({ isLogin: false, response: "admin not found" });
         })
     }
+
     private loginDoctor(req: Request, res: Response) {
         this.doctorBL.login(req.body).then((doctor) => {
-            res.send({ token: this.createToken(doctor), isLogin: true, type: "doctor", object: doctor })
+            if (doctor) {
+                res.send({ token: this.createToken(doctor), isLogin: true, type: "doctor", object: doctor })
+            } else {
+                console.log(doctor)
+            }
         }).catch(err => {
             res.status(401).send({ isLogin: false, response: "doctor not found" });
         })
-
     }
     initRoutes() {
+
         this.router.post('/login', (req: Request, res: Response) => {
             if (req.body.user === 'admin') {
                 this.loginAdmin(req, res);

@@ -12,20 +12,34 @@ export class AddMedicationPopupComponent implements OnInit {
   medicalAddition: MedicalAdditions;
   pageTitle: string;
   constructor(public dialogRef: MatDialogRef<AddMedicationPopupComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: { type: AddPopupType }) { }
+    @Inject(MAT_DIALOG_DATA) private data: { medicalAddition: MedicalAdditions, type: AddPopupType }) { }
 
 
   ngOnInit(): void {
+
+    if (this.data.medicalAddition) {
+      this.medicalAddition = this.data.medicalAddition;
+    } else {
+      this.initMedicalAddition();
+    }
+
     this.setPageTitle();
-    this.initMedicalAddition();
+
   }
 
   setPageTitle() {
-    if (this.data.type === AddPopupType.Medication) {
-      this.pageTitle = 'Add new Medication';
-      return;
+    
+    if(this.data.medicalAddition){
+      this.pageTitle = 'Update';
+    }else{
+      this.pageTitle = 'Create';
     }
-    this.pageTitle = 'Add new Treatment';
+    if (this.data.type === AddPopupType.Medication) {
+      this.pageTitle += '  Medication';
+    } else {
+      this.pageTitle += '  Treatment';
+    }
+
   }
 
   initMedicalAddition() {
@@ -36,7 +50,7 @@ export class AddMedicationPopupComponent implements OnInit {
     };
   }
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 
   submitForm() {

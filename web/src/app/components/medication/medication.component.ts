@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-medication',
@@ -7,9 +9,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MedicationComponent implements OnInit {
   @Input() medication: any;
-  constructor() { }
+  @Output() editClicked : EventEmitter<any> =  new EventEmitter<any>();
+  @Output() deleteClicked : EventEmitter<any> =  new EventEmitter<any>();
+    constructor() { }
 
   ngOnInit(): void {
   }
 
+  editMedication() {
+    this.editClicked.emit(this.medication);
+  }
+  deleteMedication() {
+    this.deleteClicked.emit(this.medication);
+  }
 }

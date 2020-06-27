@@ -11,7 +11,7 @@ var Authenticate = /** @class */ (function () {
     Authenticate.createToken = function (user) {
         var token = jsonwebtoken_1.default.sign({
             user: user,
-        }, env.secret, { expiresIn: '3h' });
+        }, env.secret, { expiresIn: '1h' });
         return token;
     };
     Authenticate.deserializeObject = function (token) {

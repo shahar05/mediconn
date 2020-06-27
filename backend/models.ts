@@ -4,6 +4,8 @@ import { Language, QuestionType, AddPopupType } from "./enums";
 export const Languages = ["Hebrew" ,"English" , "Arabic" , "French" ,"Russian"];
 export const QuestionTypes = ["Binary" , "Regular" , "Quantity"];
 
+
+
 export interface IDoctor extends mongoose.Document {
     username: string;
     password: string;
@@ -13,7 +15,7 @@ export interface IDoctor extends mongoose.Document {
     phoneNumber: string;
     creatorID: string;
     mainLanguage: Language,
-    languages: string[]
+    languages: Language[]
 }
 
 export interface RequestUser {
@@ -39,7 +41,7 @@ export interface IPatient extends mongoose.Document {
     lastName: string;
     creatorID: string;
     phoneNumber: string;
-    language: string;
+    language: Language;
     startHour: number;
     endHour: number;
     questions: IQuestion[];

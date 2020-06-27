@@ -1,0 +1,8 @@
+
+
+<app-question-update-create *ngIf="data.question && data.question.creatorID"
+[question]="data.question"
+[questionNeedToUpdate]="data.questionNeedToUpdate"
+[fromPopUp]="true"
+(sendQuestionClicked)="sendQuestion($event)">
+</app-question-update-create>

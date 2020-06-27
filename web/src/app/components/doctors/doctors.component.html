@@ -1,0 +1,9 @@
+
+<div class="d-flex  justify-content-start  flex-wrap">
+    <div  class="col-4 mt-4" *ngFor="let doctor of doctors">
+      <app-doctor (editClicked)="editDoctor($event)" 
+      (deleteClicked)="deleteDoctor($event)"
+      [doctor]="doctor"></app-doctor>
+    </div>
+</div>
+

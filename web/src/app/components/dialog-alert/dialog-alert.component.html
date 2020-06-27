@@ -1,12 +1,17 @@
-<h1 mat-dialog-title class="red-color text-center white-font p-1 ">
-    Delete
-</h1>
 
-<div mat-dialog-content class="text-center p-0">
-      <p class="display-4 f-m">Are you sure you want to do this?</p>  
-</div>
 
-<div mat-dialog-actions class="text-right p-0">
-    <button mat-raised-button color="primary" (click)="onCance()" >Cancel</button>
-    <button mat-raised-button color="warn"  (click)="onDelete()" >Delete</button>
-</div>
+    <h1 mat-dialog-title class="red-color text-center white-font p-1 ">
+        Delete
+    </h1>
+    
+    <div mat-dialog-content class=" p-0 ml-4 mb-0">
+          <p class="display-4 f-m"> <strong>Are you sure you want to do this?  </strong>  </p>  
+    </div>
+    
+    <div mat-dialog-actions   class="align-end p-0 mr-4 mt-0">
+        
+        <button mat-raised-button color="primary" (click)="onCancel()" >Cancel</button>
+        <button mat-raised-button color="warn"  (click)="onDelete()" >Delete</button>
+    </div>
+
+

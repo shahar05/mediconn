@@ -10,11 +10,23 @@ var MedicalAdditionsApi = /** @class */ (function () {
     }
     MedicalAdditionsApi.prototype.initRoutes = function () {
         var _this = this;
+        this.router.put('/medical-additions', function (req, res) {
+            _this.medicalAdditionsBL.updateMedical(req.body).then(function (med) {
+                res.send(med);
+            }).catch(function (err) {
+                res.status(400).send(err);
+            });
+        });
+        this.router.delete('/medical-additions/:id', function (req, res) {
+            _this.medicalAdditionsBL.deleteMedical(req.params.id).then(function () {
+                res.status(204).send();
+            }).catch(function (err) {
+                res.status(400).send(err);
+            });
+        });
         this.router.post('/medical-additions', function (req, res) {
-            console.log('create medical-additions started', req.body.medicalAddition);
             _this.medicalAdditionsBL.createMedicalAddition(req.body.medicalAddition).then(function (data) {
-                console.log('123123123123123123123');
-                res.send(data);
+                res.status(201).send(data);
             });
         });
     };

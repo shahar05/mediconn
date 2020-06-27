@@ -9,8 +9,10 @@ export class DialogService {
 
   constructor(private dialog: MatDialog) { }
 
-  openDialog(component: ComponentType<any>, data: any) {
+  openDialog(component: ComponentType<any>, data: any , width? :string, height? : string  )  {
     const dialogRef = this.dialog.open(component, {
+      width,
+      height,
       data
     });
     return dialogRef;

@@ -1,5 +1,0 @@
- {type:Number  , validate:[typeCheck , "from typeCheck function"]}
- function typeCheck(minOrMax) {
-     console.log(questionSchema);
- return true;
- }

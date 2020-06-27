@@ -15,6 +15,7 @@
         color="primary"
         class="mr-2"
         aria-label="Example icon button with a delete icon "
+        (click)="editMedication(medication)"
       >
         <mat-icon>edit</mat-icon>
       </button>
@@ -24,6 +25,7 @@
         color="warn"
         class="ml-2"
         aria-label="Example icon button with a delete icon"
+        (click)="deleteMedication(medication)"
       >
         <mat-icon>delete</mat-icon>
       </button>

@@ -1,0 +1,77 @@
+<h1 mat-dialog-title class="blue-color text-center white-font p-3 ">
+    {{ createOrEdit }} Patient
+</h1>
+
+<div mat-dialog-content class="text-center ">
+
+    <mat-form-field class="dialog-width text-center" >
+        <input matInput placeholder="First Name" [(ngModel)]="patient.firstName">
+    </mat-form-field><br />
+
+    <mat-form-field class="dialog-width text-center">
+        <input matInput placeholder="Last Name" [(ngModel)]="patient.lastName">
+    </mat-form-field><br />
+
+    <mat-form-field class="dialog-width text-center">
+        <input matInput  placeholder="Phone Number"  [(ngModel)]="patient.phoneNumber">
+    </mat-form-field><br />
+
+    <mat-form-field class="dialog-width text-center" *ngIf="!data.edit" >
+        <mat-label>Language</mat-label>
+        <mat-select [(ngModel)]="patient.language">
+            <mat-option *ngFor="let language of languages" [value]="language" class="text-center">
+              <strong> {{language}}</strong>   
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class=" d-flex justify-content-center" >
+
+
+        <mat-form-field class=" text-center mr-3" style="width: 32%;" >
+            <mat-label>Start Hour</mat-label>
+            <mat-select [(ngModel)]="patient.startHour">
+                <mat-option *ngFor="let number of numbers" [value]="number"  class="text-center">
+                   <strong>{{number}}:00</strong> 
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <span> <strong> </strong> </span>
+
+        <mat-form-field class=" text-center ml-1" style="width: 32%;">
+            <mat-label>End Hour</mat-label>
+            <mat-select [(ngModel)]="patient.endHour">
+                <mat-option *ngFor="let number of numbers" [value]="number" class="text-center" >
+                    <strong>{{number}}:00</strong> 
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+   
+    
+    <div class="dialog-width text-center">
+            <p *ngIf="msg"> {{msg}} </p>
+    </div>
+</div>
+
+
+
+<div mat-dialog-actions class="d-flex justify-content-center">
+    <button mat-raised-button color="warn" (click)="cancel()" class="col-4">Cancel</button>
+    <button mat-raised-button color="primary" class="col-4" (click)="submit()" >Submit</button>
+</div>
+
+
+
+<!-- <div class="  d-flex justify-content-center" >
+    <mat-form-field class="col-4 text-center">
+        <input matInput type="number" placeholder="Start Hour" [(ngModel)]="patient.startHour">
+    </mat-form-field>
+    <span>
+     <strong> - </strong>   
+    </span>
+    <mat-form-field class="col-4 text-center">
+        <input matInput type="number" placeholder="End Hour" [(ngModel)]="patient.endHour">
+    </mat-form-field>
+</div> -->

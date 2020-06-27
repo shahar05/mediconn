@@ -1,4 +1,130 @@
-    
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BaseQuestion, Question, Patient } from 'src/app/models';
+import { QuestionService } from 'src/app/services/question/question.service';
+import { Language } from 'src/app/enum';
+@Component({
+  selector: 'app-question-editor-wrapper',
+  templateUrl: './question-editor-wrapper.component.html',
+  styleUrls: ['./question-editor-wrapper.component.scss']
+})
+export class QuestionEditorWrapperComponent implements OnInit {
+  languages: Language[] = [];
+  constructor(public dialogRef: MatDialogRef<QuestionEditorWrapperComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      questionToEdit: Question;
+      patient: Patient;
+      isDefault: boolean;
+    }, private questionService: QuestionService) { }
+  ngOnInit(): void {
+    this.languages.push(this.data.patient.language);
+  }
+  createNewQuestion(newQuestion: BaseQuestion) {
+    console.log(newQuestion);
+    newQuestion.isDefault = false;
+    newQuestion.creatorID = this.data.patient.creatorID;
+    console.log(newQuestion.creatorID);
+    this.questionService.createNewQuestionToPatient(newQuestion, this.data.patient._id).subscribe((newQuestion) => {
+      console.log("wonderfull");
+      console.log(newQuestion);
+      this.dialogRef.close(newQuestion);
+    }, (err: any) => {
+      console.log("error when create new question");
+      console.log(err);
+    });
+  }
+}
+
+
+
+
+
+      // this.languages.forEach((lang, index) => {
+      //   let textQuestion: QuestionText = { language: lang, text: null }
+      //   this.question.textArr.push(textQuestion)
+      // });
+
+//newQuestion.creatorID = this.question.creatorID;
+
+    this.question.textArr.forEach((element) => {
+      
+      console.log(element.language);
+      console.log(this.texts[element.language]);
+      
+      
+      element.text = this.texts[element.language];
+    });
+
+        <mat-card class="d-flex flex-column shadow p-0">
+
+            <mat-card-header class="text-center f-2-5 white-font blue-color ">
+                <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
+                    New Default Question
+                </div>
+            </mat-card-header>
+
+
+            <mat-tab-group mat-stretch-tabs [selectedIndex]="selected.value"
+                (selectedIndexChange)="selected.setValue($event)">
+
+                <mat-tab *ngFor="let language of languages" [label]="language">
+
+                    <mat-form-field class="full-width text-center pl-5 pr-5 mt-4 mb-3">
+                        <label class="display-4 f-m "> Enter Question in {{language}}</label>
+                        <input matInput [(ngModel)]="texts[language]">
+                    </mat-form-field>
+
+                </mat-tab>
+            </mat-tab-group>
+            <div class="text-center ml-4 mr-4 ">
+                <label id="example-radio-group-label" class="display-4 f-m"> Select Type Of Question</label> <br>
+                <mat-radio-group aria-labelledby="example-radio-group-label" [(ngModel)]="question.questionType">
+                    <mat-radio-button color="primary" value="Binary" class="m-2">Binary</mat-radio-button>
+                    <mat-radio-button color="primary" value="Regular" class="m-2">Regular</mat-radio-button>
+                    <mat-radio-button color="primary" value="Quantity" class="m-2">Quantity</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+
+            <div *ngIf=" question.questionType === 'Quantity'" class="d-flex justify-content-center mb-4 ">
+                <mat-card class="col-5 d-flex justify-content-center blue-shadow p-0 ">
+                    <mat-form-field class=" text-center col-6">
+                        <input matInput placeholder="min" type="number" [(ngModel)]="question.min">
+                    </mat-form-field>
+                    <mat-form-field class=" text-center col-6">
+                        <input matInput placeholder="max" type="number" [(ngModel)]="question.max">
+                    </mat-form-field>
+                </mat-card>
+            </div>
+
+
+            <div class="text-center m-3">
+                <button mat-raised-button color="primary" (click)="createDefaultQuestion()">Submit</button>
+            </div>
+
+        </mat-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if(this.doctor.password.toString().length === 0 || this.doctor.username.toString().length === 0 ){
       this.msg = "password or username is empty"
     }else{

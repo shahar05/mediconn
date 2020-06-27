@@ -1,5 +1,8 @@
 import { Language, Type, AddPopupType } from './enum';
 
+
+export  const width : string= '45%';
+export  const height : string= '150px';
 export interface BaseEntity {
     _id?: string;
 }
@@ -10,7 +13,7 @@ export interface QuestionText {
     language: Language;
 }
 
-export interface BaseQuestion {
+export interface BaseQuestion extends BaseEntity  {
     textArr: QuestionText[];
     creatorID: string;
     isDefault: boolean;
@@ -23,7 +26,7 @@ export interface Question extends BaseEntity {
     textArr: QuestionText[];
     creatorID: string;
     isDefault: boolean;
-    timestemp: number;
+    timestamp?: number;
     questionType: Type;
     min?: number;
     max?: number;
@@ -69,6 +72,7 @@ export interface Patient extends BaseEntity {
     medications: MedicalAdditions[];
 
 }
+
 
 export interface Doctor extends BaseEntity {
     username: string;

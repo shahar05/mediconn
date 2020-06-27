@@ -1,0 +1,29 @@
+<mat-card class="shadow">
+
+
+    <div class="border-bottom">
+        <mat-card-title class="p-3 display-4 f-2 text-center">{{doctor.firstName}} {{doctor.lastName}} </mat-card-title>
+    </div>
+    <mat-card-content class="mt-3">
+
+        <p class="f-m display-4"> {{doctor.phoneNumber}}</p>
+        <p class="f-m display-4"> {{doctor.mainLanguage}}</p>
+        <p class="f-m display-4"> {{doctor.department}}</p>
+
+    </mat-card-content>
+
+    <mat-card-actions class="text-right mr-2">
+        <button mat-mini-fab color="primary" class="mr-2" (click)="editDoctor()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" class="mr-2" (click)="deleteDoctor()">
+            <mat-icon>delete</mat-icon>
+        </button>
+
+    </mat-card-actions>
+</mat-card>
+
+<!-- <button  class="btn primary medium"></button> -->
+
+
+<!-- <button  (click)="editDoctor()" mat-raised-button color="primary">Detail</button> -->

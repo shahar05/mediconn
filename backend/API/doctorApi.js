@@ -11,24 +11,33 @@ var DoctorApi = /** @class */ (function () {
     DoctorApi.prototype.initRoutes = function () {
         var _this = this;
         this.router.get('/doctor/:id/patient', function (req, res) {
-            var doctorId = req.param('id');
+            //let doctorId = <any>req.params.id;
+            var doctorId = req.params.id;
             _this.doctorBL.getAllDoctorPatients(doctorId).then(function (data) {
                 res.send(data);
                 return;
+            }).catch(function (err) {
+                console.log(err);
+                res.sendStatus(400).send(err);
             });
         });
+        //TODO: if is admin login then dont lookup for doctor
         this.router.get('/doctor/current', function (req, res) {
             var request = req;
             var user = request.user;
             _this.doctorBL.getDoctor(user._id).then(function (data) {
                 res.send(data);
                 return;
+            }).catch(function (err) {
+                res.status(401).send(err);
             });
         });
         this.router.get('/doctor', function (req, res) {
             _this.doctorBL.getUser().then(function (data) {
                 res.send(data);
                 return;
+            }).catch(function (err) {
+                console.log(err);
             });
         });
     };

@@ -15,6 +15,8 @@ var DoctorBL = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             DoctorBL.dal.getDoctor(doctorId).then(function (res) {
                 resolve(res);
+            }).catch(function (err) {
+                reject(err);
             });
         });
     };
@@ -28,7 +30,10 @@ var DoctorBL = /** @class */ (function () {
     DoctorBL.prototype.login = function (doctor) {
         return new Promise(function (resolve, reject) {
             DoctorBL.dal.getDoctorByLogin(doctor.username, doctor.password).then(function (res) {
-                resolve(res);
+                if (res) {
+                    return resolve(res);
+                }
+                return reject('No Result Found');
             });
         });
     };

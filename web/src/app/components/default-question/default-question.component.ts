@@ -2,80 +2,115 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 import { Language, Type } from 'src/app/enum';
-import { Doctor, Question, QuestionText, BaseQuestion } from 'src/app/models';
+import { Doctor, Question, QuestionText, width, height } from 'src/app/models';
 import { QuestionService } from 'src/app/services/question/question.service';
+import { Observable } from 'rxjs';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { DialogAlertComponent } from '../dialog-alert/dialog-alert.component';
+import { QuestionWrapperComponent } from '../question-wrapper/question-wrapper.component';
 
 @Component({
   selector: 'app-default-question',
   templateUrl: './default-question.component.html',
   styleUrls: ['./default-question.component.scss']
 })
+
+
 export class DefaultQuestionComponent implements OnInit {
-  texts: any = { Hebrew: null, English: null, Russian: null, French: null, Arabic: null };
-  selected = new FormControl(0);
+
   languages: Language[];
   doctor: Doctor;
-  question: BaseQuestion = { textArr: [], isDefault: true, creatorID: null, questionType: null };
+  question: Question = { textArr: [], isDefault: true, creatorID: null, questionType: null };
   questions: Question[];
-  constructor(private userService: UserService, private questionService: QuestionService) { }
+  questionNeedToUpdate: boolean = false;
+
+  constructor( private dialogService : DialogService ,  private userService: UserService, private questionService: QuestionService) { }
 
   ngOnInit(): void {
+    this.initDefaultQuestions();
+    this.initDoctor();
+  }
 
-
-    this.questionService.getDefaultQuestions().subscribe((defaultQuestions: Question[]) => {
-      this.questions = defaultQuestions;
-    }, (err) => {
-      console.log(err);
-    })
-
-
-    this.userService.getDoctor().subscribe((doctor: Doctor) => {
-      this.languages = doctor.languages;
-      this.doctor = doctor;
-      this.question.creatorID = this.doctor._id;
-      this.languages.forEach((lang, index) => {
-        let textQuestion: QuestionText = { language: lang, text: null }
-        this.question.textArr.push(textQuestion)
-      });
-
+  deleteQuestion(questionToDelete : Question)
+  {
+    this.dialogService.openDialog( DialogAlertComponent , {isDefault : true} , width ,height )
+    .afterClosed().subscribe((toDelete : boolean)=>{
+      if(toDelete)
+        this.questionService.deleteDefaultQuestion( questionToDelete._id ).subscribe(()=>{
+          let i : number =this.questions.findIndex( q => q._id === questionToDelete._id );
+          this.questions.splice( i , 1);
+        } ,(err)=>{console.log(err);
+        } )
     })
   }
 
-  createDefaultQuestion() {
+  editQuestion( questionToEdit : Question ){
+    
+    this.dialogService
+    .openDialog( QuestionWrapperComponent , { question : questionToEdit , questionNeedToUpdate : true } )
+    .afterClosed().subscribe(( newQuestion  : Question)=>{
+      
+        this.questionService.updateQuestion(newQuestion).subscribe((response : any)=>{
+             // Question is updated "itself"
+            // because it actually updated the values of the same reference
+        })
 
-    if (!this.allLangugesExists()) {
-      alert("Not all language exists!!!")
-      return;
+    })
+    
+  }
+
+  createDefaultQuestion(newQuestion: Question) {
+
+    this.questionService.postDefaultQuestion(newQuestion)
+      .subscribe((response: Question) => {
+        this.resetQuestion();
+        this.questions.push(response);
+      }, (err) => {
+        console.log("error"); console.log(err);
+      })
+
+  }
+
+
+  initDoctor()  {
+    this.userService.getDoctor()
+    .subscribe((doctor: Doctor) =>
+      this.initVars(doctor),
+      (err) => console.log(err)
+    );
+  }
+  
+  initVars(doctor: Doctor) {
+    this.doctor = doctor;
+    this.languages = doctor.languages;
+    this.question.creatorID = this.doctor._id;
+    this.initQuestionText();
+  }
+
+  resetQuestion(){
+    this.question.questionType = null;
+    this.resetQuestionText();
+  }
+  resetQuestionText(){
+    for (let index = 0; index < this.question.textArr.length; index++) {
+      const txt: QuestionText = this.question.textArr[index];
+        txt.text = "";
     }
-    if (this.question.questionType === Type.Quantity) {
-      if (!this.question.min || !this.question.max) {
-        console.log(this.question);
-        alert("Min And Max should be assign")
-        return;
-      }
-      if (this.question.min > this.question.max) {
-        alert("MIN Should have lower value then MAX")
-        return;
-      }
+  }
+  initQuestionText()
+  {
+    for (let index = 0; index < this.languages.length; index++) {
+      let language: Language = this.languages[index];
+      let txt: QuestionText = { text: "", language: language }
+      this.question.textArr.push(txt)
     }
-    this.insertQuestions();
-
-    this.questionService.postDefaultQuestion(this.question).subscribe((response) => {
-      console.log("suscess"); console.log(response);
-    }, (err) => {
-      console.log("error"); console.log(err);
-    })
-
   }
-  insertQuestions() {
-    this.question.textArr.forEach((element) => {
-      element.text = this.texts[element.language];
-    });
-  }
-
-  allLangugesExists() {
-    let numOfQuestions = 0;
-    this.languages.forEach(element => { if (this.texts[element]) numOfQuestions++; });
-    return this.languages.length === numOfQuestions;
+  initDefaultQuestions(){
+    this.questionService.getDefaultQuestions()
+    .subscribe((defaultQuestions: Question[]) =>
+      this.questions = defaultQuestions,
+      (err) => 
+        console.log(err)
+      );
   }
 }

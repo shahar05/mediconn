@@ -4,10 +4,9 @@
     <div   *ngFor="let question of questions">
         <app-question 
         (deleteClicked)="deleteQuestion($event)" 
+        (editClicked)="editQuestion($event)" 
         [patientLanguage]="patientLanguage"
+        [isNotDefaultPage] = "isNotDefaultPage"
           [question]="question" ></app-question>
     </div>
-    <mat-card class="m-1 display-1 f-m" *ngIf="!questions.length">
-        No question to display
-    </mat-card>
 </div>

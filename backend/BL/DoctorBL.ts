@@ -3,6 +3,8 @@ import { IDoctor, IPatient } from '../models';
 
 export class DoctorBL {
     private static dal: Dal = new Dal();
+
+
     getUser() {
         return new Promise((resolve, reject) => {
             DoctorBL.dal.getDoctors().then((res) => {
@@ -15,6 +17,9 @@ export class DoctorBL {
         return new Promise((resolve, reject) => {
             DoctorBL.dal.getDoctor(doctorId).then((res: IDoctor) => {
                 resolve(res);
+            }).catch((err) => {
+                reject(err);
+
             })
         })
     }
@@ -30,7 +35,10 @@ export class DoctorBL {
     login(doctor: IDoctor) {
         return new Promise((resolve, reject) => {
             DoctorBL.dal.getDoctorByLogin(doctor.username, doctor.password).then((res: IDoctor) => {
-                resolve(res)
+                if (res) {
+                    return resolve(res)
+                }
+                return reject('No Result Found')
             })
         })
     }

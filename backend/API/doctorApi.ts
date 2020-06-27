@@ -16,20 +16,27 @@ export class DoctorApi implements BaseApi {
 
 
         this.router.get('/doctor/:id/patient', (req: Request, res: Response) => {
-            let doctorId = <any>req.param('id');
+            //let doctorId = <any>req.params.id;
+            let doctorId = req.params.id;
             this.doctorBL.getAllDoctorPatients(doctorId).then((data) => {
                 res.send(data);
                 return;
-
+            }).catch((err)=>{
+                    console.log(err);
+                    res.sendStatus(400).send(err);
             })
         })
 
+
+        //TODO: if is admin login then dont lookup for doctor
         this.router.get('/doctor/current', (req: Request, res: Response) => {
             let request: any = req
             let user: IDoctor = request.user;
             this.doctorBL.getDoctor(user._id).then((data) => {
                 res.send(data);
                 return;
+            }).catch((err)=>{
+                res.status(401).send(err)
             })
         })
 
@@ -38,6 +45,7 @@ export class DoctorApi implements BaseApi {
                 res.send(data);
                 return;
 
+            }).catch((err)=>{console.log(err);
             })
         })
 

@@ -13,9 +13,4 @@ export class PatientsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigateToPatientProfile(){
-    alert("profile")
-  //  this.router.navigate([ "patients/profile/" + this.patient.id ]);
-}
-
 }
