@@ -13,7 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import { PatientsComponent } from './components/patients/patients.component';
 import { PatientComponent } from './components/patient/patient.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component'
@@ -44,6 +44,12 @@ import { DoctorsComponent } from './components/doctors/doctors.component';
 import { DoctorComponent } from './components/doctor/doctor.component';
 import { PatientCreateUpdateComponent } from './components/patient-create-update/patient-create-update.component';
 import { DoctorEditorComponent } from './components/doctor-editor/doctor-editor.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient,  '/assets/languages/', '-lang.json');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +98,15 @@ import { DoctorEditorComponent } from './components/doctor-editor/doctor-editor.
     MatDialogModule,
     MatSelectModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     {

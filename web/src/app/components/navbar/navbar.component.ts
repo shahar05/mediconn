@@ -11,6 +11,7 @@ import { DoctorEditorComponent } from '../doctor-editor/doctor-editor.component'
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { LocalStorageService } from 'src/app/services/local/local-storage.service';
 import { LocalStorageKey } from 'src/app/enum';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'navbar',
@@ -33,7 +34,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private dialogService: DialogService,
     private patientService: PatientService,
-    private doctorService: DoctorService
+    private doctorService: DoctorService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -65,8 +67,12 @@ export class NavbarComponent implements OnInit {
   isAuth() {
     return !!this.localStorageService.getItem(LocalStorageKey.Token);
   }
-
-
+  enLanguage(){
+    this.translate.use('en');
+  }
+  heLanguage(){
+      this.translate.use('he');
+  }
   openDoctorEditor() {
     let doctor: Doctor = {
       password: "", languages: [], mainLanguage: null,

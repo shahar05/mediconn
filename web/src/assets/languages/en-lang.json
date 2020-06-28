@@ -1,0 +1,16 @@
+
+{
+ "login" :  "Login",
+  "submit": "Submit",
+ "username": "Username",
+ "password": "Password",
+
+ "enter_phone_or_name":"Enter phone or name",
+ "detail": "Detail",
+ "NewQuestion" : "New Question",
+ "NewMedications" : "New Medications",
+ "NewTreatments" : "New Treatments",
+ "Questions" : "Questions",
+"Medications" : "Medications",
+ "Treatments" : "Treatments "
+}

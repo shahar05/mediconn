@@ -42,11 +42,11 @@
       </div>
 
       <mat-tab-group mat-stretch-tabs class="m-2">
-        <mat-tab label="Questions">
+        <mat-tab [label]=" 'Questions' | translate">
           <div class="d-flex flex-column justify-content-center">
             <div class="d-flex  justify-content-start">
               <button class=" col-4  mt-3 mb-3 shadow  btn btn-primary " mat-raised-button (click)="addNewQuestions()">
-                New Question
+                {{ 'NewQuestion' | translate }}
               </button>
             </div>
 
@@ -56,11 +56,11 @@
           </div>
         </mat-tab>
 
-        <mat-tab label="Medications">
+        <mat-tab [label]="  'Medications' | translate">
           <div class="d-flex flex-column">
             <div class="d-flex  justify-content-center ">
               <button class="mt-3 mb-3 btn btn-primary col-4 shadow "mat-raised-button (click)="addNewMedications()">
-                New Medications
+                {{ 'NewMedications' | translate }}
               </button>
 
             </div>
@@ -70,12 +70,13 @@
           </div>
         </mat-tab>
 
-        <mat-tab label="Treatments">
+        <mat-tab [label]="'Treatments' | translate">
           <div class="d-flex flex-column">
             <div class="d-flex  justify-content-end ">
               <button (click)="addNewTreatments()" mat-raised-button
               class="mt-3 mb-3 btn btn-primary col-4 shadow ">
-                New Treatments
+              {{ 'NewTreatments' | translate }}
+                
               </button>
             </div>
 

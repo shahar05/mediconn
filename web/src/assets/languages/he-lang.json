@@ -1,0 +1,16 @@
+
+{
+    "login": "התחבר",
+    "submit": "אישור",
+    "username": "שם משתמש",
+    "password": "סיסמא" ,
+
+    "enter_phone_or_name": "הכנס שם או מספר",
+    "detail": "פרטים",
+    "NewQuestion" : "שאלה חדשה",
+    "NewMedications" : "תרופה חדשה",
+    "NewTreatments" : "טיפול חדש",
+    "Questions" : "שאלות",
+    "Medications" : "תרופות",
+    "Treatments" : "טיפולים"
+}
