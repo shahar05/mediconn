@@ -1,8 +1,9 @@
 import { DoctorSchema } from './../Models/DoctorModel';
 import mongoose, { Connection, Schema, Model } from 'mongoose';
-import { IDoctor, IAdmin, IModelAdmin, IPatient, IQuestion, IMedicalAdditions, QuestionText } from '../models';
+import { IDoctor, IAdmin, IModelAdmin, IPatient, IQuestion, IMedicalAdditions, QuestionText, IRecord } from '../models';
 import { AdminSchema } from '../Models/AdminModel';
 import { PatientSchema } from '../Models/PatientModel';
+import { RecordSchema } from '../Models/RecordModel';
 import { QuestionSchema } from '../Models/QuestionModel';
 import { MedicalAdditionsSchema } from '../Models/MedicalAdditionsModel';
 import { QuestionType } from '../enums';
@@ -14,9 +15,12 @@ export class Dal {
 
 
 
+
+
     private static connection: Connection;
 
     //Schemas
+    private recordSchema: Model<IRecord> = mongoose.model('Record', RecordSchema);
     private doctorSchema: Model<IDoctor> = mongoose.model('Doctor', DoctorSchema);
     private adminSchema: Model<IModelAdmin> = mongoose.model('Admin', AdminSchema);
     private patientSchema: Model<IPatient> = mongoose.model('Patient', PatientSchema);
@@ -51,6 +55,49 @@ export class Dal {
             }).catch((err) => {
                 reject(err);
             })
+        })
+    }
+
+    saveRecord(record: IRecord): Promise<IRecord> {
+        return new Promise((resolve, rejcet) => {
+            this.recordSchema.create(record, (err, newRecord: any) => {
+
+                if (err || !newRecord) {
+                    console.log("NULL ASASKAJSH");
+
+                    return rejcet(err);
+                }
+                else {
+                    console.log("asdkasd");
+
+                    return resolve(newRecord);
+                }
+
+
+            })
+        })
+    }
+
+    updatePatientLastSeen(patientId: string) {
+        this.patientSchema.findByIdAndUpdate(patientId, { lastSeen: Date.now() }, (err, updatedPatient) => {
+            if (err || !updatedPatient) {
+                console.log(err);
+                return;
+            }
+        })
+    }
+
+
+    getPatientByPhoneNumber(phoneNumber: string): Promise<IPatient> {
+        return new Promise((resolve, reject) => {
+            this.patientSchema.findOne({ phoneNumber: phoneNumber }, (err, foundPatient) => {
+                if (err || !foundPatient) {
+                    return reject(err);
+                }
+
+                resolve(foundPatient)
+
+            }).populate("questions")
         })
     }
 

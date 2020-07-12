@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.QuestionBL = void 0;
 var dal_1 = require("../DAL/dal");
 var enums_1 = require("../enums");
 var QuestionBL = /** @class */ (function () {

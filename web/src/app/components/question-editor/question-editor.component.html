@@ -22,9 +22,9 @@
     <div class="text-center ml-4 mr-4 ">
         <label id="example-radio-group-label" class="display-4 f-m"> Select Type Of Question</label> <br>
         <mat-radio-group aria-labelledby="example-radio-group-label" [(ngModel)]="question.questionType">
-            <mat-radio-button color="primary" value="Binary" class="m-2">Binary</mat-radio-button>
-            <mat-radio-button color="primary" value="Regular" class="m-2">Regular</mat-radio-button>
-            <mat-radio-button color="primary" value="Quantity" class="m-2">Quantity</mat-radio-button>
+            <mat-radio-button color="primary" value="Binary" class="m-2">{{'Binary' | translate}}</mat-radio-button>
+            <mat-radio-button color="primary" value="Regular" class="m-2">{{'Regular'| translate}}</mat-radio-button>
+            <mat-radio-button color="primary" value="Quantity" class="m-2">{{'Quantity'| translate}}</mat-radio-button>
         </mat-radio-group>
     </div>
 

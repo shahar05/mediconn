@@ -14,7 +14,7 @@
         <mat-list>
           <mat-list-item> {{ patient.phoneNumber }} </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>{{ patient.language }}</mat-list-item>
+          <mat-list-item>{{ patient.language | translate }}</mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>{{ patient.startHour }}:00 -
             {{ patient.endHour }}:00</mat-list-item>

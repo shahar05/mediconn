@@ -6,9 +6,9 @@ import { LoginApi } from "./API/loginApi";
 import { authMiddleware } from "./Middleware/authMiddleware";
 import { PatientApi } from "./API/patientApi";
 import { QuestionApi } from "./API/QuestionApi";
-import { MedicalAdditionsBL } from "./BL/MedicalAdditionsBL";
 import { MedicalAdditionsApi } from "./API/MedicalAdditionsApi";
 import { AdminApi } from "./API/AdminAPI";
+import{ PhoneApi } from "./API/PhoneApi";
 
 const cors = require('cors')
 
@@ -30,8 +30,8 @@ class Server {
             if(  req.originalUrl !== "/api/doctor/current")
               console.log(req.originalUrl );
                
-            // var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-            // console.log(ip); 
+            var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+            console.log(ip); 
             next();
         });
     }
@@ -39,6 +39,7 @@ class Server {
 
     private initNotGuardedRoutes() {
         this.app.use('/api', new LoginApi().router)
+        this.app.use('/api', new PhoneApi().router)
     }
 
     private initGuardedRoutes() {
@@ -52,12 +53,12 @@ class Server {
 
     private initTestRoute() {
         this.app.get('/', (req, res) => {
-            res.send();  
+            res.send('hi');  
         })
     }
 
     public start() {
-        this.app.listen(3000, () => {
+        this.app.listen(8830, () => {
             console.log('Server is up and running');
         })
     }

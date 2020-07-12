@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PatientBL = void 0;
 var dal_1 = require("../DAL/dal");
+var models_1 = require("../models");
 var doctorBL_1 = require("./doctorBL");
 var QuestionBL_1 = require("./QuestionBL");
 var enums_1 = require("../enums");
@@ -9,6 +11,55 @@ var PatientBL = /** @class */ (function () {
         this.doctorBL = new doctorBL_1.DoctorBL();
         this.questionBL = new QuestionBL_1.QuestionBL();
     }
+    PatientBL.prototype.getPatientByPhoneNumber = function (phoneNumber) {
+        return new Promise(function (resolve, reject) {
+            // TODO : Check if day record exist
+            PatientBL.dal.getPatientByPhoneNumber(phoneNumber).then(function (patient) {
+                return resolve({ name: patient.firstName + "  " + patient.lastName, endHour: patient.endHour, startHour: patient.startHour });
+            }).catch(function (err) {
+                return reject(err);
+            });
+        });
+    };
+    PatientBL.prototype.getPatientQuestionsByPhoneNumber = function (phoneNumber) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            PatientBL.dal.getPatientByPhoneNumber(phoneNumber).then(function (patient) {
+                console.log(patient);
+                if (patient.lastSeen != undefined) {
+                    var d1 = new Date();
+                    var d2 = new Date(patient.lastSeen);
+                    if (d1.getFullYear() === d2.getFullYear() &&
+                        d1.getMonth() === d2.getMonth() &&
+                        d1.getDate() === d2.getDate()) {
+                        return reject(" Questionnaire already answered today");
+                    }
+                }
+                var QuestionArray = patient.questions.map(function (question) {
+                    return {
+                        _id: question._id,
+                        questionType: models_1.QuestionTypes.indexOf(question.questionType),
+                        text: _this.findTextByLanguage(patient.language, question.textArr),
+                        min: question.min,
+                        max: question.max
+                    };
+                });
+                return resolve(QuestionArray);
+            }).catch(function (err) {
+                return reject(err);
+            });
+        });
+    };
+    PatientBL.prototype.findTextByLanguage = function (language, textArr) {
+        for (var i = 0; i < textArr.length; i++) {
+            var element = textArr[i];
+            if (element.language.trim() === language.trim()) {
+                return element.text;
+            }
+        }
+        console.log("Not Found Language in Question Array");
+        return "";
+    };
     PatientBL.prototype.getPatient = function (patientId) {
         return new Promise(function (resolve, reject) {
             PatientBL.dal.getPatient(patientId).then(function (res) {

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { Language, QuestionType, AddPopupType } from "./enums";
 
 export const Languages = ["Hebrew" ,"English" , "Arabic" , "French" ,"Russian"];
-export const QuestionTypes = ["Binary" , "Regular" , "Quantity"];
+export const QuestionTypes = ["Quantity" ,"Binary" , "Regular" ]; // changed the order
 
 
 
@@ -35,7 +35,6 @@ export interface IAdmin {
     hospitalName: string;
 }
 
-
 export interface IPatient extends mongoose.Document {
     firstName: string;
     lastName: string;
@@ -43,13 +42,20 @@ export interface IPatient extends mongoose.Document {
     phoneNumber: string;
     language: Language;
     startHour: number;
+    lastSeen? : number;
     endHour: number;
     questions: IQuestion[];
     treatments: IMedicalAdditions[];
     medications: IMedicalAdditions[];
 
 }
-
+export interface AppQuestion {
+    _id : string,
+    text: string;
+    questionType: number;
+    min?: number;
+    max?: number;
+}
 
 export interface IQuestion extends mongoose.Document {
     textArr: QuestionText[];
@@ -66,7 +72,19 @@ export interface QuestionText {
     language: Language;
 }
 
-
+export interface IRecord extends mongoose.Document {
+   
+    patientId : string;
+    answerArr : Answer[];
+    timestamp?: number
+    year?:number
+    mounth?:number
+    day?:number
+}
+export interface Answer {
+    questionId : string ;
+    answer : number;
+}
 export interface IMedicalAdditions extends mongoose.Document {
     name: string;
     description: string;

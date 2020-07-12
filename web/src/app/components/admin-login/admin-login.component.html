@@ -4,24 +4,24 @@
 
             <mat-card-header class="text-center f-2-5 white-font blue-color " >
                 <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
-                    Admin Login
+                    {{'Admin' | translate}} {{'Login'|translate}}
                 </div>
             </mat-card-header>
 
 
             <mat-card-content class="mt-4">
                 <mat-form-field class="semi-width text-center">
-                    <input matInput placeholder="Username" [(ngModel)]="admin.username" >
+                    <input matInput [placeholder]=" 'Username' | translate" [(ngModel)]="admin.username" >
                 
                 </mat-form-field><br />
 
                 <mat-form-field class="semi-width text-center from">
-                    <input matInput placeholder="Password" [(ngModel)]="admin.password">
+                    <input matInput [placeholder]="'Password' | translate" [(ngModel)]="admin.password">
                 </mat-form-field><br />
 
 
                 <span *ngIf="msg" >{{msg}}</span>
-                <button (click)="login()" class="shadow mt-3 mb-5 semi-width"  mat-raised-button color="primary">Submit</button>
+                <button (click)="login()" class="shadow mt-3 mb-5 semi-width"  mat-raised-button color="primary">{{'Submit'|translate}}</button>
                 
             </mat-card-content>
             

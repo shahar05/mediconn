@@ -1,26 +1,26 @@
 <h1 mat-dialog-title class="blue-color text-center white-font p-3 ">
-    {{ createOrEdit }} Patient
+    {{ createOrEdit | translate }} {{'Patient' | translate}}
 </h1>
 
 <div mat-dialog-content class="text-center ">
 
     <mat-form-field class="dialog-width text-center" >
-        <input matInput placeholder="First Name" [(ngModel)]="patient.firstName">
+        <input matInput [placeholder]="'FirstName' | translate" [(ngModel)]="patient.firstName">
     </mat-form-field><br />
 
     <mat-form-field class="dialog-width text-center">
-        <input matInput placeholder="Last Name" [(ngModel)]="patient.lastName">
+        <input matInput [placeholder]=" 'LastName' | translate" [(ngModel)]="patient.lastName">
     </mat-form-field><br />
 
     <mat-form-field class="dialog-width text-center">
-        <input matInput  placeholder="Phone Number"  [(ngModel)]="patient.phoneNumber">
+        <input matInput  [placeholder]="'PhoneNumber' | translate"  [(ngModel)]="patient.phoneNumber">
     </mat-form-field><br />
 
     <mat-form-field class="dialog-width text-center" *ngIf="!data.edit" >
-        <mat-label>Language</mat-label>
+        <mat-label>{{'Language' | translate}}</mat-label>
         <mat-select [(ngModel)]="patient.language">
-            <mat-option *ngFor="let language of languages" [value]="language" class="text-center">
-              <strong> {{language}}</strong>   
+            <mat-option *ngFor="let language of languages" [value]="language " class="text-center">
+              <strong> {{language | translate }} </strong>   
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -29,7 +29,7 @@
 
 
         <mat-form-field class=" text-center mr-3" style="width: 32%;" >
-            <mat-label>Start Hour</mat-label>
+            <mat-label>{{'StartHour' | translate }}</mat-label>
             <mat-select [(ngModel)]="patient.startHour">
                 <mat-option *ngFor="let number of numbers" [value]="number"  class="text-center">
                    <strong>{{number}}:00</strong> 
@@ -40,7 +40,7 @@
         <span> <strong> </strong> </span>
 
         <mat-form-field class=" text-center ml-1" style="width: 32%;">
-            <mat-label>End Hour</mat-label>
+            <mat-label>{{'EndHour' | translate}}</mat-label>
             <mat-select [(ngModel)]="patient.endHour">
                 <mat-option *ngFor="let number of numbers" [value]="number" class="text-center" >
                     <strong>{{number}}:00</strong> 
@@ -58,8 +58,8 @@
 
 
 <div mat-dialog-actions class="d-flex justify-content-center">
-    <button mat-raised-button color="warn" (click)="cancel()" class="col-4">Cancel</button>
-    <button mat-raised-button color="primary" class="col-4" (click)="submit()" >Submit</button>
+    <button mat-raised-button color="warn" (click)="cancel()" class="col-4">{{'Cancel' | translate}}</button>
+    <button mat-raised-button color="primary" class="col-4" (click)="submit()" >{{'Submit' | translate}}</button>
 </div>
 
 

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AddPopupType = exports.QuestionType = exports.Language = void 0;
 var Language;
 (function (Language) {
     Language["Hebrew"] = "Hebrew";

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.authMiddleware = void 0;
 var authenticationHelper_1 = require("../Helpers/authenticationHelper");
 exports.authMiddleware = function (req, res, next) {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {

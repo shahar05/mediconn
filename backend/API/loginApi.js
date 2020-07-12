@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LoginApi = void 0;
 var express_1 = require("express");
 var doctorBL_1 = require("../BL/doctorBL");
 var adminBL_1 = require("../BL/adminBL");

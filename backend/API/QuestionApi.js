@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.QuestionApi = void 0;
 var express_1 = require("express");
 var QuestionBL_1 = require("../BL/QuestionBL");
 var QuestionApi = /** @class */ (function () {

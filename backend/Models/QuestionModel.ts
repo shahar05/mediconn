@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 export const QuestionSchema = new mongoose.Schema({
 
-    textArr: [{ text: String, language: { type: String, enum: Languages } }],
+    textArr: [  { text: String , language: { type: String, enum: Languages } }  ],
     creatorID: { type: String, required: true },
     isDefault: { type: Boolean, required: true },
     timestamp: { type: Number, default: Date.now },

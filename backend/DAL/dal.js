@@ -3,10 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Dal = void 0;
 var DoctorModel_1 = require("./../Models/DoctorModel");
 var mongoose_1 = __importDefault(require("mongoose"));
 var AdminModel_1 = require("../Models/AdminModel");
 var PatientModel_1 = require("../Models/PatientModel");
+var RecordModel_1 = require("../Models/RecordModel");
 var QuestionModel_1 = require("../Models/QuestionModel");
 var MedicalAdditionsModel_1 = require("../Models/MedicalAdditionsModel");
 var enums_1 = require("../enums");
@@ -14,6 +16,7 @@ var env = require('../env.json');
 var Dal = /** @class */ (function () {
     function Dal() {
         //Schemas
+        this.recordSchema = mongoose_1.default.model('Record', RecordModel_1.RecordSchema);
         this.doctorSchema = mongoose_1.default.model('Doctor', DoctorModel_1.DoctorSchema);
         this.adminSchema = mongoose_1.default.model('Admin', AdminModel_1.AdminSchema);
         this.patientSchema = mongoose_1.default.model('Patient', PatientModel_1.PatientSchema);
@@ -44,6 +47,40 @@ var Dal = /** @class */ (function () {
             }).catch(function (err) {
                 reject(err);
             });
+        });
+    };
+    Dal.prototype.saveRecord = function (record) {
+        var _this = this;
+        return new Promise(function (resolve, rejcet) {
+            _this.recordSchema.create(record, function (err, newRecord) {
+                if (err || !newRecord) {
+                    console.log("NULL ASASKAJSH");
+                    return rejcet(err);
+                }
+                else {
+                    console.log("asdkasd");
+                    return resolve(newRecord);
+                }
+            });
+        });
+    };
+    Dal.prototype.updatePatientLastSeen = function (patientId) {
+        this.patientSchema.findByIdAndUpdate(patientId, { lastSeen: Date.now() }, function (err, updatedPatient) {
+            if (err || !updatedPatient) {
+                console.log(err);
+                return;
+            }
+        });
+    };
+    Dal.prototype.getPatientByPhoneNumber = function (phoneNumber) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.patientSchema.findOne({ phoneNumber: phoneNumber }, function (err, foundPatient) {
+                if (err || !foundPatient) {
+                    return reject(err);
+                }
+                resolve(foundPatient);
+            }).populate("questions");
         });
     };
     Dal.prototype.deleteDoctor = function (doctorID) {

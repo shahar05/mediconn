@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PatientApi = void 0;
 var express_1 = require("express");
 var PatientBL_1 = require("../BL/PatientBL");
 var PatientApi = /** @class */ (function () {

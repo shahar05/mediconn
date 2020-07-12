@@ -2,7 +2,7 @@
   
  
     <h1 class="f-2-5 text-center  blue-color white-font p-3" >
-      {{ pageTitle }}
+      {{ pageTitle1 | translate }} {{"  "}} {{ pageTitle2 | translate }}
   </h1>
 
 
@@ -10,14 +10,14 @@
   <div class="col d-flex flex-column mt-3" *ngIf="medicalAddition">
     <div class="d-flex">
       <mat-form-field class="full-width text-center">
-        <mat-label>Name</mat-label>
+        <mat-label>{{'Name'| translate}}</mat-label>
         <input [(ngModel)]="medicalAddition.name" matInput />
       </mat-form-field>
     </div>
 
     <div class="d-flex">
       <mat-form-field class="full-width text-center">
-        <mat-label>description</mat-label>
+        <mat-label>{{'description' | translate}}</mat-label>
         <input [(ngModel)]="medicalAddition.description" matInput/>
       </mat-form-field>
     </div>
@@ -25,12 +25,12 @@
   <div class="col d-flex justify-content-center">
     <div class="col-3">
       <button mat-raised-button color="warn"  (click)="close()">
-        Cancel
+        {{'Cancel' | translate}}
       </button>
     </div>
     <div class="col-3">
       <button mat-raised-button color="primary" (click)="submitForm()">
-        Submit
+        {{'Submit' | translate}}
       </button>
     </div>
   </div>

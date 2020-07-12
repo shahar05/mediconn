@@ -10,7 +10,8 @@ import { AddPopupType } from 'src/app/enum';
 })
 export class AddMedicationPopupComponent implements OnInit {
   medicalAddition: MedicalAdditions;
-  pageTitle: string;
+  pageTitle1: string;
+  pageTitle2: string;
   constructor(public dialogRef: MatDialogRef<AddMedicationPopupComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { medicalAddition: MedicalAdditions, type: AddPopupType }) { }
 
@@ -28,16 +29,16 @@ export class AddMedicationPopupComponent implements OnInit {
   }
 
   setPageTitle() {
-    
-    if(this.data.medicalAddition){
-      this.pageTitle = 'Update';
-    }else{
-      this.pageTitle = 'Create';
+
+    if (this.data.medicalAddition) {
+      this.pageTitle1 = 'Update';
+    } else {
+      this.pageTitle1 = 'Create';
     }
     if (this.data.type === AddPopupType.Medication) {
-      this.pageTitle += '  Medication';
+      this.pageTitle2 = 'Medication';
     } else {
-      this.pageTitle += '  Treatment';
+      this.pageTitle2 =  'Treatment';
     }
 
   }

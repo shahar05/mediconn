@@ -12,6 +12,7 @@ var patientApi_1 = require("./API/patientApi");
 var QuestionApi_1 = require("./API/QuestionApi");
 var MedicalAdditionsApi_1 = require("./API/MedicalAdditionsApi");
 var AdminAPI_1 = require("./API/AdminAPI");
+var PhoneApi_1 = require("./API/PhoneApi");
 var cors = require('cors');
 var Server = /** @class */ (function () {
     function Server() {
@@ -28,13 +29,14 @@ var Server = /** @class */ (function () {
         this.app.use(function (req, res, next) {
             if (req.originalUrl !== "/api/doctor/current")
                 console.log(req.originalUrl);
-            // var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-            // console.log(ip); 
+            var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+            console.log(ip);
             next();
         });
     };
     Server.prototype.initNotGuardedRoutes = function () {
         this.app.use('/api', new loginApi_1.LoginApi().router);
+        this.app.use('/api', new PhoneApi_1.PhoneApi().router);
     };
     Server.prototype.initGuardedRoutes = function () {
         this.app.use('/api', authMiddleware_1.authMiddleware, new AdminAPI_1.AdminApi().router);
@@ -45,11 +47,11 @@ var Server = /** @class */ (function () {
     };
     Server.prototype.initTestRoute = function () {
         this.app.get('/', function (req, res) {
-            res.send();
+            res.send('hi');
         });
     };
     Server.prototype.start = function () {
-        this.app.listen(3000, function () {
+        this.app.listen(8830, function () {
             console.log('Server is up and running');
         });
     };

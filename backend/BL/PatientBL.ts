@@ -1,8 +1,9 @@
 import { Dal } from "../DAL/dal"
-import { IAdmin, IModelAdmin, IPatient, IDoctor, IQuestion, QuestionText } from '../models';
+import { IAdmin, IModelAdmin, IPatient, IDoctor, IQuestion, QuestionText, AppQuestion, QuestionTypes } from '../models';
 import { DoctorBL } from "./doctorBL";
 import { QuestionBL } from "./QuestionBL";
-import { QuestionType } from "../enums";
+import { QuestionType, Language } from "../enums";
+import { RecordBL } from "./RecordBL";
 
 export class PatientBL {
 
@@ -10,6 +11,73 @@ export class PatientBL {
     private static dal: Dal = new Dal();
     private doctorBL = new DoctorBL();
     private questionBL = new QuestionBL();
+
+    getPatientByPhoneNumber(phoneNumber: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            // TODO : Check if day record exist
+            PatientBL.dal.getPatientByPhoneNumber(phoneNumber).then((patient: IPatient) => {
+
+                return resolve({ name: patient.firstName + "  " + patient.lastName, endHour: patient.endHour, startHour: patient.startHour });
+
+            }).catch((err: any) => {
+                return reject(err);
+            })
+        })
+    }
+
+    getPatientQuestionsByPhoneNumber(phoneNumber: string): Promise<AppQuestion[]> {
+        return new Promise((resolve, reject) => {
+            PatientBL.dal.getPatientByPhoneNumber(phoneNumber).then((patient: IPatient) => {
+
+
+                console.log(patient);
+
+
+                if (patient.lastSeen != undefined) {
+                    let d1 = new Date();
+                    let d2 = new Date(patient.lastSeen);    
+
+                    if (d1.getFullYear() === d2.getFullYear() &&
+                        d1.getMonth() === d2.getMonth() &&
+                        d1.getDate() === d2.getDate()) {
+                            return reject(" Questionnaire already answered today");
+                    }
+                }
+           
+
+
+                let QuestionArray: AppQuestion[] = patient.questions.map(
+                    (question: IQuestion) => {
+                        return {
+                            _id: question._id,
+                            questionType: QuestionTypes.indexOf(question.questionType),
+                            text: this.findTextByLanguage(patient.language, question.textArr),
+                            min: question.min,
+                            max: question.max
+                        }
+                    }
+                )
+                return resolve(QuestionArray);
+            }).catch((err) => {
+                return reject(err);
+            })
+        })
+
+
+    }
+
+    findTextByLanguage(language: Language, textArr: QuestionText[]) {
+
+
+        for (let i = 0; i < textArr.length; i++) {
+            const element = textArr[i];
+            if (element.language.trim() === language.trim()) {
+                return element.text;
+            }
+        }
+        console.log("Not Found Language in Question Array");
+        return ""
+    }
 
     getPatient(patientId: string): Promise<IPatient> {
         return new Promise((resolve, reject) => {
@@ -19,11 +87,11 @@ export class PatientBL {
         })
     }
 
-    deletePatient(id: string):Promise<string> {
-        return new Promise((resolve , reject)=>{
-            PatientBL.dal.deletePatient(id).then((res)=>{
+    deletePatient(id: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+            PatientBL.dal.deletePatient(id).then((res) => {
                 resolve(res);
-            }).catch((err)=>{
+            }).catch((err) => {
                 reject(err);
             })
         })

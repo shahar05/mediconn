@@ -26,7 +26,7 @@ export class PatientCreateUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.languages = this.data.languages;
     this.patient = this.data.patient;
-    this.createOrEdit = this.data.edit ? "Edit" : "Create";
+    this.createOrEdit = this.data.edit ? "edit" : "Create";
   }
 
   cancel(){

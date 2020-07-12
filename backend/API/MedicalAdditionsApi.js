@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MedicalAdditionsApi = void 0;
 var express_1 = require("express");
 var MedicalAdditionsBL_1 = require("../BL/MedicalAdditionsBL");
 var MedicalAdditionsApi = /** @class */ (function () {

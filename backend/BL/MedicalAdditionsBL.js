@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MedicalAdditionsBL = void 0;
 var dal_1 = require("../DAL/dal");
 var MedicalAdditionsBL = /** @class */ (function () {
     function MedicalAdditionsBL() {

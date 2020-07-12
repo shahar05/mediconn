@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PatientSchema = void 0;
 var models_1 = require("../models");
 var mongoose = require("mongoose");
 exports.PatientSchema = new mongoose.Schema({
@@ -10,7 +11,7 @@ exports.PatientSchema = new mongoose.Schema({
     startHour: { type: Number, default: 0, min: 0, max: 23 },
     endHour: { type: Number, default: 23, min: 0, max: 23 },
     language: { type: String, enum: models_1.Languages, required: true },
-    lastSeen: { type: Number },
+    lastSeen: { type: Number, default: 0 },
     treatments: [
         {
             type: mongoose.Schema.Types.ObjectId,
