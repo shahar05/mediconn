@@ -1,0 +1,36 @@
+<mat-card class="d-flex flex-column shadow p-0">
+
+    <mat-card-header class="text-center f-2-5 white-font blue-color ">
+        <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
+            Choose Dates
+        </div>
+    </mat-card-header>
+
+
+    <div class=" d-flex flex justify-content-center mt-3 ">
+
+    <mat-form-field class="col-5" color="accent" appearance="fill">
+        <mat-label>Select Start Date</mat-label>
+        <input matInput  [(ngModel)]="dateStart" [matDatepicker]="picker1">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      
+      <mat-form-field class="col-5" color="accent" appearance="fill">
+        <mat-label>Select End Date</mat-label>
+        <input matInput [(ngModel)]="dateEnd" [matDatepicker]="picker2">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+      </mat-form-field>
+      
+    </div>
+ 
+  
+
+    <div class="text-center m-3">
+        <button mat-raised-button color="warn" class="mr-3" (click)="cancel()">{{'Cancel'|translate}}</button>
+        <button mat-raised-button color="primary" (click)="sendDates()">{{'submit' | translate}}</button>
+
+    </div>
+
+</mat-card>

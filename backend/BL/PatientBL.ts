@@ -1,5 +1,5 @@
 import { Dal } from "../DAL/dal"
-import { IAdmin, IModelAdmin, IPatient, IDoctor, IQuestion, QuestionText, AppQuestion, QuestionTypes } from '../models';
+import { IAdmin, IModelAdmin, IPatient, IDoctor, IQuestion, QuestionText, AppQuestion, QuestionTypes, QuestionResult, IRecord, Answer, Result } from '../models';
 import { DoctorBL } from "./doctorBL";
 import { QuestionBL } from "./QuestionBL";
 import { QuestionType, Language } from "../enums";
@@ -25,6 +25,49 @@ export class PatientBL {
         })
     }
 
+
+    getPatientRecords(id: string, startime: string, endtime: string): Promise<QuestionResult[]> {
+
+        return new Promise((resolve, reject) => {
+
+            PatientBL.dal.getPatient(id).then((patient: IPatient) => {
+
+                PatientBL.dal.getRecordByDate(id, startime, endtime).then((records: IRecord[]) => {
+                    let questionListId: string[] = [];
+                    let dictionaryQuestion: { [key: string]: string; } = {};
+                    let dictionary: { [key: string]: Result[]; } = {  };
+               
+                    records.forEach((record: IRecord) => {
+                        record.answerArr.forEach((answer: Answer) => {
+                            if(!dictionary[answer.questionId]) dictionary[answer.questionId] = [];   
+                            dictionary[answer.questionId].push({ name: record.date.toDateString(), value: answer.answer })
+
+                            if (!dictionaryQuestion[answer.questionId]) {
+                                dictionaryQuestion[answer.questionId] = answer.questionId;
+                                questionListId.push(answer.questionId);
+                            }
+                        })
+                    });
+                  
+                    PatientBL.dal.getQuestionsByArrId(questionListId).then((questions: IQuestion[]) => {
+
+                        let questionResults: QuestionResult[] = [];
+                        questions.forEach((question: IQuestion) => {
+
+                            questionResults.push({ name: this.findTextByLanguage(patient.language, question.textArr), series: dictionary[question._id] })
+
+                        })
+
+                        return resolve(questionResults);
+
+                    }).catch((err) => { reject(err) })
+                }).catch((err) => { reject(err) })
+            }).catch((err) => {
+                reject(err)
+            })
+        })
+    }
+
     getPatientQuestionsByPhoneNumber(phoneNumber: string): Promise<AppQuestion[]> {
         return new Promise((resolve, reject) => {
             PatientBL.dal.getPatientByPhoneNumber(phoneNumber).then((patient: IPatient) => {
@@ -35,15 +78,15 @@ export class PatientBL {
 
                 if (patient.lastSeen != undefined) {
                     let d1 = new Date();
-                    let d2 = new Date(patient.lastSeen);    
+                    let d2 = new Date(patient.lastSeen);
 
                     if (d1.getFullYear() === d2.getFullYear() &&
                         d1.getMonth() === d2.getMonth() &&
                         d1.getDate() === d2.getDate()) {
-                            return reject(" Questionnaire already answered today");
+                        return reject(" Questionnaire already answered today");
                     }
                 }
-           
+
 
 
                 let QuestionArray: AppQuestion[] = patient.questions.map(

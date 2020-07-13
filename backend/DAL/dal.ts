@@ -14,11 +14,8 @@ var env = require('../env.json');
 export class Dal {
 
 
-
-
-
     private static connection: Connection;
-
+    
     //Schemas
     private recordSchema: Model<IRecord> = mongoose.model('Record', RecordSchema);
     private doctorSchema: Model<IDoctor> = mongoose.model('Doctor', DoctorSchema);
@@ -58,18 +55,26 @@ export class Dal {
         })
     }
 
+    getRecordByDate(id: string, startime: string, endtime: string): Promise<IRecord[]> {
+        return new Promise((resolve, reject) => {
+            this.recordSchema.find({ patientId: id, date: { $gte: new Date(startime), $lte: new Date(endtime) } }, (err, foundRecords) => {
+                if (err) return reject(err);
+
+                resolve(foundRecords);
+            })
+        })
+    }
+
     saveRecord(record: IRecord): Promise<IRecord> {
         return new Promise((resolve, rejcet) => {
+            // if (Dal.day <= 30)
+            //     record.date = new Date('2020-7-' + (Dal.day++));
             this.recordSchema.create(record, (err, newRecord: any) => {
 
                 if (err || !newRecord) {
-                    console.log("NULL ASASKAJSH");
-
                     return rejcet(err);
                 }
                 else {
-                    console.log("asdkasd");
-
                     return resolve(newRecord);
                 }
 
@@ -220,6 +225,18 @@ export class Dal {
                 }
                 resolve(medicalAddition);
             });
+        })
+    }
+
+    getQuestionsByArrId( arrayId : string[] ) : Promise<IQuestion[]>{
+        return new Promise((resolve , reject)=>{
+
+            this.questionSchema.find({_id:arrayId} , (err , questions)=>{
+                if(err)return reject(err);
+                
+                resolve(questions);
+            })
+
         })
     }
 

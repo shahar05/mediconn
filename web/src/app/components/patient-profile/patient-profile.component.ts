@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { QuestionWrapperComponent } from '../question-wrapper/question-wrapper.component';
 import { QuestionService } from 'src/app/services/question/question.service';
 import { PatientCreateUpdateComponent } from '../patient-create-update/patient-create-update.component';
+import { DatePickerDialogComponent } from '../date-picker-dialog/date-picker-dialog.component';
 
 
 @Component({
@@ -44,7 +45,23 @@ export class PatientProfileComponent implements OnInit {
       this.patient = patient;
     });
   }
+  showGraphs() {
 
+
+    this.dialogService.openDialog(DatePickerDialogComponent, {}).afterClosed().subscribe((dates: { dateStart: Date, dateEnd: Date }) => {
+
+      let d1 = dates.dateStart;
+      let d2 = dates.dateEnd;
+
+      let str1 = "/" + d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" + d1.getDate();
+      let str2 = "/" + d2.getFullYear() + "-" + (d2.getMonth() + 1) + "-" + d2.getDate();
+
+      this.router.navigate(["graphs/" + this.patientID + str1 + str2]);
+    })
+
+
+
+  }
   editPaient() {
 
     let patient: Patient = JSON.parse(JSON.stringify(this.patient));

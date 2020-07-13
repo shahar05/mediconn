@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { DoctorsViewComponent } from './components/doctors-view/doctors-view.component';
 import { AuthAdminGuard } from './guards/auth-admin.guard';
+import { GraphPatientComponent } from './components/graph-patient/graph-patient.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,9 @@ const routes: Routes = [
   {path: "doctors" , component : DoctorsViewComponent , canActivate:[AuthAdminGuard] },
   {path : "patients" , component: ViewPatientsComponent, canActivate:[AuthGuard]},
   {path : "patients/:id" , component: PatientProfileComponent, canActivate:[AuthGuard]},
-  {path : "defaultQuestion" , component: DefaultQuestionComponent, canActivate:[AuthGuard]}
+  {path : "defaultQuestion" , component: DefaultQuestionComponent, canActivate:[AuthGuard]},
+  {path: "graphs/:id/:startime/:endtime" , component : GraphPatientComponent , canActivate:[AuthGuard] }
+
 
 ];
 

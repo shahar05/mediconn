@@ -41,22 +41,35 @@ export class PhoneApi implements BaseApi {
         })
 
         this.router.post('/patient/records/:phonenumber', (req, res) => {
+                console.log("======================");
+                
+                console.log(req.body);
+                
 
-                let record : any = {answerArr:req.body.arr , patientId: req.params.phonenumber}
-                this.recordBL.createRecord( record ).then((newRecord : IRecord)=>{
-                    console.log(newRecord);
-                    res.send({msg:"ok"});
-                }).catch((err)=>{
-                    console.log(err);
-                    res.status(400).send("Fail To save Record");
-                })
-
-               
+            let record: any = { answerArr: req.body.arr, patientId: req.params.phonenumber }
+            this.recordBL.createRecord(record).then((newRecord: IRecord) => {
+                console.log(newRecord);
+                res.send({ msg: "ok" });
+            }).catch((err) => {
+                console.log(err);
+                res.status(400).send("Fail To save Record");
+            })
         })
 
+        this.router.get('/patient/:id/records/:startime/:endtime', (req, res) => {
+            let s: string = req.params.startime;
+            let e: string = req.params.endtime;
 
+            this.patientBL.getPatientRecords(req.params.id, s, e).then((response:any)=>{
+                console.log(response);
+                
+               res.send(response)
+            }).catch((err)=>{
+                console.log(err);
+            })
+        })
 
-    } 
+    }
 }
 
 
@@ -67,7 +80,7 @@ export class PhoneApi implements BaseApi {
                 //     this.recordBL.createRecord( record);
                 // }).catch((err)=>{
                 //         console.log(err);
-                        
+
                 // })
 
 // console.log("in the patient post");

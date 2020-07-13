@@ -16,10 +16,11 @@ const BaseURL = 'http://localhost:8830/api';
 
 export class NetService {
 
-
-
   constructor(private http: HttpClient) { }
 
+  getQuestionResults(patientID: string, startime: string, endtime: string) {
+    return this.http.get(`${BaseURL}/patient/${patientID}/records/${startime}/${endtime}` );
+  }
   updateDoctor(doctor: Doctor) {
       return this.http.put( `${BaseURL}/admin/doctor`  , doctor);
   }

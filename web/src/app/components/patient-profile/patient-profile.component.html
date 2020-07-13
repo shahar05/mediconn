@@ -21,7 +21,11 @@
             <mat-divider></mat-divider>
             <mat-list-item class="p-2" > 
               <div class="d-flex justify-content-end full-width" >
-                <button mat-mini-fab color="accent" class="col-2 ml-2" >  <mat-icon>bar_chart</mat-icon> </button>
+
+
+               
+
+                <button mat-mini-fab color="accent" class="col-2 ml-2"   (click)="showGraphs()" >  <mat-icon>bar_chart</mat-icon> </button>
                 <button mat-mini-fab color="primary" class="col-2 ml-2" (click)="editPaient()"  >  <mat-icon>edit</mat-icon> </button>      
                 <button mat-mini-fab color="warn" class="col-2 ml-2" (click)="deletePaient()"  >  <mat-icon>delete</mat-icon> </button>
               </div>

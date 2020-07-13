@@ -49,16 +49,26 @@ var Dal = /** @class */ (function () {
             });
         });
     };
+    Dal.prototype.getRecordByDate = function (id, startime, endtime) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.recordSchema.find({ patientId: id, date: { $gte: new Date(startime), $lte: new Date(endtime) } }, function (err, foundRecords) {
+                if (err)
+                    return reject(err);
+                resolve(foundRecords);
+            });
+        });
+    };
     Dal.prototype.saveRecord = function (record) {
         var _this = this;
         return new Promise(function (resolve, rejcet) {
+            // if (Dal.day <= 30)
+            //     record.date = new Date('2020-7-' + (Dal.day++));
             _this.recordSchema.create(record, function (err, newRecord) {
                 if (err || !newRecord) {
-                    console.log("NULL ASASKAJSH");
                     return rejcet(err);
                 }
                 else {
-                    console.log("asdkasd");
                     return resolve(newRecord);
                 }
             });
@@ -201,6 +211,16 @@ var Dal = /** @class */ (function () {
                     reject();
                 }
                 resolve(medicalAddition);
+            });
+        });
+    };
+    Dal.prototype.getQuestionsByArrId = function (arrayId) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.questionSchema.find({ _id: arrayId }, function (err, questions) {
+                if (err)
+                    return reject(err);
+                resolve(questions);
             });
         });
     };

@@ -21,6 +21,38 @@ var PatientBL = /** @class */ (function () {
             });
         });
     };
+    PatientBL.prototype.getPatientRecords = function (id, startime, endtime) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            PatientBL.dal.getPatient(id).then(function (patient) {
+                PatientBL.dal.getRecordByDate(id, startime, endtime).then(function (records) {
+                    var questionListId = [];
+                    var dictionaryQuestion = {};
+                    var dictionary = {};
+                    records.forEach(function (record) {
+                        record.answerArr.forEach(function (answer) {
+                            if (!dictionary[answer.questionId])
+                                dictionary[answer.questionId] = [];
+                            dictionary[answer.questionId].push({ name: record.date.toDateString(), value: answer.answer });
+                            if (!dictionaryQuestion[answer.questionId]) {
+                                dictionaryQuestion[answer.questionId] = answer.questionId;
+                                questionListId.push(answer.questionId);
+                            }
+                        });
+                    });
+                    PatientBL.dal.getQuestionsByArrId(questionListId).then(function (questions) {
+                        var questionResults = [];
+                        questions.forEach(function (question) {
+                            questionResults.push({ name: _this.findTextByLanguage(patient.language, question.textArr), series: dictionary[question._id] });
+                        });
+                        return resolve(questionResults);
+                    }).catch(function (err) { reject(err); });
+                }).catch(function (err) { reject(err); });
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+    };
     PatientBL.prototype.getPatientQuestionsByPhoneNumber = function (phoneNumber) {
         var _this = this;
         return new Promise(function (resolve, reject) {

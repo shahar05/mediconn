@@ -1,8 +1,9 @@
 
 const mongoose = require("mongoose");
 
-
+  
 export const RecordSchema = new mongoose.Schema({
+     
 
     patientId: {type : String , required : true},
 
@@ -15,6 +16,8 @@ export const RecordSchema = new mongoose.Schema({
        }   
     ],
     
+
+    date : { type : Date , default : new Date() },
     timestamp: { type: Number, default: Date.now() },
     year:{ type: Number, default: new Date().getFullYear() },
     mounth:{ type: Number, default: new Date().getMonth()+ 1},

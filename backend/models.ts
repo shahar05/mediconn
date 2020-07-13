@@ -76,6 +76,7 @@ export interface IRecord extends mongoose.Document {
    
     patientId : string;
     answerArr : Answer[];
+    date : Date;
     timestamp?: number
     year?:number
     mounth?:number
@@ -85,6 +86,17 @@ export interface Answer {
     questionId : string ;
     answer : number;
 }
+
+export interface QuestionResult{
+    name : string; // name = question text | when default question --> name = patient.name
+    series : Result[];
+}
+
+export interface Result{
+    name : string ; // name = Date
+    value : number;
+}
+
 export interface IMedicalAdditions extends mongoose.Document {
     name: string;
     description: string;
@@ -92,3 +104,30 @@ export interface IMedicalAdditions extends mongoose.Document {
     patientId?: string;
     additionType: AddPopupType;
 }
+
+
+// {
+//     "name": "kama peemim pipi?",
+//     "series": [
+//       {
+//         "value": 2202,
+//         "name":    this.date.toDateString()
+//       },
+//       {
+//         "value": 3685,
+//         "name": "2016-09-23T06:47:56.717Z"
+//       },
+//       {
+//         "value": 3655,
+//         "name": "2016-09-23T21:25:49.776Z"
+//       },
+//       {
+//         "value": 4926,
+//         "name": "2016-09-17T11:46:00.990Z"
+//       },
+//       {
+//         "value": 3012,
+//         "name": "2016-09-18T03:58:42.477Z"
+//       }
+//     ]
+//   }

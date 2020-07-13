@@ -6,12 +6,13 @@ import { BasePatient, MedicalAdditions, Question, Patient } from '../../models';
   providedIn: 'root'
 })
 export class PatientService {
-  
-
-
-
 
   constructor(private net: NetService) { }
+
+
+  getQuestionResults(patientID: string, startime: string, endtime: string) {
+    return this.net.getQuestionResults(patientID , startime , endtime);
+  }
 
   deletePatient(patientID: string) {
     return this.net.deletePatient(patientID);

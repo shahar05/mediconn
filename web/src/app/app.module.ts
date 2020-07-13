@@ -46,6 +46,16 @@ import { PatientCreateUpdateComponent } from './components/patient-create-update
 import { DoctorEditorComponent } from './components/doctor-editor/doctor-editor.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { GraphPatientComponent } from './components/graph-patient/graph-patient.component';
+
+import { NgxChartsModule }from '@swimlane/ngx-charts';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { DatePickerDialogComponent } from './components/date-picker-dialog/date-picker-dialog.component';
+
+
+import { MatNativeDateModule } from '@angular/material/core';
+
+
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient,  '/assets/languages/', '-lang.json');
@@ -76,7 +86,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     DoctorsComponent,
     DoctorComponent,
     PatientCreateUpdateComponent,
-    DoctorEditorComponent
+    DoctorEditorComponent,
+    GraphPatientComponent,
+    DatePickerDialogComponent
   
   ],
   imports: [
@@ -99,6 +111,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MatSelectModule,
     MatRadioModule,
     MatCheckboxModule,
+    NgxChartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    
 
     TranslateModule.forRoot({
       loader: {
