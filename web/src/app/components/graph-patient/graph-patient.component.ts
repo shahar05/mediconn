@@ -1,8 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { BrowserModule } from '@angular/platform-browser';
-import { PatientService } from 'src/app/services/patient/patient.service';
-import { ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogAlertComponent } from '../dialog-alert/dialog-alert.component';
 
@@ -42,7 +38,7 @@ export class GraphPatientComponent implements OnInit {
     
 
   constructor( public dialogRef: MatDialogRef<DialogAlertComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: { arr : any ,headline : string }
+              @Inject(MAT_DIALOG_DATA) public data: { arr : any ,headline : string }
     ) { }
 
   ngOnInit(): void {

@@ -52,7 +52,7 @@ export class SelectPatientsComponent implements OnInit {
         let text : QuestionText //= this.data.question.textArr.find( ( t : QuestionText)=>{ (t.language + "") === (this.doctor.mainLanguage +"")  } )
        this.data.question.textArr.forEach((t:QuestionText )=> {
             if(  (t.language + "").trim() === (this.doctor.mainLanguage +"").trim() ){
-              text = t;
+              text = t
             }
         });
         this.dialogService.openDialog( GraphPatientComponent ,{arr:arr ,headline : text.text },"80%"  ).afterClosed().subscribe(()=>{})
