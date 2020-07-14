@@ -1,5 +1,11 @@
 
+<mat-card class="d-flex flex-column shadow p-0">
 
+  <mat-card-header class="text-center f-2-5 white-font blue-color mb-3 ">
+      <div class="d-flex col justify-content-center mt-2 mb-3 p-3">
+          {{ data.headline}}
+      </div>
+  </mat-card-header>
 
 <div  *ngIf="arr" >
     <ngx-charts-line-chart
@@ -22,6 +28,7 @@
 </div>
 
 
+</mat-card>
 
 
 

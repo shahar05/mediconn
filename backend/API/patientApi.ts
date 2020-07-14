@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { DoctorBL } from '../BL/doctorBL';
 import { PatientBL } from "../BL/PatientBL";
 import { BaseApi } from "./BaseApi";
-import { IDoctor, IPatient } from "../models";
+import { IDoctor, IPatient, QuestionResult } from "../models";
 
 export class PatientApi implements BaseApi {
     public router: Router;
@@ -14,6 +14,21 @@ export class PatientApi implements BaseApi {
     }
 
     initRoutes() {
+
+
+        this.router.post('/records/:id' ,(req,res)=>{
+
+            this.patientBL.getPatientsAnswersByQuestion(req.body , req.params.id)
+            .then(( questionResults : QuestionResult[])=>{
+                res.send(questionResults);
+            }).catch((err)=>{
+                console.log(err);
+                
+                    res.status(400).send(err);
+            })
+            
+
+        } )
 
         this.router.delete('/patient/:id', (req, res) => {
             this.patientBL.deletePatient(req.params.id).then((response) => {

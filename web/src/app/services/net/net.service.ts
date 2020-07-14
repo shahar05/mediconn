@@ -3,21 +3,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseDoctorDetails, BasePatient, MedicalAdditions, BaseQuestion, Question, Patient, Doctor } from '../../models';
 import { LocalStorageKey } from '../../enum';
 
-
-
-
-
 const BaseURL = 'http://localhost:8830/api';
 
 @Injectable({
   providedIn: 'root'
 })
-
-
+    //${questionId}` , { patientsId:patientsId , dates:dates } 
 export class NetService {
 
   constructor(private http: HttpClient) { }
 
+  getQuestionResultsOfPatients(questionId: string, patientsId: string[], dates: { dateStart: Date; dateEnd: Date; }) {
+   return this.http.post( `${BaseURL}/records/${questionId}`  ,{patientsId:patientsId , dates:dates});
+
+  }
   getQuestionResults(patientID: string, startime: string, endtime: string) {
     return this.http.get(`${BaseURL}/patient/${patientID}/records/${startime}/${endtime}` );
   }

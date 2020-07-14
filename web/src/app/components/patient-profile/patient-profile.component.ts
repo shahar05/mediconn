@@ -12,6 +12,7 @@ import { QuestionWrapperComponent } from '../question-wrapper/question-wrapper.c
 import { QuestionService } from 'src/app/services/question/question.service';
 import { PatientCreateUpdateComponent } from '../patient-create-update/patient-create-update.component';
 import { DatePickerDialogComponent } from '../date-picker-dialog/date-picker-dialog.component';
+import { GraphPatientComponent } from '../graph-patient/graph-patient.component';
 
 
 @Component({
@@ -53,10 +54,20 @@ export class PatientProfileComponent implements OnInit {
       let d1 = dates.dateStart;
       let d2 = dates.dateEnd;
 
-      let str1 = "/" + d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" + d1.getDate();
-      let str2 = "/" + d2.getFullYear() + "-" + (d2.getMonth() + 1) + "-" + d2.getDate();
+      let str1 =   d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" + d1.getDate();
+      let str2 =   d2.getFullYear() + "-" + (d2.getMonth() + 1) + "-" + d2.getDate();
 
-      this.router.navigate(["graphs/" + this.patientID + str1 + str2]);
+      this.patientService.getQuestionResults( this.patientID , str1 ,str2 ).subscribe(( arr : any )=>{
+  
+
+            this.dialogService.openDialog( GraphPatientComponent , {arr:arr  , headline : this.patient.firstName +"   "+ this.patient.lastName  } , "80%" ).afterOpened().subscribe(()=>{
+
+            })
+          })
+
+      
+
+      //this.router.navigate(["graphs/" + this.patientID + str1 + str2]);
     })
 
 

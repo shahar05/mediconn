@@ -21,6 +21,42 @@ var PatientBL = /** @class */ (function () {
             });
         });
     };
+    PatientBL.prototype.getPatientsAnswersByQuestion = function (body, questionID) {
+        return new Promise(function (resolve, reject) {
+            var d1 = new Date(body.dates.dateStart);
+            var d2 = new Date(body.dates.dateEnd);
+            var str1 = d1.getFullYear() + '-' + (d1.getMonth() + 1) + "-" + d1.getDate();
+            var str2 = d2.getFullYear() + '-' + (d2.getMonth() + 1) + "-" + d2.getDate();
+            PatientBL.dal.getRecordByDate(body.patientsId, str1, str2)
+                .then(function (records) {
+                var dictionary = {};
+                body.patientsId.forEach(function (patientId) {
+                    dictionary[patientId] = [];
+                });
+                records.forEach(function (record) {
+                    //  let index: number = record.answerArr.findIndex(answer => answer.questionId === questionID);
+                    record.answerArr.forEach(function (answer) {
+                        console.log(" answer.questionId: " + answer.questionId + " ?===? " + questionID);
+                        console.log(typeof answer.questionId);
+                        console.log(typeof questionID);
+                        if ((answer.questionId + "") === questionID) {
+                            dictionary[record.patientId].push({ value: answer.answer, name: record.date.toDateString() });
+                        }
+                        else {
+                        }
+                    });
+                });
+                var questionResults = [];
+                body.patientsId.forEach(function (patientId) {
+                    questionResults.push({ name: patientId, series: dictionary[patientId] });
+                });
+                console.log(questionResults);
+                resolve(questionResults);
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+    };
     PatientBL.prototype.getPatientRecords = function (id, startime, endtime) {
         var _this = this;
         return new Promise(function (resolve, reject) {

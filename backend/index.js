@@ -47,6 +47,7 @@ var Server = /** @class */ (function () {
     };
     Server.prototype.initTestRoute = function () {
         this.app.get('/', function (req, res) {
+            console.log("Boooom");
             res.send('hi');
         });
     };

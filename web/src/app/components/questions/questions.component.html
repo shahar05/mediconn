@@ -5,6 +5,7 @@
         <app-question 
         (deleteClicked)="deleteQuestion($event)" 
         (editClicked)="editQuestion($event)" 
+        (graphClicked)="showGraph($event)" 
         [patientLanguage]="patientLanguage"
         [isNotDefaultPage] = "isNotDefaultPage"
           [question]="question" ></app-question>

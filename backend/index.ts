@@ -53,6 +53,8 @@ class Server {
 
     private initTestRoute() {
         this.app.get('/', (req, res) => {
+            console.log("Boooom");
+
             res.send('hi');  
         })
     }

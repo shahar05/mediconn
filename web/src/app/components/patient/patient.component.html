@@ -15,7 +15,8 @@
     </mat-card-content>
 
     <mat-card-actions class="text-right mr-2">
-        <button  (click)="navigateToPatientProfile()" mat-raised-button color="primary">{{ 'detail' | translate}}</button>
+        <button   *ngIf="!fromPopUp" (click)="navigateToPatientProfile()" mat-raised-button color="primary">{{ 'detail' | translate}}</button>
+        <button   *ngIf="fromPopUp" (click)="addPatientToGraph()" mat-raised-button [color]="color">add</button>
       
     </mat-card-actions>
 </mat-card>

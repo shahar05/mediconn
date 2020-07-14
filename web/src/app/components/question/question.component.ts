@@ -10,6 +10,8 @@ export class QuestionComponent implements OnInit {
 
   @Output() deleteClicked : EventEmitter<Question> = new EventEmitter<Question>();
   @Output() editClicked : EventEmitter<Question> = new EventEmitter<Question>();
+  @Output() graphClicked : EventEmitter<Question> = new EventEmitter<Question>();
+
   @Input() question: Question;
   @Input() patientLanguage: string;
   @Input() isNotDefaultPage : boolean;
@@ -34,6 +36,10 @@ export class QuestionComponent implements OnInit {
   delete():void {
       this.deleteClicked.emit(this.question);
   } 
+
+  showGraphs(){
+    this.graphClicked.emit(this.question);
+  }
 }
 
 //@Output() itemClicked : EventEmitter<Ticket> = new EventEmitter<Ticket>();

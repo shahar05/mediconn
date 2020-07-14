@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { DialogAlertComponent } from '../dialog-alert/dialog-alert.component';
 import { QuestionWrapperComponent } from '../question-wrapper/question-wrapper.component';
+import { ViewPatientsComponent } from '../view-patients/view-patients.component';
+import { SelectPatientsComponent } from '../select-patients/select-patients.component';
 
 @Component({
   selector: 'app-default-question',
@@ -24,39 +26,39 @@ export class DefaultQuestionComponent implements OnInit {
   questions: Question[];
   questionNeedToUpdate: boolean = false;
 
-  constructor( private dialogService : DialogService ,  private userService: UserService, private questionService: QuestionService) { }
+  constructor(private dialogService: DialogService, private userService: UserService, private questionService: QuestionService) { }
 
   ngOnInit(): void {
     this.initDefaultQuestions();
     this.initDoctor();
   }
 
-  deleteQuestion(questionToDelete : Question)
-  {
-    this.dialogService.openDialog( DialogAlertComponent , {isDefault : true} , width ,height )
-    .afterClosed().subscribe((toDelete : boolean)=>{
-      if(toDelete)
-        this.questionService.deleteDefaultQuestion( questionToDelete._id ).subscribe(()=>{
-          let i : number =this.questions.findIndex( q => q._id === questionToDelete._id );
-          this.questions.splice( i , 1);
-        } ,(err)=>{console.log(err);
-        } )
-    })
+  deleteQuestion(questionToDelete: Question) {
+    this.dialogService.openDialog(DialogAlertComponent, { isDefault: true }, width, height)
+      .afterClosed().subscribe((toDelete: boolean) => {
+        if (toDelete)
+          this.questionService.deleteDefaultQuestion(questionToDelete._id).subscribe(() => {
+            let i: number = this.questions.findIndex(q => q._id === questionToDelete._id);
+            this.questions.splice(i, 1);
+          }, (err) => {
+            console.log(err);
+          })
+      })
   }
 
-  editQuestion( questionToEdit : Question ){
-    
+  editQuestion(questionToEdit: Question) {
+
     this.dialogService
-    .openDialog( QuestionWrapperComponent , { question : questionToEdit , questionNeedToUpdate : true } )
-    .afterClosed().subscribe(( newQuestion  : Question)=>{
-      
-        this.questionService.updateQuestion(newQuestion).subscribe((response : any)=>{
-             // Question is updated "itself"
-            // because it actually updated the values of the same reference
+      .openDialog(QuestionWrapperComponent, { question: questionToEdit, questionNeedToUpdate: true })
+      .afterClosed().subscribe((newQuestion: Question) => {
+
+        this.questionService.updateQuestion(newQuestion).subscribe((response: any) => {
+          // Question is updated "itself"
+          // because it actually updated the values of the same reference
         })
 
-    })
-    
+      })
+
   }
 
   createDefaultQuestion(newQuestion: Question) {
@@ -71,15 +73,28 @@ export class DefaultQuestionComponent implements OnInit {
 
   }
 
+  showGraph(question: Question) {
 
-  initDoctor()  {
-    this.userService.getDoctor()
-    .subscribe((doctor: Doctor) =>
-      this.initVars(doctor),
-      (err) => console.log(err)
-    );
+    let newWidth = "" + (parseInt(width) * 1.5)
+
+    this.dialogService.openDialog(SelectPatientsComponent, { question:question }, "60%").afterClosed()
+      .subscribe(() => {
+
+        console.log("closed");
+
+
+      })
+
   }
-  
+
+  initDoctor() {
+    this.userService.getDoctor()
+      .subscribe((doctor: Doctor) =>
+        this.initVars(doctor),
+        (err) => console.log(err)
+      );
+  }
+
   initVars(doctor: Doctor) {
     this.doctor = doctor;
     this.languages = doctor.languages;
@@ -87,30 +102,29 @@ export class DefaultQuestionComponent implements OnInit {
     this.initQuestionText();
   }
 
-  resetQuestion(){
+  resetQuestion() {
     this.question.questionType = null;
     this.resetQuestionText();
   }
-  resetQuestionText(){
+  resetQuestionText() {
     for (let index = 0; index < this.question.textArr.length; index++) {
       const txt: QuestionText = this.question.textArr[index];
-        txt.text = "";
+      txt.text = "";
     }
   }
-  initQuestionText()
-  {
+  initQuestionText() {
     for (let index = 0; index < this.languages.length; index++) {
       let language: Language = this.languages[index];
       let txt: QuestionText = { text: "", language: language }
       this.question.textArr.push(txt)
     }
   }
-  initDefaultQuestions(){
+  initDefaultQuestions() {
     this.questionService.getDefaultQuestions()
-    .subscribe((defaultQuestions: Question[]) =>
-      this.questions = defaultQuestions,
-      (err) => 
-        console.log(err)
+      .subscribe((defaultQuestions: Question[]) =>
+        this.questions = defaultQuestions,
+        (err) =>
+          console.log(err)
       );
   }
 }

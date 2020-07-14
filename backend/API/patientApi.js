@@ -11,6 +11,15 @@ var PatientApi = /** @class */ (function () {
     }
     PatientApi.prototype.initRoutes = function () {
         var _this = this;
+        this.router.post('/records/:id', function (req, res) {
+            _this.patientBL.getPatientsAnswersByQuestion(req.body, req.params.id)
+                .then(function (questionResults) {
+                res.send(questionResults);
+            }).catch(function (err) {
+                console.log(err);
+                res.status(400).send(err);
+            });
+        });
         this.router.delete('/patient/:id', function (req, res) {
             _this.patientBL.deletePatient(req.params.id).then(function (response) {
                 console.log(response);

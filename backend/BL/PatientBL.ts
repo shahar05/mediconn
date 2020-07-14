@@ -7,7 +7,6 @@ import { RecordBL } from "./RecordBL";
 
 export class PatientBL {
 
-
     private static dal: Dal = new Dal();
     private doctorBL = new DoctorBL();
     private questionBL = new QuestionBL();
@@ -24,7 +23,65 @@ export class PatientBL {
             })
         })
     }
+    getPatientsAnswersByQuestion(body: { patientsId: string[], dates: { dateStart: Date; dateEnd: Date; } }, questionID: string): Promise<QuestionResult[]> { //
 
+       
+      return new Promise((resolve , reject)=>{
+        let d1: Date = new Date(body.dates.dateStart);
+        let d2: Date = new Date(body.dates.dateEnd);
+
+        let str1 = d1.getFullYear() + '-' + (d1.getMonth() + 1) + "-" + d1.getDate();
+        let str2 = d2.getFullYear() + '-' + (d2.getMonth() + 1) + "-" + d2.getDate();
+
+        PatientBL.dal.getRecordByDate(body.patientsId, str1, str2)
+            .then((records: IRecord[]) => {
+                let dictionary: { [key: string]: Result[]; } = {};
+
+                body.patientsId.forEach(patientId => {
+                    dictionary[patientId] = [];
+                });
+                records.forEach((record: IRecord) => {
+
+                  //  let index: number = record.answerArr.findIndex(answer => answer.questionId === questionID);
+                    
+                    record.answerArr.forEach( (answer:Answer) => {
+                        console.log(" answer.questionId: "+ answer.questionId + " ?===? " + questionID);
+                        console.log(typeof answer.questionId);
+                        console.log(typeof questionID);
+                        
+                        if((answer.questionId+"") === questionID){
+                            dictionary[record.patientId].push( {value: answer.answer , name : record.date.toDateString()}  )
+                        }else{
+
+                        }
+                    });
+
+
+                })
+                
+                let questionResults: QuestionResult[] = [];
+                body.patientsId.forEach(patientId => {
+                    questionResults.push(  { name:patientId ,  series : dictionary[patientId] } )
+                });
+
+
+                console.log(questionResults);
+                
+                resolve(questionResults)
+                
+
+
+            }).catch((err) => {
+                reject (err)
+
+
+            })
+
+      })
+
+ 
+
+    }
 
     getPatientRecords(id: string, startime: string, endtime: string): Promise<QuestionResult[]> {
 
@@ -35,11 +92,11 @@ export class PatientBL {
                 PatientBL.dal.getRecordByDate(id, startime, endtime).then((records: IRecord[]) => {
                     let questionListId: string[] = [];
                     let dictionaryQuestion: { [key: string]: string; } = {};
-                    let dictionary: { [key: string]: Result[]; } = {  };
-               
+                    let dictionary: { [key: string]: Result[]; } = {};
+
                     records.forEach((record: IRecord) => {
                         record.answerArr.forEach((answer: Answer) => {
-                            if(!dictionary[answer.questionId]) dictionary[answer.questionId] = [];   
+                            if (!dictionary[answer.questionId]) dictionary[answer.questionId] = [];
                             dictionary[answer.questionId].push({ name: record.date.toDateString(), value: answer.answer })
 
                             if (!dictionaryQuestion[answer.questionId]) {
@@ -48,7 +105,7 @@ export class PatientBL {
                             }
                         })
                     });
-                  
+
                     PatientBL.dal.getQuestionsByArrId(questionListId).then((questions: IQuestion[]) => {
 
                         let questionResults: QuestionResult[] = [];

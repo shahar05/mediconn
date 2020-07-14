@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserModule } from '@angular/platform-browser';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogAlertComponent } from '../dialog-alert/dialog-alert.component';
 
 @Component({
   selector: 'app-graph-patient',
@@ -39,20 +41,14 @@ export class GraphPatientComponent implements OnInit {
   arr;
     
 
-  constructor( private patientService : PatientService , private route : ActivatedRoute) { }
+  constructor( public dialogRef: MatDialogRef<DialogAlertComponent>,
+              @Inject(MAT_DIALOG_DATA) private data: { arr : any ,headline : string }
+    ) { }
 
   ngOnInit(): void {
-    this.width = window.innerWidth - 200;
+    this.width = window.innerWidth - 400;
     this.view = [ this.width , this.width/3];
 
-    this.patientID = this.route.snapshot.paramMap.get('id');
-    this.startime = this.route.snapshot.paramMap.get('startime');
-    this.endtime = this.route.snapshot.paramMap.get('endtime');
-
-
-    this.patientService.getQuestionResults( this.patientID , this.startime ,this.endtime ).subscribe(( arr : any )=>{
-      this.arr = arr;
-    })
+    this.arr = this.data.arr;
   }
-
 }

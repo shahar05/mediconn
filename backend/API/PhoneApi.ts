@@ -56,6 +56,10 @@ export class PhoneApi implements BaseApi {
             })
         })
 
+
+     
+
+
         this.router.get('/patient/:id/records/:startime/:endtime', (req, res) => {
             let s: string = req.params.startime;
             let e: string = req.params.endtime;

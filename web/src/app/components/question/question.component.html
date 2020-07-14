@@ -16,6 +16,10 @@
       <div class="col-3 text-right">
 
 
+        <!-- TODO: Put Equal Width to all buttons -->
+
+        <button mat-mini-fab color="accent" class=" mr-2"  *ngIf="question.isDefault"  (click)="showGraphs()" >  <mat-icon>bar_chart</mat-icon> </button>
+
         <button mat-mini-fab [disabled]="question.isDefault && isNotDefaultPage" color="primary" class="mr-2"
           (click)="edit()">
           <mat-icon>edit</mat-icon>
@@ -25,6 +29,8 @@
           (click)="delete()" aria-label="Example icon button with a delete icon">
           <mat-icon>delete</mat-icon>
         </button>
+
+
       </div>
     </div>
 

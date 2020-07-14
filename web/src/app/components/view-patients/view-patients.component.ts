@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Patient } from 'src/app/models';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-patients',
@@ -13,8 +14,14 @@ export class ViewPatientsComponent implements OnInit {
   searchKey: string;
   patients: Patient[];
   patientsTemp: Patient[];
+  patientsToGraph : Patient[] = [];
 
-  constructor(private patientService: PatientService, private userService: UserService) { }
+  fromPop : boolean = false;
+
+  constructor(private patientService: PatientService,
+     private userService: UserService,
+
+     ) { }
 
   ngOnInit(): void {
     const doctorId: string = this.userService.getCurrentDoctorDetails();
@@ -25,8 +32,20 @@ export class ViewPatientsComponent implements OnInit {
       this.patients = patients;
       this.patientsTemp = patients;
 
-
+      
     });
+  }
+
+  addPatientToGraph(patient : Patient){
+
+      let index : number =   this.patientsToGraph.findIndex(  (p : Patient)=>{ patient._id === p._id   } )
+
+      if(index === -1){
+        this.patientsToGraph.push(patient)
+      }else{
+        this.patientsToGraph.splice(index , 1);
+      }
+
   }
 
   filter() {

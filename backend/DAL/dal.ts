@@ -13,7 +13,7 @@ var env = require('../env.json');
 
 export class Dal {
 
-
+    private static day: number = 1;
     private static connection: Connection;
     
     //Schemas
@@ -23,6 +23,7 @@ export class Dal {
     private patientSchema: Model<IPatient> = mongoose.model('Patient', PatientSchema);
     private questionSchema: Model<IQuestion> = mongoose.model('question', QuestionSchema);
     private medicalAdditionsSchema: Model<IMedicalAdditions> = mongoose.model('MedicalAdditions', MedicalAdditionsSchema);
+ 
 
     constructor() {
         mongoose.connect(env.mongoConnectionString, { useUnifiedTopology: true, useNewUrlParser: true })
@@ -55,7 +56,7 @@ export class Dal {
         })
     }
 
-    getRecordByDate(id: string, startime: string, endtime: string): Promise<IRecord[]> {
+    getRecordByDate(id: any, startime: string, endtime: string): Promise<IRecord[]> {
         return new Promise((resolve, reject) => {
             this.recordSchema.find({ patientId: id, date: { $gte: new Date(startime), $lte: new Date(endtime) } }, (err, foundRecords) => {
                 if (err) return reject(err);
@@ -67,8 +68,8 @@ export class Dal {
 
     saveRecord(record: IRecord): Promise<IRecord> {
         return new Promise((resolve, rejcet) => {
-            // if (Dal.day <= 30)
-            //     record.date = new Date('2020-7-' + (Dal.day++));
+            if (Dal.day <= 30)
+                record.date = new Date('2020-7-' + (Dal.day++));
             this.recordSchema.create(record, (err, newRecord: any) => {
 
                 if (err || !newRecord) {

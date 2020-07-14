@@ -21,7 +21,7 @@
 
 
                    
-            <app-patients class="p-5" [patients]="patients"></app-patients>
+            <app-patients class="p-5" [patients]="patients"  [fromPopUp]="false" (addPatientClicked)="addPatientToGraph($event)"  ></app-patients>
        
 
      

@@ -62,8 +62,8 @@ var Dal = /** @class */ (function () {
     Dal.prototype.saveRecord = function (record) {
         var _this = this;
         return new Promise(function (resolve, rejcet) {
-            // if (Dal.day <= 30)
-            //     record.date = new Date('2020-7-' + (Dal.day++));
+            if (Dal.day <= 30)
+                record.date = new Date('2020-7-' + (Dal.day++));
             _this.recordSchema.create(record, function (err, newRecord) {
                 if (err || !newRecord) {
                     return rejcet(err);
@@ -432,6 +432,7 @@ var Dal = /** @class */ (function () {
             });
         });
     };
+    Dal.day = 1;
     return Dal;
 }());
 exports.Dal = Dal;

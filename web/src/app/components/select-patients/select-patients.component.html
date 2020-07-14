@@ -1,0 +1,42 @@
+<mat-card class="col-12 p-0 ">
+
+    <mat-card-header class="text-center f-2-5 white-font blue-color ">
+        <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
+            Choose Patients
+        </div>
+    </mat-card-header>
+
+    <div class="d-flex justify-content-center ">
+        <div class="col text-center p-0">
+            <mat-card class="shadow d-flex justify-content-start  ">
+
+              
+                <button mat-mini-fab color="accent" (click)="moveToGraphPage()" class="ml-2 mr-2" >
+                    <mat-icon>bar_chart</mat-icon>
+                  </button>
+                <button mat-mini-fab color="accent" (click)="chooseCalander()" >
+                    <mat-icon>calendar_today</mat-icon>
+                  </button>       
+
+                <div class="col-2"></div>
+                <mat-form-field class=" text-center col-3 ">
+                    <mat-label>{{'enter_phone_or_name' | translate}}</mat-label>
+                    <input matInput placeholder="Example  050-2347865"  [(ngModel)]="searchKey">
+                </mat-form-field>
+
+                <button mat-mini-fab color="primary"  (click)="filter()" >
+                    <mat-icon>search</mat-icon>
+                  </button>
+      
+
+            </mat-card>
+        </div>
+    </div>
+
+
+               
+        <app-patients class="p-5" [patients]="patients"  [fromPopUp]="true" (addPatientClicked)="addPatientToGraph($event)"  ></app-patients>
+   
+
+ 
+</mat-card>

@@ -9,9 +9,11 @@ import { Question } from 'src/app/models';
 export class QuestionsComponent implements OnInit {
   @Output() deleteClicked: EventEmitter<Question> = new EventEmitter<Question>();
   @Output() editClicked: EventEmitter<Question> = new EventEmitter<Question>();
+  @Output() graphClicked: EventEmitter<Question> = new EventEmitter<Question>();
+
   @Input() questions: Question[];
   @Input() patientLanguage: String;
-  @Input() isNotDefaultPage : boolean;
+  @Input() isNotDefaultPage: boolean;
   constructor() { }
 
   ngOnInit(): void { }
@@ -22,5 +24,10 @@ export class QuestionsComponent implements OnInit {
   editQuestion($event) {
     this.editClicked.emit($event);
   }
+  showGraph($event) {
+    
+    this.graphClicked.emit($event);
+  }
+
 
 }
