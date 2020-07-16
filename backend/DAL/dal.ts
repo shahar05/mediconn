@@ -139,8 +139,13 @@ export class Dal {
                 foundedPatient.phoneNumber = patient.phoneNumber;
                 foundedPatient.endHour = patient.endHour;
                 foundedPatient.startHour = patient.startHour;
-                foundedPatient.save();
-                resolve(foundedPatient);
+                foundedPatient.save().then((p)=>{
+                    resolve(p);
+                }).catch((err)=>{
+                        reject(err)
+                });
+
+               
             }).catch((err) => {
                 reject(err);
             });
@@ -311,6 +316,7 @@ export class Dal {
             })
         })
     }
+    
     createPatient(patient: IPatient): Promise<IPatient> {
         return new Promise((resolve, reject) => {
             this.patientSchema.create(patient, (err, res: any) => {

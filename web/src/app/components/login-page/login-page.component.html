@@ -1,32 +1,34 @@
 <div class="d-flex justify-content-center">
     <div class="col-4 mt-5 text-center">
-        <mat-card id="card" class="p-0 shadow" >
+        <mat-card id="card" class="p-0 shadow">
 
-            <mat-card-header class="text-center f-2-5 white-font blue-color " >
+            <mat-card-header class="text-center f-2-5 white-font blue-color ">
                 <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
-                  {{  'login' | translate }}
+                    {{  'login' | translate }}
                 </div>
             </mat-card-header>
 
 
             <mat-card-content class="mt-4">
-                <mat-form-field class="semi-width text-center">
-                    <input matInput [placeholder]="  'username' | translate " [(ngModel)]="doctor.username" >
-                
-                </mat-form-field><br />
+               
+                    <mat-form-field  class="semi-width text-center"  >
+                        <input matInput [placeholder]="  'username' | translate " [(ngModel)]="doctor.username">
+                  
+                    </mat-form-field><br />
 
-                <mat-form-field class="semi-width text-center from">
-                    <input matInput [placeholder]="  'password' | translate " [(ngModel)]="doctor.password">
-                </mat-form-field><br />
+                    <mat-form-field class="semi-width text-center from">
+                        <input matInput [placeholder]="  'password' | translate " [(ngModel)]="doctor.password">
+            
+                    </mat-form-field><br />
+              
 
-
-                <span *ngIf="msg" >{{msg}}</span>
-                <button (click)="login()" class="shadow mt-3 mb-5 semi-width"  mat-raised-button color="primary">
+                <span *ngIf="msg">{{msg}}</span>
+                <button (click)="login()" class="shadow mt-3 mb-5 semi-width" mat-raised-button color="primary">
                     {{  'submit' | translate }}
                 </button>
-                
+
             </mat-card-content>
-            
+
         </mat-card>
 
     </div>

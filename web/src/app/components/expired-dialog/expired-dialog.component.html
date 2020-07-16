@@ -1,0 +1,17 @@
+
+
+    <h1 mat-dialog-title class="red-color text-center white-font p-1 ">
+        {{d.title}} 
+    </h1>
+    
+    <div mat-dialog-content class=" p-0 ml-4 mb-0">
+          <p class="display-4 f-m"> <strong> {{d.body}}  </strong>  </p>  
+    </div>
+    
+    <div mat-dialog-actions   class="align-end p-0 mr-4 mt-0">
+        
+        <button mat-raised-button color="primary"  *ngIf="d.cancel" (click)="onCancel()" >{{'Cancel' | translate}}</button>
+        <button mat-raised-button color="warn"  (click)="onClose()" > {{d.closeButtonText}}  </button>
+    </div>
+
+

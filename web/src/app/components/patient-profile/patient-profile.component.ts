@@ -79,15 +79,8 @@ export class PatientProfileComponent implements OnInit {
 
     this.dialogService.openDialog(PatientCreateUpdateComponent,
       { patient: patient, edit: true, languages: this.doctor.languages },
-      '35%', '400px').afterClosed().subscribe((patient: Patient) => {
-        if (patient) {
-          this.patientService.updatePatient(patient).subscribe((patient: Patient) => {
-            this.patient = patient;
-          }, (err) => console.log(err)
-          )
-        } else {
 
-        }
+      '35%', '400px').afterClosed().subscribe((patient: Patient) => {
       })
   }
   deletePaient() {

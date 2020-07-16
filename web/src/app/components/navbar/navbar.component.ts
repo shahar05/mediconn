@@ -12,6 +12,7 @@ import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { LocalStorageService } from 'src/app/services/local/local-storage.service';
 import { LocalStorageKey } from 'src/app/enum';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'navbar',
@@ -28,6 +29,9 @@ export class NavbarComponent implements OnInit {
   isAdmin: boolean = false;
   isDoctor: boolean = false;
   inLogin: boolean;
+  currentUrl: string;
+  markFlag = { en: "flag", he: "outlined_flag" }
+
   constructor(
     private localStorageService: LocalStorageService,
     private userService: UserService,
@@ -35,7 +39,8 @@ export class NavbarComponent implements OnInit {
     private dialogService: DialogService,
     private patientService: PatientService,
     private doctorService: DoctorService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +49,7 @@ export class NavbarComponent implements OnInit {
 
     this.router.events.subscribe(() => {
 
+      this.currentUrl = this.router.url;
       this.inLogin = this.router.url === "/" || this.router.url === "/admin";
       this.isAdmin = this.router.url === "/doctors";
       this.isDoctor = !this.isAdmin;
@@ -65,13 +71,18 @@ export class NavbarComponent implements OnInit {
   }
 
   isAuth() {
-    return !!this.localStorageService.getItem(LocalStorageKey.Token);
+    return !!this.localStorageService.getItem(LocalStorageKey.Token) && this.authService.getIsAuth();
   }
-  enLanguage(){
+  enLanguage() {
+    this.markFlag.en = "flag"
+    this.markFlag.he = "outlined_flag"
+
     this.translate.use('en');
   }
-  heLanguage(){
-      this.translate.use('he');
+  heLanguage() {
+    this.markFlag.en = "outlined_flag"
+    this.markFlag.he = "flag"
+    this.translate.use('he');
   }
   openDoctorEditor() {
     let doctor: Doctor = {
@@ -99,14 +110,34 @@ export class NavbarComponent implements OnInit {
       phoneNumber: "", language: null, questions: [], medications: [], treatments: [], endHour: 1, startHour: 0
     };
 
-    this.dialogService.openDialog(PatientCreateUpdateComponent,
-      { patient: patient, edit: false, languages: this.doctor.languages },
-      '35%', '450px').afterClosed().subscribe((patient: Patient) => {
-        if (patient)
-          this.patientService.createNewPatient(patient).subscribe(() => {
-            this.navToViewPatient();
+
+    if (!this.doctor) {
+      this.userService.getDoctor().subscribe((doc: Doctor) => {
+
+        this.doctor = doc;
+        this.dialogService.openDialog(PatientCreateUpdateComponent,
+          { patient: patient, edit: false, languages: doc.languages },
+          '35%', '450px').afterClosed().subscribe((patient: Patient) => {
+            if (patient)
+              this.patientService.createNewPatient(patient).subscribe(() => {
+                this.navToViewPatient();
+              })
           })
       })
+    } else {
+      this.dialogService.openDialog(PatientCreateUpdateComponent,
+        { patient: patient, edit: false, languages: this.doctor.languages },
+        '35%', '450px').afterClosed().subscribe((patient: Patient) => {
+
+          if (this.currentUrl === '/patients' && patient)
+            window.location.reload();
+          else 
+            this.navToViewPatient();
+          
+        })
+    }
+
+
   }
 
   navToViewPatient() {

@@ -1,10 +1,19 @@
 
 <mat-card class="d-flex flex-column shadow p-0">
 
-  <mat-card-header class="text-center f-2-5 white-font blue-color mb-3 ">
-      <div class="d-flex col justify-content-center mt-2 mb-3 p-3">
+  <mat-card-header class="text-center f-2-5 white-font  mb-3 p-0 blue-color">
+ 
+      <div class="d-flex col justify-content-center mt-2 mb-3 p-3  ">
+        
           {{ data.headline}}
       </div>
+
+      <div class="mt-2 mr-3 pull-right">
+        <button mat-mini-fab  (click)="exit()"  color="warn" class=" mt-2 p-0 btn-xs btn" >
+          <mat-icon>exit_to_app</mat-icon>
+        </button>
+      </div>
+
   </mat-card-header>
 
 <div  *ngIf="arr" >

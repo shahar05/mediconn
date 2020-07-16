@@ -55,6 +55,7 @@ import { DatePickerDialogComponent } from './components/date-picker-dialog/date-
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { SelectPatientsComponent } from './components/select-patients/select-patients.component';
+import { ExpiredDialogComponent } from './components/expired-dialog/expired-dialog.component';
 
 
 
@@ -90,7 +91,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     DoctorEditorComponent,
     GraphPatientComponent,
     DatePickerDialogComponent,
-    SelectPatientsComponent
+    SelectPatientsComponent,
+    ExpiredDialogComponent
   
   ],
   imports: [

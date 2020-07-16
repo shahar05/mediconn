@@ -75,13 +75,8 @@ export class DefaultQuestionComponent implements OnInit {
 
   showGraph(question: Question) {
 
-    let newWidth = "" + (parseInt(width) * 1.5)
-
-    this.dialogService.openDialog(SelectPatientsComponent, { question:question }, "60%").afterClosed()
+    this.dialogService.openDialog(SelectPatientsComponent, { question:question }, "30%" , ).afterClosed()
       .subscribe(() => {
-
-        console.log("closed");
-
 
       })
 

@@ -127,8 +127,11 @@ var Dal = /** @class */ (function () {
                 foundedPatient.phoneNumber = patient.phoneNumber;
                 foundedPatient.endHour = patient.endHour;
                 foundedPatient.startHour = patient.startHour;
-                foundedPatient.save();
-                resolve(foundedPatient);
+                foundedPatient.save().then(function (p) {
+                    resolve(p);
+                }).catch(function (err) {
+                    reject(err);
+                });
             }).catch(function (err) {
                 reject(err);
             });

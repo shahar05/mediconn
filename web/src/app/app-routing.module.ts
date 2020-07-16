@@ -14,6 +14,7 @@ import { GraphPatientComponent } from './components/graph-patient/graph-patient.
 const routes: Routes = [
 
   {path : "" , component : LoginPageComponent } ,
+  {path : "expired" , component : LoginPageComponent } ,
   {path : "admin" , component: AdminLoginComponent , },
   {path: "doctors" , component : DoctorsViewComponent , canActivate:[AuthAdminGuard] },
   {path : "patients" , component: ViewPatientsComponent, canActivate:[AuthGuard]},

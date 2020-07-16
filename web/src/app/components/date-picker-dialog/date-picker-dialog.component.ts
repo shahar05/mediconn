@@ -9,8 +9,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DatePickerDialogComponent implements OnInit {
 
-  dateStart : Date;
-  dateEnd : Date;
+  dateStart: Date;
+  dateEnd: Date;
   constructor(
     public dialogRef: MatDialogRef<DatePickerDialogComponent>
   ) { }
@@ -19,15 +19,24 @@ export class DatePickerDialogComponent implements OnInit {
   }
 
 
-  cancel(){
+  cancel() {
     this.dialogRef.close();
   }
-  sendDates(){
+  sendDates() {
 
-    if(this.dateEnd < this.dateStart)return;
+    if (!this.dateEnd) {
 
-    this.dialogRef.close({dateStart : this.dateStart , dateEnd : this.dateEnd});
-    
+      this.dateEnd = new Date();
+
+    }
+    if (!this.dateStart) {
+      this.dateStart = new Date(0);
+    }
+    if (this.dateEnd < this.dateStart) return;
+
+
+    this.dialogRef.close({ dateStart: this.dateStart, dateEnd: this.dateEnd });
+
 
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Question, Patient } from 'src/app/models';
 import { Language } from 'src/app/enum';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 
 
@@ -18,6 +19,7 @@ export class PatientCreateUpdateComponent implements OnInit {
   patient : Patient;
   constructor(  
     public dialogRef: MatDialogRef<PatientCreateUpdateComponent>,
+    private patientService: PatientService,
     @Inject(MAT_DIALOG_DATA) public data: {
       patient: Patient, edit: boolean , languages : Language[]
     }
@@ -38,7 +40,36 @@ export class PatientCreateUpdateComponent implements OnInit {
         alert(this.msg);
         return;
     }
-    this.dialogRef.close(this.patient);
+
+    if(this.data.edit){
+      this.editPatient();
+    }else{
+
+        this.createPatient();
+
+    }
+
+    
+  }
+
+  editPatient(){
+    this.patientService.updatePatient(this.patient).subscribe((patient)=>{
+      this.dialogRef.close(patient);
+    } ,  (err)=>{
+      this.msg = "phone number exists";
+      console.log(err);
+      
+    })
+
+  }
+
+  createPatient(){
+      this.patientService.createNewPatient(this.patient).subscribe((patient)=>{
+        this.dialogRef.close(patient);
+      },(err)=>{
+        this.msg = "phone number exists";
+      console.log(err);
+      })
   }
 
 

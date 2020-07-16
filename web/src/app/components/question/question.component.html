@@ -12,24 +12,21 @@
 
     <div class="d-flex align-contet-start">
       <div class="col-3 m-3  ">{{ question.timestamp | date}} </div>
-      <div class="col-6"></div>
-      <div class="col-3 text-right">
+      <div class="col-5"></div>
+      <div class="col-4 d-flex justify-content-end">
 
+        <!-- TODO: Put Equal Width to all buttons -->     
+          <button mat-mini-fab color="accent" *ngIf="question.isDefault && !isNotDefaultPage" class="mr-2"  (click)="showGraphs()">
+            <mat-icon>bar_chart</mat-icon>
+          </button>
 
-        <!-- TODO: Put Equal Width to all buttons -->
-
-        <button mat-mini-fab color="accent" class=" mr-2"  *ngIf="question.isDefault"  (click)="showGraphs()" >  <mat-icon>bar_chart</mat-icon> </button>
-
-        <button mat-mini-fab [disabled]="question.isDefault && isNotDefaultPage" color="primary" class="mr-2"
-          (click)="edit()">
+        <button mat-mini-fab [disabled]="question.isDefault && isNotDefaultPage"  class="mr-2" color="primary" (click)="edit()">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-mini-fab  color="warn" class="ml-2"
-          (click)="delete()" aria-label="Example icon button with a delete icon">
+        <button mat-mini-fab color="warn" class="mr-2" (click)="delete()">
           <mat-icon>delete</mat-icon>
         </button>
-
 
       </div>
     </div>

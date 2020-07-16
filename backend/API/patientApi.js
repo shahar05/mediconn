@@ -39,7 +39,6 @@ var PatientApi = /** @class */ (function () {
             });
         });
         this.router.post('/patient', function (req, res) {
-            console.log('Create patient request started. body:', req.body);
             _this.patientBL.createPatient(req.body).then(function (data) {
                 res.send(data);
             }).catch(function (err) {

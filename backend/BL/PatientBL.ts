@@ -321,8 +321,12 @@ export class PatientBL {
 
                 this.questionBL.getDefaultQuestionsByID(patient.creatorID).then((questions: IQuestion[]) => {
                     patient.questions = questions;
+
+                    
                     PatientBL.dal.createPatient(patient).then((res: IPatient) => {
                         resolve(res);
+                    }).catch((err)=>{
+                        reject(err)
                     })
                 })
             })

@@ -51,13 +51,13 @@ export class PatientApi implements BaseApi {
         })
 
         this.router.post('/patient', (req: Request, res: Response) => {
-            console.log('Create patient request started. body:', req.body);
 
             this.patientBL.createPatient(req.body).then((data) => {
                 res.send(data);
             }).catch(err => {
                 res.status(400).send(err);
             })
+            
         })
 
         this.router.get('/patient/:id', (req: Request, res: Response) => {

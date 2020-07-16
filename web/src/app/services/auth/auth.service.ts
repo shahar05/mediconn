@@ -7,7 +7,7 @@ import { LocalStorageKey } from '../../enum';
 })
 export class AuthService {
   private token = '';
-
+  private isAuth : boolean = false;
   constructor(private localstoragService: LocalStorageService) { }
 
   setToken(token: string = '') {
@@ -22,4 +22,12 @@ export class AuthService {
     }
     return this.token;
   }
+
+  setIsAuth( isAuth : boolean ){
+    this.isAuth = isAuth;
+  }
+  getIsAuth(){
+    return this.isAuth;
+  }
+
 }

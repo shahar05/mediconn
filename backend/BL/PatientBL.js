@@ -254,6 +254,8 @@ var PatientBL = /** @class */ (function () {
                     patient.questions = questions;
                     PatientBL.dal.createPatient(patient).then(function (res) {
                         resolve(res);
+                    }).catch(function (err) {
+                        reject(err);
                     });
                 });
             });

@@ -47,4 +47,9 @@ export class GraphPatientComponent implements OnInit {
 
     this.arr = this.data.arr;
   }
+
+  exit(){
+    this.dialogRef.close();
+  }
+
 }

@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+
+
+    
+
     constructor(public authService: AuthService , private router : Router) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         request = request.clone({
@@ -15,11 +19,16 @@ export class TokenInterceptor implements HttpInterceptor {
             }
         });
         return next.handle(request).pipe(
-            tap(()=>{} ,(err)=>{console.log(err);
+            tap(()=>{
+
+                this.authService.setIsAuth(true);
+
+            } ,(err)=>{console.log(err);
+                this.authService.setIsAuth(false);
+                console.log(err);
+                
+                //this.router.navigate(["/expired"]);
             })
         );
     }
 }
-
-//this.router.navigate(["/"]);
-// if My url is / or /admin and status err is 401 then navigate back
