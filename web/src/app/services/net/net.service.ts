@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseDoctorDetails, BasePatient, MedicalAdditions, BaseQuestion, Question, Patient, Doctor } from '../../models';
 import { LocalStorageKey } from '../../enum';
-
-const BaseURL = 'http://localhost:8830/api';
+import { environment } from '../../../environments/environment';
+const BaseURL = environment.serverURL;
 
 @Injectable({
   providedIn: 'root'
