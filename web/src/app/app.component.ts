@@ -10,6 +10,8 @@ export class AppComponent {
   title = 'mediconn';
 
   constructor(translate: TranslateService) {
+    console.log('1');
+    
     translate.addLangs(['en', 'he']);
     translate.setDefaultLang('en');
 

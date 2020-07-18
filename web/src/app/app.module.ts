@@ -59,7 +59,7 @@ import { ExpiredDialogComponent } from './components/expired-dialog/expired-dial
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient,  '../assets/languages/', '-lang.json');
+  return new TranslateHttpLoader(httpClient,  'assets/languages/', '-lang.json');
 }
 @NgModule({
   declarations: [
