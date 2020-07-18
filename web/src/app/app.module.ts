@@ -58,9 +58,8 @@ import { SelectPatientsComponent } from './components/select-patients/select-pat
 import { ExpiredDialogComponent } from './components/expired-dialog/expired-dialog.component';
 
 
-
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient,  '/assets/languages/', '-lang.json');
+  return new TranslateHttpLoader(httpClient,  '../assets/languages/', '-lang.json');
 }
 @NgModule({
   declarations: [
