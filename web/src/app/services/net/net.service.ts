@@ -11,7 +11,13 @@ const BaseURL = environment.serverURL;
     //${questionId}` , { patientsId:patientsId , dates:dates } 
 export class NetService {
 
+
   constructor(private http: HttpClient) { }
+
+
+  sendSms(link: string, phoneNumber: string) {
+    return this.http.post(  `${BaseURL}/sms` , {link : link , phoneNumber : phoneNumber } )
+  }
 
   getQuestionResultsOfPatients(questionId: string, patientsId: string[], dates: { dateStart: Date; dateEnd: Date; }) {
    return this.http.post( `${BaseURL}/records/${questionId}`  ,{patientsId:patientsId , dates:dates});
@@ -20,6 +26,10 @@ export class NetService {
   getQuestionResults(patientID: string, startime: string, endtime: string) {
     return this.http.get(`${BaseURL}/patient/${patientID}/records/${startime}/${endtime}` );
   }
+  getDoctorByID(id : string){
+    return this.http.get( `${BaseURL}/admin/doctor/${id}`  );
+  }
+
   updateDoctor(doctor: Doctor) {
       return this.http.put( `${BaseURL}/admin/doctor`  , doctor);
   }
@@ -55,6 +65,8 @@ export class NetService {
   }
 
   login(doctorDetails: BaseDoctorDetails) {
+    console.log(doctorDetails);
+    
     return this.http.post(`${BaseURL}/login`, doctorDetails);
   }
 
@@ -64,13 +76,17 @@ export class NetService {
   getPatientByID(patientID: string) {
     return this.http.get(`${BaseURL}/patient/${patientID}`);
   }
-
+ 
   getDoctor() {
     return this.http.get(`${BaseURL}/doctor/current`);
   }
 
   getDefaultQuestions() {
     return this.http.get(`${BaseURL}/question/default`);
+  }
+
+  getDefaultsQuestions(id : string) {
+    return this.http.get(`${BaseURL}/question/defaults/${id}`);
   }
 
   postDefaultQuestion(question) {

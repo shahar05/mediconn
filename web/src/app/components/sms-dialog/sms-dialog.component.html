@@ -1,0 +1,30 @@
+
+<mat-card class="d-flex flex-column shadow p-0">
+
+    <mat-card-header class="text-center f-2-5 white-font blue-color ">
+        <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
+            Send SMS
+        </div>
+    </mat-card-header>
+
+
+    <mat-card-content class="mt-4  d-flex justify-content-center ">
+               
+        <mat-form-field  class="text-center col-8"  >
+            <input matInput placeholder="zoom link" [(ngModel)]="link">
+      
+        </mat-form-field><br />
+
+        <div class="dialog-width text-center ml-2">
+            <p *ngIf="msg"> {{msg}} </p>
+    </div>
+</mat-card-content>
+
+
+    <div class="text-center m-3">
+        <button mat-raised-button color="warn"   class="mr-3" (click)="cancel()">{{'Cancel'|translate}}</button>
+        <button mat-raised-button color="primary" (click)="sendSMS()">{{'submit' | translate}}</button>
+      
+    </div>
+
+</mat-card>

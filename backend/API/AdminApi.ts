@@ -24,12 +24,12 @@ export class AdminApi implements BaseApi {
         })
 
         this.router.delete('/admin/doctor/:id', (req, res) => {
-                let doctorID = req.params.id;
-                this.adminBL.deleteDoctor(doctorID).then(()=>{
-                        res.status(204).send();
-                }).catch((err)=>{
-                    res.status(400).send(err);
-                })
+            let doctorID = req.params.id;
+            this.adminBL.deleteDoctor(doctorID).then(() => {
+                res.status(204).send();
+            }).catch((err) => {
+                res.status(400).send(err);
+            })
         })
 
         this.router.post('/admin/doctor', (req, res) => {
@@ -40,6 +40,18 @@ export class AdminApi implements BaseApi {
                 res.status(400).send(err);
             })
         })
+
+
+        this.router.get('/admin/doctor/:id', (req, res) => {
+            this.adminBL.getDoctorByID(req.params.id).then((doctor) => {
+                console.log(doctor);
+                
+                res.send(doctor);
+            }).catch((err) => {
+                res.status(400).send(err);
+            })
+        })
+
 
         this.router.get('/admin/:id/doctor', (req, res) => {
             this.adminBL.getDoctors(req.params.id).then((doctors: IDoctor[]) => {

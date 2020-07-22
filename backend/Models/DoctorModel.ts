@@ -20,6 +20,8 @@ export const DoctorSchema = new Schema({
 
 function arrayLimit(languagesArray: string[]) {
 
+    
+
     let findDuplicates = (arr: any) => arr.filter((item: any, index: any) => arr.indexOf(item) != index);
     if (findDuplicates(languagesArray).length != 0) {
         console.log("====================================================");

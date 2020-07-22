@@ -14,6 +14,9 @@ export class AdminLoginComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+
+// sessionStorage.clear();
+
   }
 
   login() {
@@ -25,6 +28,7 @@ export class AdminLoginComponent implements OnInit {
 
   }
   adminLogin() {
+    
     this.userService.adminLogin(this.admin).subscribe((res) => {
       console.log(res);
       this.router.navigate(["doctors"]);

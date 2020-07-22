@@ -1,14 +1,17 @@
 import { Router, Request, Response } from "express";
 import { DoctorBL } from '../BL/doctorBL';
 import { BaseApi } from "./BaseApi";
-import { IDoctor } from '../models';
+import { IDoctor, IAdmin, IModelAdmin } from '../models';
+import { AdminBL } from "../BL/adminBL";
 
 export class DoctorApi implements BaseApi {
     public router: Router;
+    private adminBL: AdminBL;
     private doctorBL: DoctorBL;
     constructor() {
         this.router = Router();
         this.doctorBL = new DoctorBL();
+        this.adminBL = new AdminBL();
         this.initRoutes();
     }
 
@@ -32,11 +35,23 @@ export class DoctorApi implements BaseApi {
         this.router.get('/doctor/current', (req: Request, res: Response) => {
             let request: any = req
             let user: IDoctor = request.user;
+            
+            console.log( request.user);
+
+
             this.doctorBL.getDoctor(user._id).then((data) => {
                 res.send(data);
                 return;
+
             }).catch((err)=>{
-                res.status(401).send(err)
+
+                this.adminBL.getAdmin(request.user._id)
+                .then((admin)=>{             
+                return     res.send(admin);
+                }).catch((err)=>{                 
+                    return  res.status(401).send(err)    
+                })
+
             })
         })
 

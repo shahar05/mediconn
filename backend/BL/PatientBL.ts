@@ -5,11 +5,102 @@ import { QuestionBL } from "./QuestionBL";
 import { QuestionType, Language } from "../enums";
 import { RecordBL } from "./RecordBL";
 
+
+const accountSid = 'AC5002ae0ed4bc55d2651e5ff42de9149f';
+const authToken = '8b4c3726ad9b8784d17169f6f56576e7';
+const client = require('twilio')(accountSid, authToken);
+
+
 export class PatientBL {
+
+
 
     private static dal: Dal = new Dal();
     private doctorBL = new DoctorBL();
     private questionBL = new QuestionBL();
+
+    sendSms(body :string, phoneNumber : string):Promise<any> {
+return new Promise((resolve , reject)=>{
+
+
+    client.messages//972 52-333-0411
+    .create({
+        body: body,
+        from: '+12569738305',
+        to: '+972' + phoneNumber
+    })
+    .then((message: { sid: any; }) => {
+        console.log(message.sid);
+        resolve()
+    }  )
+    .catch((err: any)=>{
+        reject(err);
+    });
+})
+
+    }
+    getPatientByPhoneAndPassword(phoneNumber: string, password: string) {
+        return new Promise((resolve, reject) => {
+            PatientBL.dal.getPatientByPhoneAndPassword(phoneNumber, password)
+            .then((patient: IPatient) => {
+
+                this.getPatientByPhoneNumber(phoneNumber).then(( detail )=>{
+
+                    resolve(detail);
+
+                }).catch((err)=>{reject(err)})
+
+            }).catch((err) => {
+                reject(err);
+            })
+        })
+    }
+
+    sendSmsIfFoundPatient(phoneNumber: string) {
+
+        return new Promise((resolve, reject) => {
+
+            PatientBL.dal.getPatientByPhoneNumber(phoneNumber).then((patient: IPatient) => {
+                let max = 999999;
+                let min = 100000;
+                let passNumber: number = Math.floor(Math.random() * (max - min)) + min;
+                let pass: string = passNumber + "";
+                patient.password = pass;
+
+                console.log("==========");
+                
+                console.log(patient);
+                
+                console.log("==========");
+
+                this.updatePatient(patient).then((patient: IPatient) => {
+
+                    client.messages//972 52-333-0411
+                        .create({
+                            body: 'Your password is:  ' + pass,
+                            from: '+12569738305',
+                            to: '+972' + phoneNumber
+                        })
+                        .then((message: { sid: any; }) => console.log(message.sid));
+
+                    resolve();
+
+                }).catch((err) => {
+                    reject(err);
+                })
+
+
+            }).catch((err) => {
+                reject(err);
+            })
+
+
+
+        })
+
+
+    }
+
 
     getPatientByPhoneNumber(phoneNumber: string): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -25,61 +116,61 @@ export class PatientBL {
     }
     getPatientsAnswersByQuestion(body: { patientsId: string[], dates: { dateStart: Date; dateEnd: Date; } }, questionID: string): Promise<QuestionResult[]> { //
 
-       
-      return new Promise((resolve , reject)=>{
-        let d1: Date = new Date(body.dates.dateStart);
-        let d2: Date = new Date(body.dates.dateEnd);
 
-        let str1 = d1.getFullYear() + '-' + (d1.getMonth() + 1) + "-" + d1.getDate();
-        let str2 = d2.getFullYear() + '-' + (d2.getMonth() + 1) + "-" + d2.getDate();
+        return new Promise((resolve, reject) => {
+            let d1: Date = new Date(body.dates.dateStart);
+            let d2: Date = new Date(body.dates.dateEnd);
 
-        PatientBL.dal.getRecordByDate(body.patientsId, str1, str2)
-            .then((records: IRecord[]) => {
-                let dictionary: { [key: string]: Result[]; } = {};
+            let str1 = d1.getFullYear() + '-' + (d1.getMonth() + 1) + "-" + d1.getDate();
+            let str2 = d2.getFullYear() + '-' + (d2.getMonth() + 1) + "-" + d2.getDate();
 
-                body.patientsId.forEach(patientId => {
-                    dictionary[patientId] = [];
-                });
-                records.forEach((record: IRecord) => {
+            PatientBL.dal.getRecordByDate(body.patientsId, str1, str2)
+                .then((records: IRecord[]) => {
+                    let dictionary: { [key: string]: Result[]; } = {};
 
-                  //  let index: number = record.answerArr.findIndex(answer => answer.questionId === questionID);
-                    
-                    record.answerArr.forEach( (answer:Answer) => {
-                        console.log(" answer.questionId: "+ answer.questionId + " ?===? " + questionID);
-                        console.log(typeof answer.questionId);
-                        console.log(typeof questionID);
-                        
-                        if((answer.questionId+"") === questionID){
-                            dictionary[record.patientId].push( {value: answer.answer , name : record.date.toDateString()}  )
-                        }else{
+                    body.patientsId.forEach(patientId => {
+                        dictionary[patientId] = [];
+                    });
+                    records.forEach((record: IRecord) => {
 
-                        }
+                        //  let index: number = record.answerArr.findIndex(answer => answer.questionId === questionID);
+
+                        record.answerArr.forEach((answer: Answer) => {
+                            console.log(" answer.questionId: " + answer.questionId + " ?===? " + questionID);
+                            console.log(typeof answer.questionId);
+                            console.log(typeof questionID);
+
+                            if ((answer.questionId + "") === questionID) {
+                                dictionary[record.patientId].push({ value: answer.answer, name: record.date.toDateString() })
+                            } else {
+
+                            }
+                        });
+
+
+                    })
+
+                    let questionResults: QuestionResult[] = [];
+                    body.patientsId.forEach(patientId => {
+                        questionResults.push({ name: patientId, series: dictionary[patientId] })
                     });
 
 
+                    console.log(questionResults);
+
+                    resolve(questionResults)
+
+
+
+                }).catch((err) => {
+                    reject(err)
+
+
                 })
-                
-                let questionResults: QuestionResult[] = [];
-                body.patientsId.forEach(patientId => {
-                    questionResults.push(  { name:patientId ,  series : dictionary[patientId] } )
-                });
+
+        })
 
 
-                console.log(questionResults);
-                
-                resolve(questionResults)
-                
-
-
-            }).catch((err) => {
-                reject (err)
-
-
-            })
-
-      })
-
- 
 
     }
 
@@ -322,10 +413,10 @@ export class PatientBL {
                 this.questionBL.getDefaultQuestionsByID(patient.creatorID).then((questions: IQuestion[]) => {
                     patient.questions = questions;
 
-                    
+
                     PatientBL.dal.createPatient(patient).then((res: IPatient) => {
                         resolve(res);
-                    }).catch((err)=>{
+                    }).catch((err) => {
                         reject(err)
                     })
                 })

@@ -49,6 +49,8 @@ export class NavbarComponent implements OnInit {
 
     this.router.events.subscribe(() => {
 
+      this.doctorID = this.userService.getCurrentDoctorDetails();
+      this.adminID = this.userService.getAdminID();
       this.currentUrl = this.router.url;
       this.inLogin = this.router.url === "/" || this.router.url === "/admin";
       this.isAdmin = this.router.url === "/doctors";
@@ -57,9 +59,16 @@ export class NavbarComponent implements OnInit {
       this.patientOrDoctor = this.isDoctor ? 'Patient' : 'Doctor';
     })
 
-    this.userService.getDoctor().subscribe((doctor) => {
+    this.userService.getDoctorByID().subscribe((doctor) => {
       this.doctor = doctor;
     }, (err) => { })
+  }
+
+
+  goBackToAdmin() {
+    this.localStorageService.removeItem(LocalStorageKey.Doctor);
+
+    this.router.navigate(["doctors"]);
   }
 
   openPatientOrDoctorEditor() {
@@ -94,11 +103,12 @@ export class NavbarComponent implements OnInit {
     this.dialogService.openDialog(DoctorEditorComponent, { doctor: doctor, edit: false }, width)
       .afterClosed().subscribe((doctor: Doctor) => {
 
-        this.doctorService.createDoctor(doctor).subscribe((createdDoctor: Doctor) => {
-          console.log(createdDoctor);
-          this.router.navigate(["doctors"]);
+        if (doctor)
+          this.doctorService.createDoctor(doctor).subscribe((createdDoctor: Doctor) => {
+            console.log(createdDoctor);
+            this.router.navigate(["doctors"]);
 
-        })
+          })
       })
 
 
@@ -110,9 +120,11 @@ export class NavbarComponent implements OnInit {
       phoneNumber: "", language: null, questions: [], medications: [], treatments: [], endHour: 1, startHour: 0
     };
 
-
+    console.log(this.doctor);
+    
     if (!this.doctor) {
-      this.userService.getDoctor().subscribe((doc: Doctor) => {
+      console.log("if");
+      this.userService.getDoctorByID().subscribe((doc: Doctor) => {
 
         this.doctor = doc;
         this.dialogService.openDialog(PatientCreateUpdateComponent,
@@ -120,20 +132,27 @@ export class NavbarComponent implements OnInit {
           '35%', '450px').afterClosed().subscribe((patient: Patient) => {
             if (patient)
               this.patientService.createNewPatient(patient).subscribe(() => {
-                this.navToViewPatient();
+                if (this.currentUrl === '/patients' && patient)
+                  window.location.reload();
+                else
+                  this.navToViewPatient();
               })
           })
       })
     } else {
+
+      console.log("else");
+      
+
       this.dialogService.openDialog(PatientCreateUpdateComponent,
         { patient: patient, edit: false, languages: this.doctor.languages },
         '35%', '450px').afterClosed().subscribe((patient: Patient) => {
 
           if (this.currentUrl === '/patients' && patient)
             window.location.reload();
-          else 
+          else
             this.navToViewPatient();
-          
+
         })
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
 import { tap } from 'rxjs/operators';
@@ -23,11 +23,13 @@ export class TokenInterceptor implements HttpInterceptor {
 
                 this.authService.setIsAuth(true);
 
-            } ,(err)=>{console.log(err);
-                this.authService.setIsAuth(false);
+            } ,(err : HttpErrorResponse)=>{
                 console.log(err);
-                
-                //this.router.navigate(["/expired"]);
+                if(err.status === 401){
+                    this.authService.setIsAuth(false);
+                    this.router.navigate(["/expired"]);
+                }
+                    
             })
         );
     }

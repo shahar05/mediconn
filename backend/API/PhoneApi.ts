@@ -18,11 +18,37 @@ export class PhoneApi implements BaseApi {
         this.initRoutes();
     }
 
+
+
     initRoutes() {
+
+        // TODO: lookup for patient
+        // TODO: if patient found and authenticare the continue processes  
+        // TODO: if patient found and authenticate Create Password send it by sms and store in patient schema
+
+
+        this.router.get('/patient/sms/:phonenumber/:password', (req, res) => {
+
+            let phoneNumber = req.params.phonenumber;
+            let password = req.params.password;
+
+            this.patientBL.getPatientByPhoneAndPassword(phoneNumber, password).then((patientDetail) => {
+                res.send(patientDetail)
+            }).catch(err => console.log(err))
+
+        })
 
         this.router.get('/patient/details/:phonenumber', (req, res) => {
             this.patientBL.getPatientByPhoneNumber(req.params.phonenumber).then((patientDetail: any) => {
                 res.send(patientDetail)
+            }).catch((err) => {
+                res.status(400).send(err);
+            })
+        })
+
+        this.router.get('/patient/sms/:phonenumber', (req, res) => {
+            this.patientBL.sendSmsIfFoundPatient(req.params.phonenumber).then(() => {
+                res.send();
             }).catch((err) => {
                 res.status(400).send(err);
             })
@@ -41,10 +67,10 @@ export class PhoneApi implements BaseApi {
         })
 
         this.router.post('/patient/records/:phonenumber', (req, res) => {
-                console.log("======================");
-                
-                console.log(req.body);
-                
+            console.log("======================");
+
+            console.log(req.body);
+
 
             let record: any = { answerArr: req.body.arr, patientId: req.params.phonenumber }
             this.recordBL.createRecord(record).then((newRecord: IRecord) => {
@@ -57,24 +83,35 @@ export class PhoneApi implements BaseApi {
         })
 
 
-     
+
 
 
         this.router.get('/patient/:id/records/:startime/:endtime', (req, res) => {
             let s: string = req.params.startime;
             let e: string = req.params.endtime;
 
-            this.patientBL.getPatientRecords(req.params.id, s, e).then((response:any)=>{
+            this.patientBL.getPatientRecords(req.params.id, s, e).then((response: any) => {
                 console.log(response);
-                
-               res.send(response)
-            }).catch((err)=>{
+
+                res.send(response)
+            }).catch((err) => {
                 console.log(err);
             })
         })
 
     }
 }
+
+
+
+
+
+
+
+        // Download the helper library from https://www.twilio.com/docs/node/install
+// Your Account Sid and Auth Token from twilio.com/console
+// DANGER! This is insecure. See http://twil.io/secure
+
 
 
                // this.patientBL.getPatientByPhoneNumber(req.params.phonenumber).then(( patient : IPatient)=>{

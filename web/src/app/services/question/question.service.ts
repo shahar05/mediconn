@@ -26,4 +26,8 @@ export class QuestionService {
     return this.net.getDefaultQuestions();
   }
 
+  getDefaultsQuestions(id : string){
+    return this.net.getDefaultsQuestions(id);
+  }
+
 }

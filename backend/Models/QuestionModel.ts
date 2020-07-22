@@ -1,15 +1,23 @@
-import { Languages, QuestionTypes } from "../models";
+import { Languages, QuestionTypes, IQuestion } from "../models";
+import { QuestionType } from "../enums";
+import { Schema } from "mongoose";
 
 const mongoose = require("mongoose");
 
 
-export const QuestionSchema = new mongoose.Schema({
+export const QuestionSchema  = new mongoose.Schema({
 
     textArr: [  { text: String , language: { type: String, enum: Languages } }  ],
     creatorID: { type: String, required: true },
     isDefault: { type: Boolean, required: true },
-    timestamp: { type: Number, default: Date.now },
+    timestamp: { type: Number, default: Date.now   },
     questionType: { type: String, enum: QuestionTypes, required: true },
-    min: { type: Number, min: 0 },
-    max: { type: Number, min: 1 }
+    min: { type: Number, min: 0      },
+    max: { type: Number, min: 1   }
+
+
+
 });
+
+
+

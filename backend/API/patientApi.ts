@@ -16,6 +16,18 @@ export class PatientApi implements BaseApi {
     initRoutes() {
 
 
+
+        this.router.post('/sms' , (req,res)=>{
+
+            this.patientBL.sendSms(req.body.link , req.body.phoneNumber ).then(()=>{
+                res.send()
+            }).catch((err)=>{
+                console.log(err);
+                res.status(400).send(err);
+            })
+
+        })
+
         this.router.post('/records/:id' ,(req,res)=>{
 
             this.patientBL.getPatientsAnswersByQuestion(req.body , req.params.id)

@@ -50,6 +50,15 @@ var QuestionApi = /** @class */ (function () {
                 res.status(400).send(err);
             });
         });
+        this.router.get('/question/defaults/:id', function (req, res) {
+            var id = req.params.id;
+            _this.questionBL.getDefaultQuestionsByID(id).then(function (data) {
+                res.send(data);
+            }).catch(function (err) {
+                console.log(err);
+                res.status(400).send(err);
+            });
+        });
         this.router.get('/question/default/:id', function (req, res) {
             _this.questionBL.getDefaultQuestionsByID(req.params.id).then(function (data) {
                 res.send(data);

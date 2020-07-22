@@ -5,6 +5,7 @@ import { LocalStorageKey } from '../../enum';
   providedIn: 'root'
 })
 export class LocalStorageService {
+ 
 
   constructor() { }
 
@@ -12,6 +13,11 @@ export class LocalStorageService {
 
   removeAll(){
     localStorage.clear();
+  }
+
+
+  removeItem(key: LocalStorageKey) {
+      localStorage.removeItem(key);
   }
   setItem(key: LocalStorageKey, value): void {
     if (typeof value !== 'string') {

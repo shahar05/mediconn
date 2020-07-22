@@ -20,7 +20,7 @@ export class DatePickerDialogComponent implements OnInit {
 
 
   cancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
   sendDates() {
 

@@ -59,6 +59,19 @@ export class QuestionApi implements BaseApi {
             })
         })
 
+        this.router.get('/question/defaults/:id', (req: Request, res: Response) => {
+            let id: any = req.params.id
+    
+            this.questionBL.getDefaultQuestionsByID(id).then((data) => {
+                res.send(data);
+            }).catch((err)=>{
+                console.log(err);
+                res.status(400).send(err);
+            })
+        })
+
+        
+
         this.router.get('/question/default/:id', (req: Request, res: Response) => {
             this.questionBL.getDefaultQuestionsByID(req.params.id).then((data) => {
                 res.send(data);

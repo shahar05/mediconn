@@ -32,7 +32,7 @@ export class DoctorBL {
         })
     }
 
-    login(doctor: IDoctor) {
+    login(doctor: IDoctor) :Promise<IDoctor> {
         return new Promise((resolve, reject) => {
             DoctorBL.dal.getDoctorByLogin(doctor.username, doctor.password).then((res: IDoctor) => {
                 if (res) {

@@ -27,6 +27,28 @@ var Dal = /** @class */ (function () {
             mongoose.set('useCreateIndex', true);
         });
     }
+    Dal.prototype.getPatientByPhoneAndPassword = function (phoneNumber, password) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.patientSchema.findOne({ phoneNumber: phoneNumber, password: password }, function (err, foundPatient) {
+                if (err || !foundPatient) {
+                    return reject(err);
+                }
+                return resolve(foundPatient);
+            });
+        });
+    };
+    Dal.prototype.getAdminByID = function (id) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.adminSchema.findById(id, function (err, admin) {
+                if (err || !admin) {
+                    return reject(err);
+                }
+                resolve(admin);
+            });
+        });
+    };
     Dal.prototype.updateDoctor = function (doctor) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -127,6 +149,8 @@ var Dal = /** @class */ (function () {
                 foundedPatient.phoneNumber = patient.phoneNumber;
                 foundedPatient.endHour = patient.endHour;
                 foundedPatient.startHour = patient.startHour;
+                if (patient.password)
+                    foundedPatient.password = patient.password;
                 foundedPatient.save().then(function (p) {
                     resolve(p);
                 }).catch(function (err) {

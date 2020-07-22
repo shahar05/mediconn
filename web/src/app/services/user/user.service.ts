@@ -74,7 +74,11 @@ export class UserService {
     this.doctor = doctor;
   }
 
-
+  setNull(){
+    this.doctor = null;
+    this.admin = null;
+    this.token = null; 
+  }
   getDoctor() {
 
     return this.net.getDoctor().pipe(
@@ -84,13 +88,24 @@ export class UserService {
     );
   }
 
+  getDoctorByID(){
+    let id : string = this.localStorageService.getItem(LocalStorageKey.Doctor);
+    return this.net.getDoctorByID(id).pipe(
+      tap((doctor: Doctor)=>{
+        this.setDoctor(doctor);
+      })
+    );
+    
+  }
+
   getDoctorID(): string {
-    if(!this.doctor){
-      this.getDoctor();    
-      return this.localStorageService.getItem(LocalStorageKey.Doctor );
-    }else{
-      return this.doctor._id;
-    }   
+    // if(!this.doctor){
+    //   this.getDoctor();    
+    
+    // }else{
+    //   return this.doctor._id;
+    // }   
+    return this.localStorageService.getItem(LocalStorageKey.Doctor );
 }
   getCurrentDoctorDetails() {
     return this.localStorageService.getItem(LocalStorageKey.Doctor, false);

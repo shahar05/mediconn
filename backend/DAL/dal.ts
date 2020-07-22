@@ -13,9 +13,10 @@ var env = require('../env.json');
 
 export class Dal {
 
+
     private static day: number = 1;
     private static connection: Connection;
-    
+
     //Schemas
     private recordSchema: Model<IRecord> = mongoose.model('Record', RecordSchema);
     private doctorSchema: Model<IDoctor> = mongoose.model('Doctor', DoctorSchema);
@@ -23,13 +24,42 @@ export class Dal {
     private patientSchema: Model<IPatient> = mongoose.model('Patient', PatientSchema);
     private questionSchema: Model<IQuestion> = mongoose.model('question', QuestionSchema);
     private medicalAdditionsSchema: Model<IMedicalAdditions> = mongoose.model('MedicalAdditions', MedicalAdditionsSchema);
- 
+
 
     constructor() {
         mongoose.connect(env.mongoConnectionString, { useUnifiedTopology: true, useNewUrlParser: true })
             .then((mongoose) => {
                 mongoose.set('useCreateIndex', true);
             });
+    }
+
+
+    getPatientByPhoneAndPassword(phoneNumber: string, password: string):Promise<IPatient> {
+        return new Promise((resolve, reject) => {
+
+            this.patientSchema.findOne({ phoneNumber: phoneNumber, password: password }, (err, foundPatient) => {
+                if (err || !foundPatient) {
+                    return reject(err);
+                }
+
+                return resolve(foundPatient);
+            })
+
+        })
+
+
+    }
+
+
+    getAdminByID(id: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.adminSchema.findById(id, (err, admin) => {
+                if (err || !admin) {
+                    return reject(err);
+                }
+                resolve(admin);
+            })
+        })
     }
 
     updateDoctor(doctor: IDoctor): Promise<IDoctor> {
@@ -139,13 +169,15 @@ export class Dal {
                 foundedPatient.phoneNumber = patient.phoneNumber;
                 foundedPatient.endHour = patient.endHour;
                 foundedPatient.startHour = patient.startHour;
-                foundedPatient.save().then((p)=>{
+                if (patient.password)
+                    foundedPatient.password = patient.password;
+                foundedPatient.save().then((p) => {
                     resolve(p);
-                }).catch((err)=>{
-                        reject(err)
+                }).catch((err) => {
+                    reject(err)
                 });
 
-               
+
             }).catch((err) => {
                 reject(err);
             });
@@ -234,12 +266,12 @@ export class Dal {
         })
     }
 
-    getQuestionsByArrId( arrayId : string[] ) : Promise<IQuestion[]>{
-        return new Promise((resolve , reject)=>{
+    getQuestionsByArrId(arrayId: string[]): Promise<IQuestion[]> {
+        return new Promise((resolve, reject) => {
 
-            this.questionSchema.find({_id:arrayId} , (err , questions)=>{
-                if(err)return reject(err);
-                
+            this.questionSchema.find({ _id: arrayId }, (err, questions) => {
+                if (err) return reject(err);
+
                 resolve(questions);
             })
 
@@ -316,7 +348,7 @@ export class Dal {
             })
         })
     }
-    
+
     createPatient(patient: IPatient): Promise<IPatient> {
         return new Promise((resolve, reject) => {
             this.patientSchema.create(patient, (err, res: any) => {

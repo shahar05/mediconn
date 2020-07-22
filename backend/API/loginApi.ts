@@ -3,6 +3,7 @@ import { DoctorBL } from '../BL/doctorBL';
 import { AdminBL } from "../BL/adminBL";
 import { Authenticate } from "../Helpers/authenticationHelper";
 import { BaseApi } from "./BaseApi";
+import { IDoctor, IModelAdmin } from "../models";
 
 export class LoginApi implements BaseApi {
     public router: Router;
@@ -17,22 +18,25 @@ export class LoginApi implements BaseApi {
     }
 
     private loginAdmin(req: Request, res: Response) {
-        this.adminBL.login(req.body).then((admin) => {
+        this.adminBL.login(req.body).then((admin: IModelAdmin) => {
             res.send({ token: this.createToken(admin), isLogin: true, type: "admin", object: admin })
 
         }).catch(err => {
+            console.log(err);
+            
             res.status(401).send({ isLogin: false, response: "admin not found" });
         })
     }
 
     private loginDoctor(req: Request, res: Response) {
-        this.doctorBL.login(req.body).then((doctor) => {
+        this.doctorBL.login(req.body).then((doctor: IDoctor) => {
             if (doctor) {
                 res.send({ token: this.createToken(doctor), isLogin: true, type: "doctor", object: doctor })
             } else {
                 console.log(doctor)
             }
         }).catch(err => {
+            console.log(err);
             res.status(401).send({ isLogin: false, response: "doctor not found" });
         })
     }

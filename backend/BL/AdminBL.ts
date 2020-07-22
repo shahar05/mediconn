@@ -4,67 +4,89 @@ import { Language } from "../enums";
 
 export class AdminBL {
 
-
     private static dal: Dal = new Dal();
 
-    updateDoctor(doctor: IDoctor):Promise<IDoctor> {
+
+    getDoctorByID(id: string) {
+        
         return new Promise((resolve , reject)=>{
-            AdminBL.dal.updateDoctor(doctor).then((updatedDoctor : IDoctor)=>{
+            AdminBL.dal.getDoctor(id).then((doctor)=>{
+                return resolve(doctor);
+            }).catch((err)=>{
+                reject(err);
+            })
+        })
+
+    }
+    getAdmin(id: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            AdminBL.dal.getAdminByID(id).then((admin) => {
+                resolve(admin);
+            }).catch((err) => {
+                reject(err); 
+                
+            })
+        })
+    }
+
+    updateDoctor(doctor: IDoctor): Promise<IDoctor> {
+        return new Promise((resolve, reject) => {
+            AdminBL.dal.updateDoctor(doctor).then((updatedDoctor: IDoctor) => {
                 resolve(updatedDoctor);
-            }).catch((err)=>{
+            }).catch((err) => {
                 reject(err);
             })
         })
     }
 
-    deleteDoctor(doctorID : string) : Promise<IDoctor>{
-        return new Promise((resolve , reject)=>{
-            AdminBL.dal.deleteDoctor(doctorID).then(()=>{
+    deleteDoctor(doctorID: string): Promise<IDoctor> {
+        return new Promise((resolve, reject) => {
+            AdminBL.dal.deleteDoctor(doctorID).then(() => {
                 resolve();
-            }).catch((err)=>{
+            }).catch((err) => {
                 reject(err);
             })
         })
     }
 
-    login(admin: IAdmin) {
+    login(admin: IAdmin) :Promise<IModelAdmin> {
         return new Promise((resolve, reject) => {
             AdminBL.dal.getAdminByLogin(admin.username, admin.password)
-            .then((res: IModelAdmin) => {
-                resolve(res)
-            }).catch((err)=>{
-                reject(err);
-            })
+                .then((res: IModelAdmin) => {
+                    resolve(res)
+                }).catch((err) => {
+                    reject(err);
+                })
         })
     }
 
     createDoctor(doctor: IDoctor): Promise<IDoctor> {
-        return new Promise( (resolve , reject )=>{
-            AdminBL.dal.findAdminByID(doctor.creatorID).then((foundedAdmin:IModelAdmin)=>{
-                if( !this.languageContainMainLanguge( doctor.mainLanguage , doctor.languages ) ){
+        return new Promise((resolve, reject) => {
+            AdminBL.dal.findAdminByID(doctor.creatorID).then((foundedAdmin: IModelAdmin) => {
+                if (!this.languageContainMainLanguge(doctor.mainLanguage, doctor.languages)) {
                     reject("languages does not contain main language ");
-                    
+
                 }
-                AdminBL.dal.createDoctor(doctor).then((newDoctor : IDoctor)=>{
+                AdminBL.dal.createDoctor(doctor).then((newDoctor: IDoctor) => {
                     resolve(newDoctor);
-                }).catch((err)=>{
+                }).catch((err) => {
                     reject(err)
                 })
-            }).catch((err)=>{
+            }).catch((err) => {
                 reject(err);
             })
 
-        } )
+        })
     }
-    languageContainMainLanguge(mainLanguage: Language, languages: Language[]):boolean {
-            return !!languages.find( lang=> lang === mainLanguage  );
+    languageContainMainLanguge(mainLanguage: Language, languages: Language[]): boolean {
+        return !!languages.find(lang => lang === mainLanguage);
     }
 
-    getDoctors(adminID : string) : Promise<IDoctor[]> {
-        return new Promise( (resolve , reject)=>{
-            AdminBL.dal.getDoctorsByAdminID(adminID).then((doctors : IDoctor[])=>{
+    getDoctors(adminID: string): Promise<IDoctor[]> {
+        return new Promise((resolve, reject) => {
+            AdminBL.dal.getDoctorsByAdminID(adminID).then((doctors: IDoctor[]) => {
                 resolve(doctors);
-            }).catch((err)=>{
+            }).catch((err) => {
                 reject(err);
             })
         })

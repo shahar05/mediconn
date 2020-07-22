@@ -37,7 +37,7 @@ export class PatientCreateUpdateComponent implements OnInit {
 
   submit(){
     if( !this.isGoodPatient(this.patient)){
-        alert(this.msg);
+        //alert(this.msg);
         return;
     }
 
@@ -74,6 +74,11 @@ export class PatientCreateUpdateComponent implements OnInit {
 
 
   isGoodPatient(patient: Patient): boolean {
+
+    if(   / /.test(this.patient.lastName)  || / /.test(this.patient.firstName)){
+      this.msg = "No spaces allowed"
+      return false;
+    }
     if (!/^[a-zA-Z]+$/.test(this.patient.lastName) || !/^[a-zA-Z]+$/.test(this.patient.firstName)) {
       this.msg = "must contains only lettrs"
       return false;

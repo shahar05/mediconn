@@ -10,6 +10,11 @@ import { MedicalAdditionsApi } from "./API/MedicalAdditionsApi";
 import { AdminApi } from "./API/AdminAPI";
 import{ PhoneApi } from "./API/PhoneApi";
 
+
+const accountSid = 'AC5002ae0ed4bc55d2651e5ff42de9149f';
+const authToken = '8b4c3726ad9b8784d17169f6f56576e7';
+const client = require('twilio')(accountSid, authToken);
+
 const cors = require('cors')
 
 class Server {
@@ -27,7 +32,9 @@ class Server {
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
         this.app.use((req, res, next)=> {
-            if(  req.originalUrl !== "/api/doctor/current")
+            // if(  req.originalUrl !== "/api/doctor/current")
+
+
               console.log(req.originalUrl );
                
             var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -36,6 +43,23 @@ class Server {
         });
     }
  
+    private sendSMS(){
+        // Download the helper library from https://www.twilio.com/docs/node/install
+// Your Account Sid and Auth Token from twilio.com/console
+// DANGER! This is insecure. See http://twil.io/secure
+
+
+client.messages//972 52-333-0411
+  .create({
+     body: 'Hi juli how are you doing today?',
+     from: '+12569738305',
+     to: '+9720523330411'
+   })
+  .then((message: { sid: any; }) => console.log(message.sid));
+
+
+    }
+
 
     private initNotGuardedRoutes() {
         this.app.use('/api', new LoginApi().router)
@@ -53,9 +77,9 @@ class Server {
 
     private initTestRoute() {
         this.app.get('/', (req, res) => {
+            this.sendSMS();
             console.log("Boooom");
-
-            res.send('hi');  
+            res.send('bye');  
         })
     }
 

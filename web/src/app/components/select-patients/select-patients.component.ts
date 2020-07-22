@@ -102,9 +102,11 @@ export class SelectPatientsComponent implements OnInit {
   chooseCalander() {
 
     this.dialogService.openDialog(DatePickerDialogComponent, {}).afterClosed().subscribe((dates: { dateStart: Date, dateEnd: Date }) => {
+      if(dates){
 
-      this.dates = dates;
-      this.moveToGraphPage()
+        this.dates = dates;
+        this.moveToGraphPage()
+      }
     })
 
   }

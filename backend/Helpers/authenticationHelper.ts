@@ -15,10 +15,11 @@ export abstract class Authenticate {
     static deserializeObject(token: string) {
         return new Promise((resolve, reject) => {
             jwt.verify(token, env.secret, (err: any, decodedObj: any) => {
-                if (err) {
+                if (err) {          
                     reject(err);
                     return;
                 }
+
                 resolve(decodedObj);
             });
         });

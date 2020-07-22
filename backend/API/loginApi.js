@@ -20,6 +20,7 @@ var LoginApi = /** @class */ (function () {
         this.adminBL.login(req.body).then(function (admin) {
             res.send({ token: _this.createToken(admin), isLogin: true, type: "admin", object: admin });
         }).catch(function (err) {
+            console.log(err);
             res.status(401).send({ isLogin: false, response: "admin not found" });
         });
     };
@@ -33,6 +34,7 @@ var LoginApi = /** @class */ (function () {
                 console.log(doctor);
             }
         }).catch(function (err) {
+            console.log(err);
             res.status(401).send({ isLogin: false, response: "doctor not found" });
         });
     };

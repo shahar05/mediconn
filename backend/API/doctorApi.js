@@ -3,10 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorApi = void 0;
 var express_1 = require("express");
 var doctorBL_1 = require("../BL/doctorBL");
+var adminBL_1 = require("../BL/adminBL");
 var DoctorApi = /** @class */ (function () {
     function DoctorApi() {
         this.router = express_1.Router();
         this.doctorBL = new doctorBL_1.DoctorBL();
+        this.adminBL = new adminBL_1.AdminBL();
         this.initRoutes();
     }
     DoctorApi.prototype.initRoutes = function () {
@@ -26,11 +28,17 @@ var DoctorApi = /** @class */ (function () {
         this.router.get('/doctor/current', function (req, res) {
             var request = req;
             var user = request.user;
+            console.log(request.user);
             _this.doctorBL.getDoctor(user._id).then(function (data) {
                 res.send(data);
                 return;
             }).catch(function (err) {
-                res.status(401).send(err);
+                _this.adminBL.getAdmin(request.user._id)
+                    .then(function (admin) {
+                    return res.send(admin);
+                }).catch(function (err) {
+                    return res.status(401).send(err);
+                });
             });
         });
         this.router.get('/doctor', function (req, res) {

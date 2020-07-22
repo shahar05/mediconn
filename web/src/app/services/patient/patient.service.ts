@@ -8,8 +8,12 @@ import { BasePatient, MedicalAdditions, Question, Patient } from '../../models';
 export class PatientService {
 
 
+
   constructor(private net: NetService) { }
 
+  sendSms(link: string, phoneNumber: string) {
+    return this.net.sendSms(link , phoneNumber);
+  }
   getQuestionResultsOfPatients(id: string, patientsId: string[], dates: { dateStart: Date; dateEnd: Date; }) {
 
     return this.net.getQuestionResultsOfPatients(id, patientsId, dates);

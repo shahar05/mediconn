@@ -16,10 +16,18 @@
       <span>{{'DefaultQuestion' | translate }}</span>
     </button> 
 
-    <button mat-menu-item (click)="openPatientOrDoctorEditor()" *ngIf="isAuth()">
+    <button mat-menu-item (click)="openPatientOrDoctorEditor()" *ngIf="isAuth() && !(!!doctorID && !!adminID)   ">
       <mat-icon>create</mat-icon>
       <span>{{'New'|translate}} {{ patientOrDoctor | translate }}</span>
     </button>
+
+
+
+    <button mat-menu-item (click)="goBackToAdmin()" *ngIf="!!adminID && !this.isAdmin">
+      <mat-icon>logout</mat-icon>
+      <span>Admin Mode </span>
+    </button>
+
     <button mat-menu-item (click)="logout()" *ngIf="!inLogin">
       <mat-icon>logout</mat-icon>
       <span>{{'Logout' | translate}}</span>

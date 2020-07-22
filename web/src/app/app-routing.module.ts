@@ -17,7 +17,7 @@ const routes: Routes = [
   {path : "expired" , component : LoginPageComponent } ,
   {path : "admin" , component: AdminLoginComponent , },
   {path: "doctors" , component : DoctorsViewComponent , canActivate:[AuthAdminGuard] },
-  {path : "patients" , component: ViewPatientsComponent, canActivate:[AuthGuard]},
+  {path : "patients" , component: ViewPatientsComponent, canActivate:[AuthGuard ]},
   {path : "patients/:id" , component: PatientProfileComponent, canActivate:[AuthGuard]},
   {path : "defaultQuestion" , component: DefaultQuestionComponent, canActivate:[AuthGuard]},
   {path: "graphs/:id/:startime/:endtime" , component : GraphPatientComponent , canActivate:[AuthGuard] }

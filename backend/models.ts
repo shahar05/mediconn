@@ -44,6 +44,7 @@ export interface IPatient extends mongoose.Document {
     startHour: number;
     lastSeen? : number;
     endHour: number;
+    password: string;
     questions: IQuestion[];
     treatments: IMedicalAdditions[];
     medications: IMedicalAdditions[];

@@ -5,6 +5,24 @@ var dal_1 = require("../DAL/dal");
 var AdminBL = /** @class */ (function () {
     function AdminBL() {
     }
+    AdminBL.prototype.getDoctorByID = function (id) {
+        return new Promise(function (resolve, reject) {
+            AdminBL.dal.getDoctor(id).then(function (doctor) {
+                return resolve(doctor);
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+    };
+    AdminBL.prototype.getAdmin = function (id) {
+        return new Promise(function (resolve, reject) {
+            AdminBL.dal.getAdminByID(id).then(function (admin) {
+                resolve(admin);
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+    };
     AdminBL.prototype.updateDoctor = function (doctor) {
         return new Promise(function (resolve, reject) {
             AdminBL.dal.updateDoctor(doctor).then(function (updatedDoctor) {

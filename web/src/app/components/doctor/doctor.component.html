@@ -13,12 +13,17 @@
     </mat-card-content>
 
     <mat-card-actions class="text-right mr-2">
+        <button mat-mini-fab color="accent" class="mr-2" (click)="viewDoctor()">
+            <mat-icon>remove_red_eye</mat-icon>
+        </button>
         <button mat-mini-fab color="primary" class="mr-2" (click)="editDoctor()">
             <mat-icon>edit</mat-icon>
         </button>
         <button mat-mini-fab color="warn" class="mr-2" (click)="deleteDoctor()">
             <mat-icon>delete</mat-icon>
         </button>
+      
+        
 
     </mat-card-actions>
 </mat-card>

@@ -12,6 +12,7 @@ exports.PatientSchema = new mongoose.Schema({
     endHour: { type: Number, default: 23, min: 0, max: 23 },
     language: { type: String, enum: models_1.Languages, required: true },
     lastSeen: { type: Number, default: 0 },
+    password: { type: String, required: false },
     treatments: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -13,6 +13,7 @@ import { QuestionService } from 'src/app/services/question/question.service';
 import { PatientCreateUpdateComponent } from '../patient-create-update/patient-create-update.component';
 import { DatePickerDialogComponent } from '../date-picker-dialog/date-picker-dialog.component';
 import { GraphPatientComponent } from '../graph-patient/graph-patient.component';
+import { SmsDialogComponent } from '../sms-dialog/sms-dialog.component';
 
 
 @Component({
@@ -46,28 +47,37 @@ export class PatientProfileComponent implements OnInit {
       this.patient = patient;
     });
   }
+
+
+  openSMSDialog(){
+    this.dialogService.openDialog(SmsDialogComponent ,{ doctor : this.doctor , patient : this.patient    },width , height ).afterClosed()
+    .subscribe((link)=>{
+      if(link){
+          link = "Message from Dr." + this.doctor.lastName +"  " + this.doctor.firstName +": " +link;
+          this.patientService.sendSms(link , this.patient.phoneNumber).subscribe(()=>{
+          }, (err)=>{
+            
+          })
+      }
+    })
+  }
+
   showGraphs() {
 
 
     this.dialogService.openDialog(DatePickerDialogComponent, {}).afterClosed().subscribe((dates: { dateStart: Date, dateEnd: Date }) => {
 
-      let d1 = dates.dateStart;
-      let d2 = dates.dateEnd;
+      if (dates) {
 
-      let str1 =   d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" + d1.getDate();
-      let str2 =   d2.getFullYear() + "-" + (d2.getMonth() + 1) + "-" + d2.getDate();
-
-      this.patientService.getQuestionResults( this.patientID , str1 ,str2 ).subscribe(( arr : any )=>{
-  
-
-            this.dialogService.openDialog( GraphPatientComponent , {arr:arr  , headline : this.patient.firstName +"   "+ this.patient.lastName  } , "80%" ).afterOpened().subscribe(()=>{
-
-            })
+        let d1 = dates.dateStart;
+        let d2 = dates.dateEnd;
+        let str1 = d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" + d1.getDate();
+        let str2 = d2.getFullYear() + "-" + (d2.getMonth() + 1) + "-" + d2.getDate();
+        this.patientService.getQuestionResults(this.patientID, str1, str2).subscribe((arr: any) => {
+          this.dialogService.openDialog(GraphPatientComponent, { arr: arr, headline: this.patient.firstName + "   " + this.patient.lastName }, "80%").afterOpened().subscribe(() => {
           })
-
-      
-
-      //this.router.navigate(["graphs/" + this.patientID + str1 + str2]);
+        })
+      }
     })
 
 
@@ -128,11 +138,11 @@ export class PatientProfileComponent implements OnInit {
       .openDialog(QuestionWrapperComponent,
         { question: question, questionNeedToUpdate: false }, width)
       .afterClosed().subscribe((newQuestion: Question) => {
-
-        this.patientService.createNewQuestionToPatient(newQuestion, this.patientID)
-          .subscribe((questionResponse: Question) => {
-            this.patient.questions.push(questionResponse);
-          })
+        if (newQuestion)
+          this.patientService.createNewQuestionToPatient(newQuestion, this.patientID)
+            .subscribe((questionResponse: Question) => {
+              this.patient.questions.push(questionResponse);
+            })
       }, (err) => console.log(err));
 
   }

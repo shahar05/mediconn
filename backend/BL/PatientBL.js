@@ -6,11 +6,73 @@ var models_1 = require("../models");
 var doctorBL_1 = require("./doctorBL");
 var QuestionBL_1 = require("./QuestionBL");
 var enums_1 = require("../enums");
+var accountSid = 'AC5002ae0ed4bc55d2651e5ff42de9149f';
+var authToken = '8b4c3726ad9b8784d17169f6f56576e7';
+var client = require('twilio')(accountSid, authToken);
 var PatientBL = /** @class */ (function () {
     function PatientBL() {
         this.doctorBL = new doctorBL_1.DoctorBL();
         this.questionBL = new QuestionBL_1.QuestionBL();
     }
+    PatientBL.prototype.sendSms = function (body, phoneNumber) {
+        return new Promise(function (resolve, reject) {
+            client.messages //972 52-333-0411
+                .create({
+                body: body,
+                from: '+12569738305',
+                to: '+972' + phoneNumber
+            })
+                .then(function (message) {
+                console.log(message.sid);
+                resolve();
+            })
+                .catch(function (err) {
+                reject(err);
+            });
+        });
+    };
+    PatientBL.prototype.getPatientByPhoneAndPassword = function (phoneNumber, password) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            PatientBL.dal.getPatientByPhoneAndPassword(phoneNumber, password)
+                .then(function (patient) {
+                _this.getPatientByPhoneNumber(phoneNumber).then(function (detail) {
+                    resolve(detail);
+                }).catch(function (err) { reject(err); });
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+    };
+    PatientBL.prototype.sendSmsIfFoundPatient = function (phoneNumber) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            PatientBL.dal.getPatientByPhoneNumber(phoneNumber).then(function (patient) {
+                var max = 999999;
+                var min = 100000;
+                var passNumber = Math.floor(Math.random() * (max - min)) + min;
+                var pass = passNumber + "";
+                patient.password = pass;
+                console.log("==========");
+                console.log(patient);
+                console.log("==========");
+                _this.updatePatient(patient).then(function (patient) {
+                    client.messages //972 52-333-0411
+                        .create({
+                        body: 'Your password is:  ' + pass,
+                        from: '+12569738305',
+                        to: '+972' + phoneNumber
+                    })
+                        .then(function (message) { return console.log(message.sid); });
+                    resolve();
+                }).catch(function (err) {
+                    reject(err);
+                });
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+    };
     PatientBL.prototype.getPatientByPhoneNumber = function (phoneNumber) {
         return new Promise(function (resolve, reject) {
             // TODO : Check if day record exist

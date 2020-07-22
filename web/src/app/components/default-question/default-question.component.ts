@@ -29,7 +29,6 @@ export class DefaultQuestionComponent implements OnInit {
   constructor(private dialogService: DialogService, private userService: UserService, private questionService: QuestionService) { }
 
   ngOnInit(): void {
-    this.initDefaultQuestions();
     this.initDoctor();
   }
 
@@ -51,11 +50,11 @@ export class DefaultQuestionComponent implements OnInit {
     this.dialogService
       .openDialog(QuestionWrapperComponent, { question: questionToEdit, questionNeedToUpdate: true })
       .afterClosed().subscribe((newQuestion: Question) => {
-
-        this.questionService.updateQuestion(newQuestion).subscribe((response: any) => {
-          // Question is updated "itself"
-          // because it actually updated the values of the same reference
-        })
+        if (newQuestion)
+          this.questionService.updateQuestion(newQuestion).subscribe((response: any) => {
+            // Question is updated "itself"
+            // because it actually updated the values of the same reference
+          })
 
       })
 
@@ -75,7 +74,7 @@ export class DefaultQuestionComponent implements OnInit {
 
   showGraph(question: Question) {
 
-    this.dialogService.openDialog(SelectPatientsComponent, { question:question }, "30%" , ).afterClosed()
+    this.dialogService.openDialog(SelectPatientsComponent, { question: question }, "30%").afterClosed()
       .subscribe(() => {
 
       })
@@ -83,11 +82,11 @@ export class DefaultQuestionComponent implements OnInit {
   }
 
   initDoctor() {
-    this.userService.getDoctor()
-      .subscribe((doctor: Doctor) =>
-        this.initVars(doctor),
-        (err) => console.log(err)
-      );
+
+    this.userService.getDoctorByID().subscribe((doctor: Doctor) => {
+      this.initVars(doctor);
+      this.initDefaultQuestions();
+    })
   }
 
   initVars(doctor: Doctor) {
@@ -115,7 +114,7 @@ export class DefaultQuestionComponent implements OnInit {
     }
   }
   initDefaultQuestions() {
-    this.questionService.getDefaultQuestions()
+    this.questionService.getDefaultsQuestions(this.doctor._id)
       .subscribe((defaultQuestions: Question[]) =>
         this.questions = defaultQuestions,
         (err) =>

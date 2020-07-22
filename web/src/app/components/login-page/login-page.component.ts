@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { ExpiredDialogComponent } from '../expired-dialog/expired-dialog.component';
+import { LocalStorageService } from 'src/app/services/local/local-storage.service';
 
 
 @Component({
@@ -14,9 +15,16 @@ import { ExpiredDialogComponent } from '../expired-dialog/expired-dialog.compone
 export class LoginPageComponent implements OnInit {
   doctor: BaseDoctorDetails = { username: "", password: "", user: "doctor" };
   msg: string;
-  constructor(private router: Router, private userService: UserService, private dialogService: DialogService) { }
+  constructor(private router: Router, private userService: UserService, private dialogService: DialogService , private localStorage : LocalStorageService) { }
 
   ngOnInit(): void {
+    this.localStorage.removeAll();
+
+      // if( !sessionStorage.getItem("f")){
+      //   sessionStorage.setItem("f" , "f");
+      //   window.location.reload();
+      // }
+      
 
     if (this.router.url === "/expired") {
       this.dialogService.openDialog(ExpiredDialogComponent,
@@ -40,8 +48,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   doctorLogin() {
+
+    sessionStorage.clear()
     this.userService.login(this.doctor).subscribe((response: any) => {
+     
       this.router.navigate(["patients"]);
+      
+
     }, (error) => {
       console.log(error);
       this.msg = "Password or username is incorrect";
