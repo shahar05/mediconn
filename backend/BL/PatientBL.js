@@ -6,8 +6,11 @@ var models_1 = require("../models");
 var doctorBL_1 = require("./doctorBL");
 var QuestionBL_1 = require("./QuestionBL");
 var enums_1 = require("../enums");
-var accountSid = 'AC5002ae0ed4bc55d2651e5ff42de9149f';
-var authToken = '8b4c3726ad9b8784d17169f6f56576e7';
+var fs = require('fs');
+var rawdata = fs.readFileSync('../../auth/t.json');
+var a = JSON.parse(rawdata);
+var accountSid = a.accountSid;
+var authToken = a.authToken;
 var client = require('twilio')(accountSid, authToken);
 var PatientBL = /** @class */ (function () {
     function PatientBL() {

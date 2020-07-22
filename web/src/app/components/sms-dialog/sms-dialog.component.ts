@@ -27,7 +27,7 @@ export class SmsDialogComponent implements OnInit {
 
   sendSMS(){
 
-    this.link = "Message from doctor" + this.data.doctor.lastName +"  " + this.data.doctor.firstName +": " + this.link;
+    this.link = "Message from Dr." + this.data.doctor.lastName +"  " + this.data.doctor.firstName +": " + this.link;
 
     this.patientService.sendSms(this.link , this.data.patient.phoneNumber).subscribe(()=>{
 
@@ -35,7 +35,7 @@ export class SmsDialogComponent implements OnInit {
       this.dialogRef.close()
 
     }, (err)=>{
-      this.msg = "Message send fail please try agian"
+      this.msg = "Message send fail please try agian";
     })
 
 

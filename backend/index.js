@@ -13,9 +13,6 @@ var QuestionApi_1 = require("./API/QuestionApi");
 var MedicalAdditionsApi_1 = require("./API/MedicalAdditionsApi");
 var AdminAPI_1 = require("./API/AdminAPI");
 var PhoneApi_1 = require("./API/PhoneApi");
-var accountSid = 'AC5002ae0ed4bc55d2651e5ff42de9149f';
-var authToken = '8b4c3726ad9b8784d17169f6f56576e7';
-var client = require('twilio')(accountSid, authToken);
 var cors = require('cors');
 var Server = /** @class */ (function () {
     function Server() {
@@ -37,18 +34,9 @@ var Server = /** @class */ (function () {
             next();
         });
     };
-    Server.prototype.sendSMS = function () {
-        // Download the helper library from https://www.twilio.com/docs/node/install
-        // Your Account Sid and Auth Token from twilio.com/console
-        // DANGER! This is insecure. See http://twil.io/secure
-        client.messages //972 52-333-0411
-            .create({
-            body: 'Hi juli how are you doing today?',
-            from: '+12569738305',
-            to: '+9720523330411'
-        })
-            .then(function (message) { return console.log(message.sid); });
-    };
+    // Download the helper library from https://www.twilio.com/docs/node/install
+    // Your Account Sid and Auth Token from twilio.com/console
+    // DANGER! This is insecure. See http://twil.io/secure
     Server.prototype.initNotGuardedRoutes = function () {
         this.app.use('/api', new loginApi_1.LoginApi().router);
         this.app.use('/api', new PhoneApi_1.PhoneApi().router);
@@ -61,9 +49,7 @@ var Server = /** @class */ (function () {
         this.app.use('/api', authMiddleware_1.authMiddleware, new MedicalAdditionsApi_1.MedicalAdditionsApi().router);
     };
     Server.prototype.initTestRoute = function () {
-        var _this = this;
         this.app.get('/', function (req, res) {
-            _this.sendSMS();
             console.log("Boooom");
             res.send('bye');
         });

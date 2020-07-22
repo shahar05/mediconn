@@ -3,11 +3,12 @@ import { IAdmin, IModelAdmin, IPatient, IDoctor, IQuestion, QuestionText, AppQue
 import { DoctorBL } from "./doctorBL";
 import { QuestionBL } from "./QuestionBL";
 import { QuestionType, Language } from "../enums";
-import { RecordBL } from "./RecordBL";
+const fs = require('fs')
 
-
-const accountSid = 'AC5002ae0ed4bc55d2651e5ff42de9149f';
-const authToken = '8b4c3726ad9b8784d17169f6f56576e7';
+let rawdata = fs.readFileSync('../../auth/t.json');
+let a = JSON.parse(rawdata);
+const accountSid = a.accountSid;
+const authToken = a.authToken;
 const client = require('twilio')(accountSid, authToken);
 
 
@@ -32,6 +33,7 @@ return new Promise((resolve , reject)=>{
     .then((message: { sid: any; }) => {
         console.log(message.sid);
         resolve()
+
     }  )
     .catch((err: any)=>{
         reject(err);
