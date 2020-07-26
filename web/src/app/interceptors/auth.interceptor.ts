@@ -27,7 +27,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 console.log(err);
                 if(err.status === 401){
                     this.authService.setIsAuth(false);
-                    this.router.navigate(["/expired"]);
+                   // this.router.navigate(["/expired"]);
                 }
                     
             })

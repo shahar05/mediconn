@@ -31,7 +31,6 @@ import { MedicationsComponent } from './components/medications/medications.compo
 import { MedicationComponent } from './components/medication/medication.component';
 import { TreatmentsComponent } from './components/treatments/treatments.component';
 import { TreatmentComponent } from './components/treatment/treatment.component';
-
 import { DefaultQuestionComponent } from './components/default-question/default-question.component';
 import { TokenInterceptor } from './interceptors/auth.interceptor';
 import { DialogAlertComponent } from './components/dialog-alert/dialog-alert.component';
@@ -47,12 +46,9 @@ import { DoctorEditorComponent } from './components/doctor-editor/doctor-editor.
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { GraphPatientComponent } from './components/graph-patient/graph-patient.component';
-
 import { NgxChartsModule }from '@swimlane/ngx-charts';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DatePickerDialogComponent } from './components/date-picker-dialog/date-picker-dialog.component';
-
-
 import { MatNativeDateModule } from '@angular/material/core';
 import { SelectPatientsComponent } from './components/select-patients/select-patients.component';
 import { ExpiredDialogComponent } from './components/expired-dialog/expired-dialog.component';
