@@ -15,7 +15,7 @@ export class AddMedicationPopupComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddMedicationPopupComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { medicalAddition: MedicalAdditions, type: AddPopupType }) { }
 
-
+    msg;
   ngOnInit(): void {
 
     if (this.data.medicalAddition) {
@@ -57,6 +57,8 @@ export class AddMedicationPopupComponent implements OnInit {
   submitForm() {
     if (this.medicalAddition.name && this.medicalAddition.description) {
       this.dialogRef.close(this.medicalAddition);
+    }else{
+      this.msg = "Both fields are required";
     }
   }
 }

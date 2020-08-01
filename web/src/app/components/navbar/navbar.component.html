@@ -41,15 +41,11 @@
 </button>
 <mat-menu #languageMenu="matMenu">
 
-  <button mat-menu-item (click)="enLanguage()" >
-    <mat-icon>{{ markFlag.en}}</mat-icon>
-    <span>{{'English' | translate}}</span>
-  </button> 
-  <button mat-menu-item (click)="heLanguage()" >
-    <mat-icon>{{ markFlag.he}}</mat-icon>
-    <span>{{'Hebrew' | translate}}</span>
-  </button> 
   
+   <button mat-menu-item (click)="selectLanguge(systemLang)" *ngFor="let systemLang of systemLangs" >
+     <mat-icon>{{ systemLangsDictionary[systemLang]}}</mat-icon>
+     <span>{{ systemLang | translate}}</span>
+   </button> 
 
 </mat-menu>
 

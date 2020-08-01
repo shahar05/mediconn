@@ -10,13 +10,12 @@ export class AppComponent {
   title = 'mediconn';
 
   constructor(translate: TranslateService) {
-    console.log('1');
     
-    translate.addLangs(['en', 'he']);
+    translate.addLangs(['en', 'he' , 'ar']);
     translate.setDefaultLang('en');
 
     const browserLang = translate.getBrowserLang();
-     translate.use( browserLang.match(/en|he/) ? browserLang : 'en');
+     translate.use( browserLang.match(/en|he|ar/) ? browserLang : 'en');
     //translate.use(browserLang);
 
   }

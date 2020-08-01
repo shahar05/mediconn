@@ -29,7 +29,7 @@
     "SelectTypeOfQuestion": "Select Type Of Question",
     "EnterQuestionin": "Enter question in ",
     "CreateDefaultQuestion": "Create Default Question",
-    "UpdateDefaultQuestion": "Create Default Question",
+    "UpdateDefaultQuestion": "Update Default Question",
     "AreYouSureYouWantToDoThis": "Are you sure you want to do this?",
     "FirstName": "First Name",
     "LastName": "Last Name",
@@ -55,6 +55,12 @@
     "Admin" : "Admin",
     "Department" : "Department",
     "MainLanguage" : "Main Language",
-    "Selectknownlanguages" : "Select known languages"
+    "Selectknownlanguages" : "Select known languages",
+    "SelectStartDate" : "Select Start Date",
+    "SelectEndDate": "Select End Date",
+    "ChooseDates" : "Choose Dates",
+    "zoomLink" : "Zoom link",
+    "SendSMS":"Send SMS",
+    "ChoosePatients":"Choose Patients"
 
 }

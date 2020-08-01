@@ -1,8 +1,8 @@
 <div class="d-flex flex-column p-0 justify-content-center">
-  
- 
-    <h1 class="f-2-5 text-center  blue-color white-font p-3" >
-      {{ pageTitle1 | translate }} {{"  "}} {{ pageTitle2 | translate }}
+
+
+  <h1 class="f-2-5 text-center  blue-color white-font p-3">
+    {{ pageTitle1 | translate }} {{"  "}} {{ pageTitle2 | translate }}
   </h1>
 
 
@@ -18,17 +18,21 @@
     <div class="d-flex">
       <mat-form-field class="full-width text-center">
         <mat-label>{{'description' | translate}}</mat-label>
-        <input [(ngModel)]="medicalAddition.description" matInput/>
+        <input [(ngModel)]="medicalAddition.description" matInput />
       </mat-form-field>
     </div>
+    <div *ngIf="msg" class="text-center">
+      <p >{{msg}}</p>
+    </div>
   </div>
+
   <div class="col d-flex justify-content-center">
-    <div class="col-3">
-      <button mat-raised-button color="warn"  (click)="close()">
+    <div class="col-3 d-flex justify-content-center">
+      <button mat-raised-button color="warn" (click)="close()">
         {{'Cancel' | translate}}
       </button>
     </div>
-    <div class="col-3">
+    <div class="col-3 d-flex justify-content-center">
       <button mat-raised-button color="primary" (click)="submitForm()">
         {{'Submit' | translate}}
       </button>

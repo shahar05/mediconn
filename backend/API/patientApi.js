@@ -20,6 +20,7 @@ var PatientApi = /** @class */ (function () {
             });
         });
         this.router.post('/records/:id', function (req, res) {
+            console.log(req.body);
             _this.patientBL.getPatientsAnswersByQuestion(req.body, req.params.id)
                 .then(function (questionResults) {
                 res.send(questionResults);

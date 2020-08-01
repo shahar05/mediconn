@@ -42,7 +42,7 @@ export class SelectPatientsComponent implements OnInit {
 
   ngOnInit(): void {
     const doctorId: string = this.userService.getCurrentDoctorDetails();
-    this.userService.getDoctor().subscribe((doc: Doctor) => { this.doctor = doc })
+    this.userService.getDoctorByID().subscribe((doc: Doctor) => { this.doctor = doc })
     this.patientService.getPatients(doctorId).subscribe((patients: Patient[]) => {
 
       patients.map(p => { p.phoneNumber = p.phoneNumber.substring(0, 3) + "-" + p.phoneNumber.substring(3, p.phoneNumber.length) });
@@ -77,18 +77,26 @@ export class SelectPatientsComponent implements OnInit {
     console.log(this.patientsToGraph);
 
 
-    let patientsId = this.patientsToGraph.map(p => p._id)
+    let patientsId = this.patientsToGraph.map(p => p._id )
 
-    this.patientService.getQuestionResultsOfPatients(this.data.question._id, patientsId, this.dates).subscribe((arr: any) => {
+    this.patientService.getQuestionResultsOfPatients(this.data.question._id, patientsId, this.dates).subscribe((arr: any[]) => {
       this.dialogRef.close();
 
-      let text: QuestionText
+      let text: QuestionText;
       this.data.question.textArr.forEach((t: QuestionText) => {
         if ((t.language + "").trim() === (this.doctor.mainLanguage + "").trim()) {
+
+          
           text = t
         }
       });
-
+      //element.name
+      
+      arr = arr.map((element)=>{
+        let p  : Patient = this.patientsToGraph.find( p=> p._id.toString() === element.name.toString() );
+        return{name : p.firstName + "  " + p.lastName, series : element.series }}    );
+     
+      
       this.dialogService.openDialog(GraphPatientComponent, { arr: arr, headline: text.text }, "80%").afterClosed().subscribe(() => { })
 
     });

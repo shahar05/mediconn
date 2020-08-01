@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NetService } from '../net/net.service';
 import { BasePatient, MedicalAdditions, Question, Patient } from '../../models';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,18 @@ export class PatientService {
 
 
 
-  constructor(private net: NetService) { }
 
+  private message = new BehaviorSubject(null);
+  sharedMessage = this.message.asObservable();
+
+  constructor(private net: NetService) { }
+  clearSharedMessage() {
+    this.message = new BehaviorSubject(null);
+    this.sharedMessage = this.message.asObservable();
+  }
+  notifyAddPatient(p: Patient) {
+     this.message.next(p);
+  }
   sendSms(link: string, phoneNumber: string) {
     return this.net.sendSms(link , phoneNumber);
   }

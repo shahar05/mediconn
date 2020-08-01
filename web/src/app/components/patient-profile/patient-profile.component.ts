@@ -208,12 +208,12 @@ export class PatientProfileComponent implements OnInit {
     this.openAddMedicationPopupComponent(AddMedicationPopupComponent, AddPopupType.Medication);
   }
   addNewTreatments() {
-    this.openAddMedicationPopupComponent(AddMedicationPopupComponent, AddPopupType.Treatments);
+    this.openAddMedicationPopupComponent(AddMedicationPopupComponent, AddPopupType.Treatments );
   }
 
   private openAddMedicationPopupComponent(component, type: AddPopupType) {
 
-    this.dialogService.openDialog(component, { type: type, medicalAddition: null }, "33%", "250px")
+    this.dialogService.openDialog(component, { type: type, medicalAddition: null }, "33%", "300px")
       .afterClosed().subscribe((medicalAddition: MedicalAdditions) => {
         if (!medicalAddition) {
           return;

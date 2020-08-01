@@ -6,12 +6,16 @@
             <div class="col text-center p-0">
                 <mat-card class="shadow">
 
+                    <button mat-mini-fab color="accent"  (click)="clear_all()" class="float-left" >
+                        <mat-icon>undo</mat-icon>
+                      </button>
+
                     <mat-form-field class=" text-center col-3   "   >
                         <mat-label  >{{'enter_phone_or_name' | translate}}</mat-label>
                         <input matInput placeholder="Example  050-2347865"  [(ngModel)]="searchKey"   >
                     </mat-form-field>
 
-                    <button mat-mini-fab color="primary"  (click)="filter()" >
+                    <button mat-mini-fab color="accent"  (click)="filter()" >
                         <mat-icon>search</mat-icon>
                       </button>
 

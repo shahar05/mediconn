@@ -30,6 +30,10 @@ export class NavbarComponent implements OnInit {
   isDoctor: boolean = false;
   inLogin: boolean;
   currentUrl: string;
+
+  systemLangs = ["English", "Arabic", "Hebrew"];
+  systemLangsDictionary = { English: "flag", Arabic: "outlined_flag", Hebrew: "outlined_flag" };
+
   markFlag = { en: "flag", he: "outlined_flag" }
 
   constructor(
@@ -70,7 +74,18 @@ export class NavbarComponent implements OnInit {
 
     this.router.navigate(["doctors"]);
   }
+  selectLanguge(lang: string) {
+    this.systemLangs.forEach((sysLang) => {
 
+      if (lang === sysLang) {
+        this.systemLangsDictionary[sysLang] = 'flag';
+      } else {
+        this.systemLangsDictionary[sysLang] = 'outlined_flag';
+      }
+    })
+
+    this.translate.use(lang.substr(0, 2).toLocaleLowerCase());
+  }
   openPatientOrDoctorEditor() {
     if (this.isDoctor) {
       this.openPatientEditor();
@@ -116,47 +131,37 @@ export class NavbarComponent implements OnInit {
 
   openPatientEditor() {
     let patient: Patient = {
-      firstName: "", lastName: "", creatorID: this.doctorID,
+      firstName: "", lastName: "", creatorID: this.doctorID, lastSeen: null,
       phoneNumber: "", language: null, questions: [], medications: [], treatments: [], endHour: 1, startHour: 0
     };
 
-    console.log(this.doctor);
-    
     if (!this.doctor) {
-      console.log("if");
       this.userService.getDoctorByID().subscribe((doc: Doctor) => {
-
         this.doctor = doc;
-        this.dialogService.openDialog(PatientCreateUpdateComponent,
-          { patient: patient, edit: false, languages: doc.languages },
-          '35%', '450px').afterClosed().subscribe((patient: Patient) => {
-            if (patient)
-              this.patientService.createNewPatient(patient).subscribe(() => {
-                if (this.currentUrl === '/patients' && patient)
-                  window.location.reload();
-                else
-                  this.navToViewPatient();
-              })
-          })
+        this.createPatient(patient);
       })
     } else {
 
-      console.log("else");
-      
-
-      this.dialogService.openDialog(PatientCreateUpdateComponent,
-        { patient: patient, edit: false, languages: this.doctor.languages },
-        '35%', '450px').afterClosed().subscribe((patient: Patient) => {
-
-          if (this.currentUrl === '/patients' && patient)
-            window.location.reload();
-          else
-            this.navToViewPatient();
-
-        })
+      this.createPatient(patient);
     }
 
 
+  }
+
+  createPatient(patient) {
+    this.dialogService.openDialog(PatientCreateUpdateComponent,
+      { patient: patient, edit: false, languages: this.doctor.languages },
+      '35%', '450px').afterClosed().subscribe((p: Patient) => {
+
+        if (p) {
+
+          if (this.currentUrl === '/patients')
+            this.patientService.notifyAddPatient(p);
+          else
+            this.navToViewPatient();
+        }
+
+      })
   }
 
   navToViewPatient() {
@@ -176,3 +181,13 @@ export class NavbarComponent implements OnInit {
   }
 
 }
+
+
+// <button mat-menu-item (click)="enLanguage()" >
+// <mat-icon>{{ markFlag.en}}</mat-icon>
+// <span>{{'English' | translate}}</span>
+// </button> 
+// <button mat-menu-item (click)="heLanguage()" >
+// <mat-icon>{{ markFlag.he}}</mat-icon>
+// <span>{{'Hebrew' | translate}}</span>
+// </button> 

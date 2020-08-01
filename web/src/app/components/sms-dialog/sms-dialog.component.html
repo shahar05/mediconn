@@ -3,7 +3,7 @@
 
     <mat-card-header class="text-center f-2-5 white-font blue-color ">
         <div class="d-flex col justify-content-center mt-2 mb-2 p-3">
-            Send SMS
+            {{'SendSMS'|translate}}
         </div>
     </mat-card-header>
 
@@ -11,7 +11,7 @@
     <mat-card-content class="mt-4  d-flex justify-content-center ">
                
         <mat-form-field  class="text-center col-8"  >
-            <input matInput placeholder="zoom link" [(ngModel)]="link">
+            <input matInput [placeholder]=" 'zoomLink' |translate " [(ngModel)]="link">
       
         </mat-form-field><br />
 

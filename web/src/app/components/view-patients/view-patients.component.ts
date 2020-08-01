@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Patient } from 'src/app/models';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-view-patients',
@@ -14,37 +14,45 @@ export class ViewPatientsComponent implements OnInit {
   searchKey: string;
   patients: Patient[];
   patientsTemp: Patient[];
-  patientsToGraph : Patient[] = [];
-
-  fromPop : boolean = false;
+  patientsToGraph: Patient[] = [];
+  fromPop: boolean = false;
 
   constructor(private patientService: PatientService,
-     private userService: UserService,
-
-     ) { }
-
+    private userService: UserService,
+  ) { }
   ngOnInit(): void {
     const doctorId: string = this.userService.getCurrentDoctorDetails();
     this.patientService.getPatients(doctorId).subscribe((patients: Patient[]) => {
-
       patients.map(p => { p.phoneNumber = p.phoneNumber.substring(0, 3) + "-" + p.phoneNumber.substring(3, p.phoneNumber.length) });
-
       this.patients = patients;
-      this.patientsTemp = patients;
-
+      console.log(patients);
       
+      this.patientsTemp = patients;
+      this.patientService.clearSharedMessage();
+      this.patientService.sharedMessage.subscribe((p: Patient) => {
+        if (p) {
+          this.patients.push(p);
+          this.patientsTemp = patients;
+        }
+      })
     });
+    
+
   }
 
-  addPatientToGraph(patient : Patient){
+  clear_all(){
+    this.patients= this.patientsTemp  ;
+  }
 
-      let index : number =   this.patientsToGraph.findIndex(  (p : Patient)=>{ patient._id === p._id   } )
+  addPatientToGraph(patient: Patient) {
 
-      if(index === -1){
-        this.patientsToGraph.push(patient)
-      }else{
-        this.patientsToGraph.splice(index , 1);
-      }
+    let index: number = this.patientsToGraph.findIndex((p: Patient) => { patient._id === p._id })
+
+    if (index === -1) {
+      this.patientsToGraph.push(patient)
+    } else {
+      this.patientsToGraph.splice(index, 1);
+    }
 
   }
 
@@ -66,10 +74,10 @@ export class ViewPatientsComponent implements OnInit {
           p = this.searchByName(str);
           let i = 0;
           while (!p.length || i < strNoTrim.length) {
-              if(strNoTrim[i].length)
-                p = this.searchByName(strNoTrim[i++]);
-               else
-                i++; 
+            if (strNoTrim[i].length)
+              p = this.searchByName(strNoTrim[i++]);
+            else
+              i++;
           }
         }
       }

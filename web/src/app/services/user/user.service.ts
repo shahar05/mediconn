@@ -47,7 +47,6 @@ export class UserService {
     )
   }
 
-
   login(doctorDetailes: BaseDoctorDetails) {
     return this.net.login(doctorDetailes).pipe(
       tap((response: { token: string, object: Doctor }) => {

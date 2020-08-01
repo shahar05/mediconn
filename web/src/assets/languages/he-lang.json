@@ -60,7 +60,14 @@
     "Admin" : "אדמין",
     "Department" : "מחלקה",
     "MainLanguage" : "שפה ראשית",
-    "Selectknownlanguages" : "בחר שפות ידועות"
+    "Selectknownlanguages" : "בחר שפות ידועות",
+    "SelectEndDate" : "בחר תאריך סיום",
+    "SelectStartDate" : "בחר תאריך התחלה",
+    "ChooseDates" : "בחר תאריכים" ,
+    "zoomLink" : "לינק לזום",
+    "SendSMS":"שלח מסרון",
+    "ChoosePatients":"בחר מטופלים"
+
 
     
 }

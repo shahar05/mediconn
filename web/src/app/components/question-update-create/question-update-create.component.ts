@@ -91,7 +91,7 @@ export class QuestionUpdateCreateComponent implements OnInit {
   }
   headline() {
     let def: string = this.question.isDefault ? "Default" : "";
-    let createOrUpdate: string = this.questionNeedToUpdate ? "Update" : "Create";
+    let createOrUpdate: string = this.questionNeedToUpdate ? "Update" : "Create";    
     return createOrUpdate  + def
   }
 }

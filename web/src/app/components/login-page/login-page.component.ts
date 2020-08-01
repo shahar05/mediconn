@@ -19,20 +19,6 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.localStorage.removeAll();
-
-      // if( !sessionStorage.getItem("f")){
-      //   sessionStorage.setItem("f" , "f");
-      //   window.location.reload();
-      // }
-      
-
-    if (this.router.url === "/expired") {
-      this.dialogService.openDialog(ExpiredDialogComponent,
-        { title: "Expired", body: "User Authentication has expired", cancel: false, closeButtonText: "Submit" },
-        width, height
-      )
-    }
-
   }
   isEmpty( text : string){
 

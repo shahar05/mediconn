@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
-import { Language, Type } from 'src/app/enum';
+import { Language } from 'src/app/enum';
 import { Doctor, Question, QuestionText, width, height } from 'src/app/models';
 import { QuestionService } from 'src/app/services/question/question.service';
-import { Observable } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { DialogAlertComponent } from '../dialog-alert/dialog-alert.component';
 import { QuestionWrapperComponent } from '../question-wrapper/question-wrapper.component';
-import { ViewPatientsComponent } from '../view-patients/view-patients.component';
 import { SelectPatientsComponent } from '../select-patients/select-patients.component';
 
 @Component({
@@ -47,13 +44,18 @@ export class DefaultQuestionComponent implements OnInit {
 
   editQuestion(questionToEdit: Question) {
 
+    let q: Question = JSON.parse(JSON.stringify(questionToEdit));
+
     this.dialogService
-      .openDialog(QuestionWrapperComponent, { question: questionToEdit, questionNeedToUpdate: true })
+      .openDialog(QuestionWrapperComponent, { question: q, questionNeedToUpdate: true })
       .afterClosed().subscribe((newQuestion: Question) => {
         if (newQuestion)
-          this.questionService.updateQuestion(newQuestion).subscribe((response: any) => {
-            // Question is updated "itself"
-            // because it actually updated the values of the same reference
+          this.questionService.updateQuestion(newQuestion).subscribe((qAdfter: Question) => {
+            let index = this.questions.findIndex(quest => quest._id.toString() === qAdfter._id.toString());
+            if (index != -1){
+              this.questions[index] = qAdfter;
+              
+            }
           })
 
       })

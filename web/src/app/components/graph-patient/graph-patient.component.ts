@@ -46,6 +46,8 @@ export class GraphPatientComponent implements OnInit {
     this.view = [ this.width , this.width/3];
 
     this.arr = this.data.arr;
+    
+
   }
 
   exit(){

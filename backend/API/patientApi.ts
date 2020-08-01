@@ -29,7 +29,8 @@ export class PatientApi implements BaseApi {
         })
 
         this.router.post('/records/:id' ,(req,res)=>{
-
+            console.log(req.body);
+            
             this.patientBL.getPatientsAnswersByQuestion(req.body , req.params.id)
             .then(( questionResults : QuestionResult[])=>{
                 res.send(questionResults);

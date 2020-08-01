@@ -66,6 +66,7 @@ export interface Patient extends BaseEntity {
     phoneNumber: string;
     language: Language;
     startHour: number;
+    lastSeen : number;
     endHour: number;
     questions: Question[];
     treatments: MedicalAdditions[];
