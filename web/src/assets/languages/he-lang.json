@@ -66,7 +66,21 @@
     "ChooseDates" : "בחר תאריכים" ,
     "zoomLink" : "לינק לזום",
     "SendSMS":"שלח מסרון",
-    "ChoosePatients":"בחר מטופלים"
+    "ChoosePatients":"בחר מטופלים",
+    "LastSeen":"נראה לאחרונה",
+    "EndHourandStartHourshouldhavevaluebetween" : "ערכים של שעת התחלה וסיום צריכים להיות בין 0 ל 23",
+    "mustcontainslanguage" : "חייב להכיל שפה",
+    "phonenumberpatternisincorrect":"מספר צריך להיות בין 10 מספרים",
+    "mustcontainsonlyenglishlettrs": "חייב להכיל רק אותיות באנגלית",
+    "Nospacesallowed":"אסור להכניס רווחים",
+    "AdminMode" : "אדמין מוד",
+    "NewPatient" : "מטופל חדש",
+    "NewDoctor" : "דוקטור חדש",
+    "AdminLogin" : "התחבר כמנהל",
+    "BothFieldsAreRequired" : "שני השדות נדרשים למילוי",
+    "phoneNumberExists" : "מספר הטלפון קיים" ,
+    "MessageSendFailpPleaseTryAgian" :"שליחת ההודעה נכשלה, נסה שוב"
+
 
 
     

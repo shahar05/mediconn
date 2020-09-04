@@ -99,6 +99,9 @@ export class PatientApi implements BaseApi {
             const doctor: IDoctor = request.user;
             const patientId = req.params.id;
 
+            console.log(req.body);
+            
+
             this.patientBL.setQuestionToPatient(patientId, doctor._id, req.body).then((data) => {
                 res.send(data);
             }).catch((err: any) => {

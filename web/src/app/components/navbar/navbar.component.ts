@@ -31,8 +31,8 @@ export class NavbarComponent implements OnInit {
   inLogin: boolean;
   currentUrl: string;
 
-  systemLangs = ["English", "Arabic", "Hebrew"];
-  systemLangsDictionary = { English: "flag", Arabic: "outlined_flag", Hebrew: "outlined_flag" };
+  systemLangs = ["English", "Arabic", "Hebrew" , "Russian"  , "French" ];
+  systemLangsDictionary = { English: "flag", Arabic: "outlined_flag", Hebrew: "outlined_flag" , Russian : "outlined_flag" , French : "outlined_flag"   };
 
   markFlag = { en: "flag", he: "outlined_flag" }
 

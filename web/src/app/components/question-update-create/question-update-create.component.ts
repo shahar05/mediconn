@@ -20,28 +20,28 @@ export class QuestionUpdateCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.languages = this.mapToLanguages(this.question.textArr);
-      if(this.fromPopUp){
-        this.putTextInDictionary();
-      }
-    
+    if (this.fromPopUp) {
+      this.putTextInDictionary();
+    }
+
   }
-  putTextInDictionary(){
-    this.question.textArr.forEach((txt : QuestionText)=>{
-        this.langugeDictionary[txt.language] = txt.text;
+  putTextInDictionary() {
+    this.question.textArr.forEach((txt: QuestionText) => {
+      this.langugeDictionary[txt.language] = txt.text;
     })
   }
   mapToLanguages(textArr: QuestionText[]) {
     return textArr.map((t) => t.language)
   }
-  resetDictionaty(){
-      this.languages.forEach((lang)=>{
-          this.langugeDictionary[lang]="";
-      })
+  resetDictionaty() {
+    this.languages.forEach((lang) => {
+      this.langugeDictionary[lang] = "";
+    })
   }
 
   sendQuestion() {
     this.fillQuestionTextFromDictionary();
-   
+
     if (!this.allLangugesExists()) return;
     if (!this.typeChecking()) return;
     this.resetDictionaty();
@@ -55,7 +55,7 @@ export class QuestionUpdateCreateComponent implements OnInit {
       let e: QuestionText = { text: this.langugeDictionary[element], language: element };
       list.push(e);
     }
-    
+
     this.question.textArr = list;
   }
 
@@ -69,11 +69,17 @@ export class QuestionUpdateCreateComponent implements OnInit {
       return;
     }
     if (this.question.questionType === Type.Quantity) {
-      if (!this.question.min || !this.question.max) {
+      if (this.question.min === null || !this.question.max) {
+
         alert("Min And Max should be assign")
         return false;
       }
-      if (this.question.min > this.question.max) {
+      if (this.question.min >= this.question.max) {
+        alert("MIN Should have lower value then MAX")
+        return false;
+      }
+
+      if (this.question.min < 0 || 0 > this.question.max) {
         alert("MIN Should have lower value then MAX")
         return false;
       }
@@ -81,17 +87,35 @@ export class QuestionUpdateCreateComponent implements OnInit {
     return true;
   }
 
+
   allLangugesExists() {
-    const isNotEmpty =
-      (questionText: QuestionText) => questionText.text === null || questionText.text.trim().length !== 0;
-    if (!this.question.textArr.every(isNotEmpty)) {
-      alert("Not all language exists!!!");
+
+    let allLangugesExist = true ;
+    for (let i = 0; i < this.question.textArr.length; i++) {
+      const t = this.question.textArr[i];
+      
+      if(!t.text){
+        allLangugesExist = false  ; 
+        break;
+      }
+      if (!t.text.trim().length){
+        allLangugesExist = false  ; 
+        break;
+      }
+      
     }
-    return this.question.textArr.every(isNotEmpty);
+    if(!allLangugesExist)  alert("Not all language exists!!!");
+    return allLangugesExist;
   }
   headline() {
     let def: string = this.question.isDefault ? "Default" : "";
-    let createOrUpdate: string = this.questionNeedToUpdate ? "Update" : "Create";    
-    return createOrUpdate  + def
+    let createOrUpdate: string = this.questionNeedToUpdate ? "Update" : "Create";
+    return createOrUpdate + def
   }
 }
+    // const isNotEmpty =
+    //   (questionText: QuestionText) => questionText.text === null || questionText.text.trim().length !== 0;
+    // if (!this.question.textArr.every(isNotEmpty)) {
+    //   alert("Not all language exists!!!");
+    // }
+    // return this.question.textArr.every(isNotEmpty);

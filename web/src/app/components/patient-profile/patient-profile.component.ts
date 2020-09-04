@@ -49,17 +49,17 @@ export class PatientProfileComponent implements OnInit {
   }
 
 
-  openSMSDialog(){
-    this.dialogService.openDialog(SmsDialogComponent ,{ doctor : this.doctor , patient : this.patient    },width , height ).afterClosed()
-    .subscribe((link)=>{
-      if(link){
-          link = "Message from Dr." + this.doctor.lastName +"  " + this.doctor.firstName +": " +link;
-          this.patientService.sendSms(link , this.patient.phoneNumber).subscribe(()=>{
-          }, (err)=>{
-            
+  openSMSDialog() {
+    this.dialogService.openDialog(SmsDialogComponent, { doctor: this.doctor, patient: this.patient }, width, height).afterClosed()
+      .subscribe((link) => {
+        if (link) {
+          link = "Message from Dr." + this.doctor.lastName + "  " + this.doctor.firstName + ": " + link;
+          this.patientService.sendSms(link, this.patient.phoneNumber).subscribe(() => {
+          }, (err) => {
+
           })
-      }
-    })
+        }
+      })
   }
 
   showGraphs() {
@@ -90,7 +90,10 @@ export class PatientProfileComponent implements OnInit {
     this.dialogService.openDialog(PatientCreateUpdateComponent,
       { patient: patient, edit: true, languages: this.doctor.languages },
 
-      '35%', '400px').afterClosed().subscribe((patient: Patient) => {
+      '35%', '400px').afterClosed().subscribe((p: Patient) => {
+        if (p)
+          this.patient = p;
+
       })
   }
   deletePaient() {
@@ -138,9 +141,12 @@ export class PatientProfileComponent implements OnInit {
       .openDialog(QuestionWrapperComponent,
         { question: question, questionNeedToUpdate: false }, width)
       .afterClosed().subscribe((newQuestion: Question) => {
+
         if (newQuestion)
           this.patientService.createNewQuestionToPatient(newQuestion, this.patientID)
             .subscribe((questionResponse: Question) => {
+              console.log(questionResponse);
+
               this.patient.questions.push(questionResponse);
             })
       }, (err) => console.log(err));
@@ -148,7 +154,11 @@ export class PatientProfileComponent implements OnInit {
   }
 
   editQuestion(questionToEdit: Question) {
+    console.log("=====================================");
 
+    console.log(questionToEdit);
+
+    console.log("=====================================");
     let questionRefernce: Question = questionToEdit;
 
     this.dialogService
@@ -197,7 +207,23 @@ export class PatientProfileComponent implements OnInit {
       .afterClosed().subscribe((res) => {
         if (res) {
           this.patientService.deleteMedicalAdditions(med._id).subscribe(() => {
-            // Render view
+
+              
+              
+            if (med.additionType === AddPopupType.Medication) {
+     
+              
+              let i = this.patient.medications.findIndex((m) => m._id === med._id)
+              
+              if (i !== -1) {
+                this.patient.medications.splice(i,1)
+              }
+            } else {
+              let i = this.patient.treatments.findIndex((m) => m._id === med._id)
+              if (i !== -1) {
+                this.patient.treatments.splice(i,1)
+              }
+            }
           }, (err) => {
             console.log(err);
           })
@@ -208,7 +234,7 @@ export class PatientProfileComponent implements OnInit {
     this.openAddMedicationPopupComponent(AddMedicationPopupComponent, AddPopupType.Medication);
   }
   addNewTreatments() {
-    this.openAddMedicationPopupComponent(AddMedicationPopupComponent, AddPopupType.Treatments );
+    this.openAddMedicationPopupComponent(AddMedicationPopupComponent, AddPopupType.Treatments);
   }
 
   private openAddMedicationPopupComponent(component, type: AddPopupType) {

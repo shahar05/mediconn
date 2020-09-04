@@ -35,7 +35,7 @@ export class SmsDialogComponent implements OnInit {
       this.dialogRef.close()
 
     }, (err)=>{
-      this.msg = "Message send fail please try agian";
+      this.msg = "MessageSendFailpPleaseTryAgian";
     })
 
 

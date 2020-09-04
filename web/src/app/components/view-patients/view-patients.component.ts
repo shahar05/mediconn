@@ -58,7 +58,16 @@ export class ViewPatientsComponent implements OnInit {
 
   filter() {
 
-    let strNoTrim: string[] = this.searchKey.split(" ");
+    if(!this.searchKey) {
+      this.patients = [];
+      return;
+    }
+    
+    if(!this.searchKey.trim().length) {
+      this.patients = [];
+      return;
+    }
+      let strNoTrim: string[] = this.searchKey.split(" ");
     let str: string = this.searchKey.trim().replace(/-/gi, "");
     let p: Patient[] = [];
     if (str && str.length != 0) {
@@ -67,10 +76,8 @@ export class ViewPatientsComponent implements OnInit {
         p = this.searchByPhoneNumber(str)
       }
       else {
-
         p = this.searchFullName(this.searchKey);
-
-        if (!p.length) {
+        if (!p) {
           p = this.searchByName(str);
           let i = 0;
           while (!p.length || i < strNoTrim.length) {

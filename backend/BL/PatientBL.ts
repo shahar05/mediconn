@@ -325,13 +325,10 @@ return new Promise((resolve , reject)=>{
                 console.log("CreatorID Not equal to DoctorID");
                 reject("CreatorID Not equal to DoctorID");
             }
-            if (QuestionType.Quantity === question.questionType && (!question.min || !question.max)) {
+            if (QuestionType.Quantity === question.questionType && (question.min === null || question.min === undefined  || !question.max)) {
                 console.log("Question with type Quantity Must Have min and max values");
                 reject("Question with type Quantity Must Have min and max values");
-            } else {
-                delete question.min;
-                delete question.max;
-            }
+            } 
 
             this.getPatient(patientId).then((foundPatient) => {
                 if (!this.questionContainsPatientLanguage(foundPatient, question.textArr)) {

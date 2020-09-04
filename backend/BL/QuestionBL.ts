@@ -135,7 +135,7 @@ export class QuestionBL {
         let txtArr = this.convertToLanguagesArray(question.textArr);
 
         if (QuestionType.Quantity === question.questionType) {
-            if ((!question.min || !question.max)) {
+            if ((question.min === undefined || question.min === null  || !question.max)) {
                 console.log("Question with type Quantity Must Have min and max values");
                 return false;
             }
@@ -163,7 +163,8 @@ export class QuestionBL {
             return false;
         }
         if (QuestionType.Quantity === question.questionType) {
-            if ((!question.min || !question.max)) {
+            
+            if (( question.min === undefined || question.min === null  || !question.max)) {
                 console.log("Question with type Quantity Must Have min and max values");
                 return false;
             }

@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-    <div class="col-4 mt-5 text-center">
+    <div class="col-md-8 col-lg-4 col-12 mt-5 text-center">
         <mat-card id="card" class="p-0 shadow">
 
             <mat-card-header class="text-center f-2-5 white-font blue-color ">
@@ -23,7 +23,7 @@
               
 
                 <span *ngIf="msg">{{msg}}</span>
-                <button (click)="login()" class="shadow mt-3 mb-5 semi-width" mat-raised-button color="primary">
+                <button (click)="login()" class="shadow mt-3 mb-5 semi-width" mat-raised-button color="primary" >
                     {{  'submit' | translate }}
                 </button>
 

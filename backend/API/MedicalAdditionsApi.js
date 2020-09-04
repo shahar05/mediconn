@@ -20,8 +20,10 @@ var MedicalAdditionsApi = /** @class */ (function () {
         });
         this.router.delete('/medical-additions/:id', function (req, res) {
             _this.medicalAdditionsBL.deleteMedical(req.params.id).then(function () {
+                console.log("deleted");
                 res.status(204).send();
             }).catch(function (err) {
+                console.log("not deleted");
                 res.status(400).send(err);
             });
         });

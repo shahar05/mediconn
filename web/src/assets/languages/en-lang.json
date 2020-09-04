@@ -61,6 +61,19 @@
     "ChooseDates" : "Choose Dates",
     "zoomLink" : "Zoom link",
     "SendSMS":"Send SMS",
-    "ChoosePatients":"Choose Patients"
+    "ChoosePatients":"Choose Patients",
+    "LastSeen":"Last Seen",
+    "EndHourandStartHourshouldhavevaluebetween" : "End Hour and Start Hour should have value  between 0 to 23",
+    "mustcontainslanguage" : "must contains language",
+    "phonenumberpatternisincorrect":"phone number pattern is incorrect",
+    "mustcontainsonlyenglishlettrs": "must contains only english lettrs",
+    "Nospacesallowed":"No spaces allowed",
+    "AdminMode" : "Admin Mode",
+    "NewPatient" : "New Patient",
+    "NewDoctor" : "New Doctor",
+    "AdminLogin": "Admin Login",
+    "BothFieldsAreRequired" : "Both fields are required",
+    "phoneNumberExists" : "phone number exists",
+    "MessageSendFailpPleaseTryAgian" :" Message send fail please try agian"
 
 }

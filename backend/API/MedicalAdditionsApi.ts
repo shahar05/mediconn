@@ -27,8 +27,10 @@ export class MedicalAdditionsApi implements BaseApi {
 
         this.router.delete('/medical-additions/:id', (req, res) => {
             this.medicalAdditionsBL.deleteMedical(req.params.id).then(() => {
+                console.log("deleted");
                 res.status(204).send();
             }).catch((err) => {
+                console.log("not deleted");
                 res.status(400).send(err);
             })
         })

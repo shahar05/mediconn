@@ -122,7 +122,7 @@ var QuestionBL = /** @class */ (function () {
     QuestionBL.prototype.questionIsValid = function (question) {
         var txtArr = this.convertToLanguagesArray(question.textArr);
         if (enums_1.QuestionType.Quantity === question.questionType) {
-            if ((!question.min || !question.max)) {
+            if ((question.min === undefined || question.min === null || !question.max)) {
                 console.log("Question with type Quantity Must Have min and max values");
                 return false;
             }
@@ -148,7 +148,7 @@ var QuestionBL = /** @class */ (function () {
             return false;
         }
         if (enums_1.QuestionType.Quantity === question.questionType) {
-            if ((!question.min || !question.max)) {
+            if ((question.min === undefined || question.min === null || !question.max)) {
                 console.log("Question with type Quantity Must Have min and max values");
                 return false;
             }

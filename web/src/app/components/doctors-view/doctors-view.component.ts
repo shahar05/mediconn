@@ -45,7 +45,7 @@ export class DoctorsViewComponent implements OnInit {
 
         d = this.searchFullName(this.searchKey);
 
-        if (!d.length) {
+        if (!d) {
           d = this.searchByName(str);
           let i = 0;
           while (!d.length || i < strNoTrim.length) {

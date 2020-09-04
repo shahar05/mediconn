@@ -238,13 +238,9 @@ var PatientBL = /** @class */ (function () {
                 console.log("CreatorID Not equal to DoctorID");
                 reject("CreatorID Not equal to DoctorID");
             }
-            if (enums_1.QuestionType.Quantity === question.questionType && (!question.min || !question.max)) {
+            if (enums_1.QuestionType.Quantity === question.questionType && (question.min === null || question.min === undefined || !question.max)) {
                 console.log("Question with type Quantity Must Have min and max values");
                 reject("Question with type Quantity Must Have min and max values");
-            }
-            else {
-                delete question.min;
-                delete question.max;
             }
             _this.getPatient(patientId).then(function (foundPatient) {
                 if (!_this.questionContainsPatientLanguage(foundPatient, question.textArr)) {

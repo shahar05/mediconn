@@ -56,7 +56,7 @@ export class PatientCreateUpdateComponent implements OnInit {
     this.patientService.updatePatient(this.patient).subscribe((patient)=>{
       this.dialogRef.close(patient);
     } ,  (err)=>{
-      this.msg = "phone number exists";
+      this.msg = "phoneNumberExists";
       console.log(err);
       
     })
@@ -67,7 +67,7 @@ export class PatientCreateUpdateComponent implements OnInit {
       this.patientService.createNewPatient(this.patient).subscribe((patient)=>{
         this.dialogRef.close(patient);
       },(err)=>{
-        this.msg = "phone number exists";
+        this.msg = "phoneNumberExists";
       console.log(err);
       })
   }
@@ -76,28 +76,28 @@ export class PatientCreateUpdateComponent implements OnInit {
   isGoodPatient(patient: Patient): boolean {
 
     if(   / /.test(this.patient.lastName)  || / /.test(this.patient.firstName)){
-      this.msg = "No spaces allowed"
+      this.msg = "Nospacesallowed"
       return false;
     }
     if (!/^[a-zA-Z]+$/.test(this.patient.lastName) || !/^[a-zA-Z]+$/.test(this.patient.firstName)) {
-      this.msg = "must contains only lettrs"
+      this.msg = "mustcontainsonlyenglishlettrs"
       return false;
     }
     if (!/[0-9]{3}-?[0-9]{7}$/.test(this.patient.phoneNumber)) {
-      this.msg = "phone number pattern is incorrect"
+      this.msg = "phonenumberpatternisincorrect"
       return false;
     }
     if (!this.patient.language) {
-      this.msg = "must contains language"
+      this.msg = "mustcontainslanguage"
       return false;
     }
-    if ((this.patient.startHour && this.patient.endHour) && (this.patient.endHour < this.patient.startHour || this.patient.startHour < 0 || this.patient.startHour > 23
+    if ((this.patient.startHour && this.patient.endHour) && (this.patient.endHour <= this.patient.startHour || this.patient.startHour < 0 || this.patient.startHour > 23
       || this.patient.endHour > 23 || this.patient.endHour < 0)) {
-      this.msg = " End Hour and Start Hour should have value  between 0 to 23"
+      this.msg = "EndHourandStartHourshouldhavevaluebetween"
       return false;
     }
     if( !this.patient.creatorID ){
-        this.msg = "No Creator ID!"
+        //this.msg = "No Creator ID!"
         return false;
     }
     this.patient.lastName = this.patient.lastName.charAt(0).toUpperCase() + this.patient.lastName.slice(1);

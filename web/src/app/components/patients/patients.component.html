@@ -1,7 +1,7 @@
 
 
 <div class="d-flex  justify-content-start  flex-wrap">
-    <div  class="col-4 mt-4" *ngFor="let patient of patients">
+    <div  class="col-12  col-lg-4 col-md-6 mt-4" *ngFor="let patient of patients">
       <app-patient [patient]="patient"  [fromPopUp]="fromPopUp" (addPatientClicked)="addPatientToGraph($event)" >  </app-patient>
     </div>
 </div>

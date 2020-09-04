@@ -1,14 +1,15 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center flex-wrap">
 
 
 
-  <div class="col-3 mt-5 text-center">
+  <div class="col-12 col-lg-5 col-xl-3 col-md-5 mt-5 text-center">
     <mat-card *ngIf="patient" class="shadow">
       <div class="border-bottom">
         <mat-card-title class="p-3 display-4 f-2-5">
           {{ patient.firstName }} {{ patient.lastName }}
         </mat-card-title>
       </div>
+
 
       <mat-card-content>
         <mat-list>
@@ -37,7 +38,7 @@
     </mat-card>
   </div>
 
-  <div class="col-7 mt-5">
+  <div class="col-12 col-lg-7 col-md-6 mt-5">
     <mat-card *ngIf="patient" class="shadow">
       <div class="d-flex justify-content-center">
         <span class="col-1"></span>

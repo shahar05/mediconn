@@ -11,12 +11,12 @@
     <mat-card-content class="mt-4  d-flex justify-content-center ">
                
         <mat-form-field  class="text-center col-8"  >
-            <input matInput [placeholder]=" 'zoomLink' |translate " [(ngModel)]="link">
+            <input matInput [placeholder]=" 'zoomLink' | translate " [(ngModel)]="link">
       
         </mat-form-field><br />
 
         <div class="text-center ">
-            <p *ngIf="msg"> {{msg}} </p>
+            <p *ngIf="msg"> {{msg | translate}} </p>
     </div>
 </mat-card-content>
 

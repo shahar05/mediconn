@@ -4,7 +4,7 @@
     "Amharic": "الأمهرية",
     "Arabic": "العربية",
     "Russian": "الروسية",
-
+    "French" : "فرنسي",
     "Binary": "نعم / لا",
     "Regular": "متعدد الاجوبة",
     "Quantity": "كمي",
@@ -66,6 +66,19 @@
     "ChooseDates" : "اختر التواريخ",
     "zoomLink" : "تكبير الارتباط",
     "SendSMS" : "أرسل رسالة نصية قصيرة",
-    "ChoosePatients":"اختر المرضى"
+    "ChoosePatients":"اختر المرضى",
+    "LastSeen":"اخر ظهور",
+    "EndHourandStartHourshouldhavevaluebetween" : "يجب أن تتراوح قيم وقت البدء والانتهاء بين 0 و 23",
+    "mustcontainslanguage" : "يجب أن يحتوي على لغة",
+    "phonenumberpatternisincorrect":"يجب أن يكون الرقم بين 10 أرقام",
+    "mustcontainsonlyenglishlettrs": "يجب أن يحتوي على أحرف إنجليزية فقط",
+    "Nospacesallowed":"المسافات غير مسموح بها",
+    "AdminMode" : "مشرف مود",
+    "NewPatient" : "مريض جديد",
+    "NewDoctor" : "دكتور جديد",
+    "AdminLogin" : "دخول المشرف",
+    "BothFieldsAreRequired" : "كلا الحقلين مطلوبان",
+    "phoneNumberExists" : "رقم الهاتف موجود",
+    "MessageSendFailpPleaseTryAgian" :"إرسال رسالة فشل الرجاء المحاولة مرة أخرى"
 
 }

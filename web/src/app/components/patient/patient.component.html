@@ -10,7 +10,7 @@
 
         <p class="f-m display-4">  {{patient.phoneNumber}}</p>       
         <p class="f-m display-4"> {{patient.language | translate}}</p>
-        <p class="f-m display-4"> Last seen {{ patient.lastSeen | date}} </p>
+        <p class="f-m display-4"> {{'LastSeen' | translate}} {{ patient.lastSeen | date}} </p>
 
     </mat-card-content>
 

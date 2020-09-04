@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-center p-4">
-    <div class="col-5 pr-0">
+<div class="d-flex justify-content-center p-4 flex-wrap">
+    <div class="col-md-5  col-12 pr-0 mt-3">
         <app-question-update-create *ngIf="question && question.creatorID"
             [question]="question"
             [questionNeedToUpdate]="questionNeedToUpdate"
@@ -7,7 +7,7 @@
         </app-question-update-create>
     </div>
 
-    <div class="col pl-0">
+    <div class="col-md col-12 pl-0 mt-3">
         <mat-card class="d-flex flex-column shadow p-0 ml-4">
             <mat-card-header class="text-center f-2-5 white-font blue-color ">
                 <div class="d-flex col justify-content-center mt-2 mb-2 p-3">

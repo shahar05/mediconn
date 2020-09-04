@@ -58,7 +58,7 @@ export class AddMedicationPopupComponent implements OnInit {
     if (this.medicalAddition.name && this.medicalAddition.description) {
       this.dialogRef.close(this.medicalAddition);
     }else{
-      this.msg = "Both fields are required";
+      this.msg = "BothFieldsAreRequired";
     }
   }
 }

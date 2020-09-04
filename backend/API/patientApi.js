@@ -75,6 +75,7 @@ var PatientApi = /** @class */ (function () {
             var request = req;
             var doctor = request.user;
             var patientId = req.params.id;
+            console.log(req.body);
             _this.patientBL.setQuestionToPatient(patientId, doctor._id, req.body).then(function (data) {
                 res.send(data);
             }).catch(function (err) {
